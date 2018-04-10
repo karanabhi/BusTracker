@@ -18,4 +18,20 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
+import socket from "./socket"
+
+import tracker_init from "./tracker";
+
+function init() {
+  let root = document.getElementById('tracker');
+
+
+  if(root){
+  // Now that you are connected, you can join channels with a topic:
+    let channel = socket.channel("tracker:lobby", {});
+    tracker_init(root,channel);
+  }
+}
+
+// Use jQuery to delay until page loaded.
+$(init);
