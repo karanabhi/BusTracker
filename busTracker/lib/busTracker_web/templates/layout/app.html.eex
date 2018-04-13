@@ -12,6 +12,9 @@
 
     <title>Hello BusTracker!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2EAUYny8KoUtJp-0yeLYuVFWG_F_ZwI4&libraries=places"
+    type="text/javascript"></script>
   </head>
 
   <body>
