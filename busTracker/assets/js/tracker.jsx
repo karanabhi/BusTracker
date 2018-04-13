@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import classnames from 'classnames';
 
 export default function tracker_init(root, channel) {
@@ -14,6 +15,7 @@ class Tracker extends React.Component {
 
 		this.channel = props.channel;
     this.renderStops = this.renderStops.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 
     this.state ={
       stops: []
@@ -26,7 +28,10 @@ class Tracker extends React.Component {
 	}
 
 	createState(st1){
-		this.setState(st1.stops);
+		var c = {
+			stops: st1.stops
+		}
+		this.setState(c);
 	}
 
   renderStops(stops) {
@@ -34,7 +39,7 @@ class Tracker extends React.Component {
 
     return $.each(stops, function(stop,index){
         return (
-          <li key={index}>{stop}</li>
+          <option key={index}>{stop}</option>
         );
 
       });
@@ -42,17 +47,44 @@ class Tracker extends React.Component {
 
   }
 
-	render() {
 
+
+	render() {
+		var stops = "";
+		var stops2 = "";
+		if(this.state.stops)
+		{
+			stops = this.state.stops.map(stop => (
+				// <option key={stop.id}>{stop.attributes.name}</option>
+					stop.id
+			));
+			stops2 = this.state.stops.map(stop => (
+				{ id: stop.id,
+				  label: stop.attributes.name,
+					latitude: stop.attributes.latitude,
+					longitude: stop.attributes.longitude	}
+			));
+		}
 
 		return(
 			<div className="container">
-        <ul>
-          {this.renderStops(this.state)}
-        </ul>
+				<div className="row">
+					<div className="col">
+						<Fragment>
+			        <Typeahead
+			          options={stops2}
+			          placeholder="Choose a source station..."
+								valueKey="id"
+								onChange={selected => {this.handleChange(selected);}}
+			        />
+			      </Fragment>
+					</div>
+				</div>
 			</div>
 		);
-
+	}
+	handleChange(x){
+		console.log(x[0]);
 	}
 }
 

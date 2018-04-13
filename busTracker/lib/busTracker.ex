@@ -8,7 +8,7 @@ defmodule BusTracker do
   """
 
   def get_stops_data() do
-    resp = HTTPoison.get!("https://api-v3.mbta.com/stops")
+    resp = HTTPoison.get!("https://api-v3.mbta.com/stops?page[limit]=20")
     data = Poison.decode!(resp.body)
     data["data"]
   end

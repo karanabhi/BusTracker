@@ -9,7 +9,7 @@ defmodule BusTrackerWeb.TrackerChannel do
                |> assign(:name, name)
 
       {:ok, %{"stops" => stops},socket}
-    
+
   end
 
   # Channels can be used in a request/response fashion
