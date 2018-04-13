@@ -18,3 +18,10 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+  
+## Attributions
+
+  * https://github.com/derekeder/FusionTable-Map-Template
+  * https://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
+  * https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_glyph_search&stacked=h
+  * https://getbootstrap.com/docs/4.0/components/collapse/
