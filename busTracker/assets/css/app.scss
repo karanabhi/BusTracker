@@ -2,10 +2,12 @@
 
 @import "bootstrap";
 
-#map_canvas {
-  height: 150px;
-  width: 300px;
-  background-color: gray;
+.map_canvas {
+  height: 400px;
+  width: 1100px;
+  overflow: visible;
+  position: static;
+//  background-color: gray;
 }
 .hidden {
   display: none;

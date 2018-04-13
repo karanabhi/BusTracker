@@ -22,7 +22,7 @@ class Tracker extends React.Component {
 		this.state ={
 			stops: [],
 			source:{},
-			destination:[]
+			destination:{}
 		}
 
 		this.channel.join()
@@ -51,6 +51,10 @@ class Tracker extends React.Component {
 	}
 
 	render() {
+
+		//$("map-canvas").hide;
+
+
 		var stops = "";
 		var stops2 = "";
 		if(this.state.stops)
@@ -96,7 +100,7 @@ class Tracker extends React.Component {
 				  </div>
 				</div>
 				<br/><hr/>
-				<div id="map-canvas" className=""></div>
+				<div id="map-canvas" className="map_canvas"></div>
 			</div>);
 	}
 	handleSourceChange(x){
@@ -110,19 +114,31 @@ class Tracker extends React.Component {
 	}
 
 	handleDestinationChange(x){
-		var c = {
-			destination:x[0]
-		}
-		this.setState(c);
-		console.log(this.state.destination);
+		console.log("onchange");
+		console.log(x);
+		console.log(x[0]);
+		const
+			destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
+
+		console.log("c");
+		console.log(destination.label);
+		this.setState({
+			stops: this.state.stops,
+			destination: {
+				id: destination.id,
+				label: destination.label,
+				latitude: destination.latitude,
+				longitude: destination.longitude
+
+			}
+		});
+			//console.log(this.state);
 	}
 
 	handleGMap(e){
-		//console.log(e.target);
-		//$("#map_canvas").hide();//Hide Map Initially
-		//var map = document.getElementById('map_canvas')
-		//google.maps.event.addDomListener(map, 'click', showGMap(42.107156,42.107156,42.107156,42.107156));
-		showGMap(42.107156,42.107156,42.107156,42.107156);
+		console.log("state");
+		console.log(this.state.source.latitude);
+		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 	}
 }
 
