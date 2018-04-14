@@ -22,6 +22,8 @@ import socket from "./socket"
 
 import tracker_init from "./tracker";
 
+
+
 function init() {
   let root = document.getElementById('tracker');
 

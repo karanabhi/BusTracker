@@ -5,6 +5,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import classnames from 'classnames';
 import showGMap from './gMap';
 
+
 export default function tracker_init(root, channel) {
 	ReactDOM.render(<Tracker channel={channel}/>, root);
 }
@@ -77,35 +78,42 @@ class Tracker extends React.Component {
 
 		return(
 			<div className="container">
-				<div className="row">
-					<div className="col">
-						<Fragment>
-							<Typeahead options={stops2} placeholder="Choose a source station..." valueKey="id"
-						   	onChange={selected => {this.handleSourceChange(selected);}}/>
-						</Fragment>
-			  	</div>
-				</div>
-				<br/>
-				<div className="row">
-					<div className="col">
-						<Fragment>
-							<Typeahead	options={stops2} placeholder="Choose a Destination station..." valueKey="id"
-							  	onChange={selected => {this.handleDestinationChange(selected);}}/>
-						</Fragment>
+				<div id="navbar"></div>
+
+
+				<div className="container-fluid">
+					<div className="row">
+						<div className="col-xs-12">
+							<Fragment>
+								<Typeahead options={stops2} placeholder="Choose a source station..." valueKey="id"
+							   	onChange={selected => {this.handleSourceChange(selected);}}/>
+							</Fragment>
+				  	</div>
+					</div>
+					<br/>
+					<div className="row">
+						<div className="col-xs-12">
+							<Fragment>
+								<Typeahead	options={stops2} placeholder="Choose a Destination station..." valueKey="id"
+								  	onChange={selected => {this.handleDestinationChange(selected);}}/>
+							</Fragment>
+						</div>
+					</div>
+					<br/>
+					<div className="row">
+						<div className="col" align="center">
+							<button id="showMapBtn"  className="btn btn-success btn-md center-block"
+							onClick={this.handleRoutes.bind(this)}>Get Routes!</button>
+					  </div>
 					</div>
 				</div>
-				<br/>
-				<div className="row">
-					<div className="col" align="center">
-						<button id="showMapBtn"  className="btn btn-success btn-md center-block"
-						onClick={this.handleRoutes.bind(this)}>Get Routes!</button>
-				  </div>
-				</div>
 				<br/><hr/>
-				<div id="route-data" className="route-data">
+				<div className="row">
+						<div id="route-data" className="col-md-3 route-data">
+						</div>
+						<hr/>
+						<div id="map-canvas" className="col-md-6 map_canvas"></div>
 				</div>
-				<hr/>
-				<div id="map-canvas" className="map_canvas"></div>
 			</div>);
 	}
 
