@@ -14,6 +14,22 @@ class Tracker extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.state ={
+			stops: [],
+			source:{
+				id: null,
+				label: null,
+				latitude: null,
+				longitude: null,
+			},
+			destination:{
+				id: null,
+				label: null,
+				latitude: null,
+				longitude: null,
+			}
+		};
+
 		this.channel = props.channel;
 		this.renderStops = this.renderStops.bind(this);
 		this.handleSourceChange = this.handleSourceChange.bind(this);
@@ -21,11 +37,7 @@ class Tracker extends React.Component {
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
-		this.state ={
-			stops: [],
-			source:{},
-			destination:{}
-		}
+
 
 		this.channel.join()
 		.receive("ok",this.createState.bind(this))
@@ -110,30 +122,52 @@ class Tracker extends React.Component {
 	}
 
 	handleSourceChange(x){
-		var c = {
-			source: {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
-		}
+		const
+			source = {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
+
+		console.log("x");
+		console.log(x);
+		var id = x[0].id;
+		var label = x[0].label;
+		var latitude = x[0].latitude;
+		var longitude = x[0].longitude;
+
 		console.log(x[0].id);
 
-		this.setState(c);
-		this.handleSourceRoutesData();
+		// this.setState({
+		// 	source: {
+		// 		id: id,
+		// 		label: label,
+		// 		latitude: latitude,
+		// 		longitude: longitude
+		// 	}
+		// });
+		// console.log("state0");
+		// console.log(this.state);
+		// this.handleSourceRoutesData();
+		this.setState({source: source}, function () {
+			this.handleSourceRoutesData();
+		})
 	}
 
 	handleDestinationChange(x){
 		const
 			destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 			console.log(x[0].id);
-		this.setState({
-			stops: this.state.stops,
-			destination: {
-				id: destination.id,
-				label: destination.label,
-				latitude: destination.latitude,
-				longitude: destination.longitude
-			}
-		});
+		// this.setState({
+		// 	stops: this.state.stops,
+		// 	destination: {
+		// 		id: destination.id,
+		// 		label: destination.label,
+		// 		latitude: destination.latitude,
+		// 		longitude: destination.longitude
+		// 	}
+		// });
 
-		this.handleDestinationRoutesData();
+		//this.handleDestinationRoutesData();
+		this.setState({destination: destination}, function () {
+			this.handleDestinationRoutesData();
+		})
 	}
 
 	handleRoutes(e){
@@ -153,11 +187,15 @@ class Tracker extends React.Component {
 	}
 
 	handleSourceRoutesData(){
-		this.channel.push("get_routes", {tracker: 141}).receive("ok", resp => {this.receivedSourceRoutes(resp)});
+		console.log("state");
+		console.log(this.state);
+		this.channel.push("get_routes", {tracker: this.state.source.id}).receive("ok", resp => {this.receivedSourceRoutes(resp)});
 	}
 
 	handleDestinationRoutesData(){
-		this.channel.push("get_routes", {tracker: 49808}).receive("ok", resp => {this.receivedDestinationRoutes(resp)});
+		console.log("state");
+		console.log(this.state);
+		this.channel.push("get_routes", {tracker: this.state.destination.id}).receive("ok", resp => {this.receivedDestinationRoutes(resp)});
 	}
 
 	receivedSourceRoutes(x){
