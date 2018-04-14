@@ -4,10 +4,14 @@
 
 .map_canvas {
   height: 400px;
-  width: 1100px;
+  width: 600px;
   overflow: visible;
   position: static;
+  float: right;
 //  background-color: gray;
+}
+.route-data {
+  display: inline-block;
 }
 .hidden {
   display: none;

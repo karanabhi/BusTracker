@@ -6,9 +6,9 @@ defmodule BusTracker do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
-
+  #Stops
   def get_stops_data() do
-    resp = HTTPoison.get!("https://api-v3.mbta.com/stops?page[limit]=20")
+    resp = HTTPoison.get!("https://api-v3.mbta.com/stops")
     data = Poison.decode!(resp.body)
     data["data"]
   end
@@ -16,6 +16,20 @@ defmodule BusTracker do
   def get_stop_attributes() do
     stops = get_stops_data()
     Enum.map stops, fn x ->
+      x["data"]["attributes"]
+    end
+  end
+
+  #Routes
+  def get_routes_data(stopId) do
+    resp = HTTPoison.get!("https://api-v3.mbta.com/schedules?filter[stop]=#{stopId}")
+    data = Poison.decode!(resp.body)
+    data["data"]
+  end
+
+  def get_route_attributes(stopId) do
+    routes = get_routes_data(stopId)
+    Enum.map routes, fn x ->
       x["data"]["attributes"]
     end
   end

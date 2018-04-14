@@ -12,6 +12,18 @@ defmodule BusTrackerWeb.TrackerChannel do
 
   end
 
+  def handle_in("get_routes", payload, socket) do
+    
+      routes = BusTracker.get_routes_data(payload["tracker"]);
+      socket = socket
+               |> assign(:routes, routes)
+
+      #{:ok, %{"routes" => routes},socket}
+        {:reply, {:ok, %{"routes" => routes}}, socket}
+
+  end
+
+
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   def handle_in("ping", payload, socket) do
