@@ -186,6 +186,7 @@ class Tracker extends React.Component {
 	}
 
 	handleRoutes(e){
+		this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
 		// var cRoutes=this.commonRoutes.map(route =>{
@@ -305,7 +306,7 @@ class Tracker extends React.Component {
 			));
 			this.dRoutes = this.GetUnique(this.dRoutes);
 			//console.log(dRoutes1);
-			this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
+
 			//$("#route-data").html(this.commonRoutes);
 			console.log("Destination routes");
 			console.log(this.dRoutes);
