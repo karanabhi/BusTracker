@@ -195,11 +195,16 @@ class Tracker extends React.Component {
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
+<<<<<<< HEAD
 
 			$(".rbt").click((e) => {this.handleRouteInfo(e);});
 
 
 			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
+=======
+
+			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.destination.id)});
+>>>>>>> 9ed66a44175eb66c48694f22e58d1b71176a72f4
 
 		// console.log("ok");
 		// return (

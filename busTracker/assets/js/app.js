@@ -26,8 +26,8 @@ import tracker_init from "./tracker";
 var map,infoWindow;
 function initMap(){
   map = new google.maps.Map(document.getElementById('map-canvas'), {
-            center: {lat: -34.397, lng: 150.644},
-            zoom: 10
+            center: {lat: 42.3386095, lng: -71.0944618},
+            zoom: 20
           });
   infoWindow = new google.maps.InfoWindow;
 
@@ -38,15 +38,15 @@ function initMap(){
               lng: position.coords.longitude
             };
 
-          alert(pos.lat);
-
+        console.log(pos.lat);
+        console.log(pos.lng);
         infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
+        infoWindow.setContent('You are here.');
         infoWindow.open(map);
         map.setCenter(pos);
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
-      },{maximumAge:60000, timeout:5000, enableHighAccuracy: true});
+      },{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
     }else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
