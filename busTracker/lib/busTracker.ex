@@ -27,6 +27,14 @@ defmodule BusTracker do
     data["data"]
   end
 
+  def get_route_info(route_id, destination_id) do
+    resp = HTTPoison.get!("https://api-v3.mbta.com/schedules?filter[stop]=#{destination_id}&filter[route]=#{route_id}")
+
+    data = Poison.decode!(resp.body)
+    data["data"]
+
+  end
+
   def get_route_attributes(stopId) do
     routes = get_routes_data(stopId)
     Enum.map routes, fn x ->
