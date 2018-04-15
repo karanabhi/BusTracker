@@ -124,6 +124,9 @@ class Tracker extends React.Component {
 				<div className="row">
 						<div id="route-data" className="col-md-3 route-data">
 						</div>
+						<br/>
+						<div id="route-info" className="col-md-3 ">
+						</div>
 						<hr/>
 						<div id="map-canvas" className="col-md-6 map_canvas"></div>
 				</div>
@@ -192,7 +195,7 @@ class Tracker extends React.Component {
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
-			$(".rbt").click((e) => {this.handleRouteInfo(e)});
+			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.destination.id)});
 
 		// console.log("ok");
 		// return (
@@ -209,10 +212,10 @@ class Tracker extends React.Component {
 		// );
 	}
 
-	handleRouteInfo(e){
+	handleRouteInfo(e, destId){
 		//alert("askb");
 		//console.log(e.target.id);
-		this.channel.push("get_route_info", {id: e.target.id}).receive("ok", resp => {console.log("ok")});
+		this.channel.push("get_route_info", {route_id: e.target.id, destination_id: destId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 	}
 
 	handleSourceRoutesData(){
@@ -228,16 +231,39 @@ class Tracker extends React.Component {
 	}
 
 	receivedSourceRoutes(x){
+		console.log("receivedSourceRoutes");
+		console.log(x);
 		if (x.routes)
 		{
 		this.sRoutes = x.routes.map(route => (
 			route.relationships.route.data.id
 		));
 		this.sRoutes = this.GetUnique(this.sRoutes);
-		//console.log(sRoutes1);
+		console.log("source routes");
+		console.log(this.sRoutes);
 
 			}
 	}
+
+	receivedRouteInfo(response){
+		console.log("receivedRouteInfo");
+		console.log(response);
+
+		if (response.routes)
+		{
+		var info = response.routes.map(route => {
+			return "<li>"+route.attributes.arrival_time+"</li>"
+		});
+
+		$("#route-info").html("<ul>"+info+"</ul>");
+		// var cRoutes=this.commonRoutes.map(route =>{
+		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
+		// 	});
+    //
+
+			}
+	}
+
 	receivedDestinationRoutes(x){
 		if (x.routes)
 		{
@@ -248,6 +274,8 @@ class Tracker extends React.Component {
 			//console.log(dRoutes1);
 			this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
 			//$("#route-data").html(this.commonRoutes);
+			console.log("Destination routes");
+			console.log(this.dRoutes);
 			console.log(this.commonRoutes);
 		}
 

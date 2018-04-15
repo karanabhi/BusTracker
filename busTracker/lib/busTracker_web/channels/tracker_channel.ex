@@ -25,7 +25,7 @@ defmodule BusTrackerWeb.TrackerChannel do
 
   def handle_in("get_route_info", payload, socket) do
 
-      routes = BusTracker.get_route_info(payload["id"]);
+      routes = BusTracker.get_route_info(payload["route_id"], payload["destination_id"]);
       socket = socket
                |> assign(:routes, routes)
 
