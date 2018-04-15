@@ -2,10 +2,13 @@ export default function showGMap(lat1,long1,lat2,long2){
   var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
 
+
   var map;
 
   var mySrc = new google.maps.LatLng(lat1, long1);//Abington
   var myDest = new google.maps.LatLng(lat2, long2);//AirPort
+
+
 
   var mapOptions = {
     zoom: 15,
@@ -13,6 +16,7 @@ export default function showGMap(lat1,long1,lat2,long2){
   };
 
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
   directionsDisplay.setMap(map);
 showMap(mySrc,myDest,directionsService,directionsDisplay);
 }

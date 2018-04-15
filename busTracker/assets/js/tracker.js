@@ -35,6 +35,7 @@ class Tracker extends React.Component {
 		this.renderStops = this.renderStops.bind(this);
 		this.handleSourceChange = this.handleSourceChange.bind(this);
 		this.handleDestinationChange = this.handleDestinationChange.bind(this);
+		this.handleRouteInfo = this.handleRouteInfo.bind(this);
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
@@ -182,12 +183,14 @@ class Tracker extends React.Component {
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
 		var cRoutes=this.commonRoutes.map(route =>{
-				return '<button onClick="'+this.handleRouteInfo.bind(this)+'" key='+parseInt(route) + ' id='+parseInt(route)+' className="btn btn-info">Route'+ parseInt(route) +'</button>'
+				return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 			});
 
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
+			$(".rbt").click((e) => {this.handleRouteInfo(e);});
+
 	}
 
 	handleRouteInfo(event){
