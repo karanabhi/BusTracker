@@ -33,9 +33,9 @@ class Tracker extends React.Component {
 
 		this.channel = props.channel;
 		this.renderStops = this.renderStops.bind(this);
-		this.handleSourceChange = this.handleSourceChange.bind(this);
-		this.handleDestinationChange = this.handleDestinationChange.bind(this);
-		this.handleRouteInfo = this.handleRouteInfo.bind(this);
+		//this.handleSourceChange = this.handleSourceChange.bind(this);
+		//this.handleDestinationChange = this.handleDestinationChange.bind(this);
+		//this.handleRouteInfo = this.handleRouteInfo.bind(this);
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
@@ -134,36 +134,36 @@ class Tracker extends React.Component {
 	}
 
 	handleSourceChange(x){
-		const
-			source = {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
+		//alert("yes");
+		 $("#route-data").html("");
+		 $("#route-info").html("");
+		 this.commonRoutes=[];
+		 if(x!=""){
+			 var
+			 source = {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 
-		console.log("source");
-		console.log(x[0].id);
-		var id = x[0].id;
-		var label = x[0].label;
-		var latitude = x[0].latitude;
-		var longitude = x[0].longitude;
+			 console.log("source");
+			 console.log(x[0].id);
+			 var id = x[0].id;
+			 var label = x[0].label;
+			 var latitude = x[0].latitude;
+			 var longitude = x[0].longitude;
 
-		console.log(x[0].id);
+			 console.log(x[0].id);
 
-		// this.setState({
-		// 	source: {
-		// 		id: id,
-		// 		label: label,
-		// 		latitude: latitude,
-		// 		longitude: longitude
-		// 	}
-		// });
-		// console.log("state0");
-		// console.log(this.state);
-		// this.handleSourceRoutesData();
-		this.setState({source: source}, function () {
-			this.handleSourceRoutesData();
-		})
+
+			 this.setState({source: source}, function () {
+				 this.handleSourceRoutesData();
+			 })
+
+		 }
 	}
 
 	handleDestinationChange(x){
-		const
+		 $("#route-data").html("");
+		 $("#route-info").html("");
+		 this.commonRoutes=[];
+		var
 			destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 			console.log(x[0].id);
 		// this.setState({
@@ -189,22 +189,22 @@ class Tracker extends React.Component {
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
 		var cRoutes=this.commonRoutes.map(route =>{
-				return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
+				return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info routebtn">Route'+ parseInt(route) +'</button>'
 			});
 
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
-<<<<<<< HEAD
-
-			$(".rbt").click((e) => {this.handleRouteInfo(e);});
 
 
-			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
-=======
 
-			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.destination.id)});
->>>>>>> 9ed66a44175eb66c48694f22e58d1b71176a72f4
+
+
+			$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
+
+
+
+
 
 		// console.log("ok");
 		// return (
@@ -222,10 +222,11 @@ class Tracker extends React.Component {
 
 	}
 
-	handleRouteInfo(e, destId){
+	handleRouteInfo(e, sourceId){
 		//alert("askb");
 		//console.log(e.target.id);
-		this.channel.push("get_route_info", {route_id: e.target.id, destination_id: destId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
+		console.log(e.target);
+		this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 	}
 
 	handleSourceRoutesData(){
@@ -255,7 +256,14 @@ class Tracker extends React.Component {
 			}
 	}
 
+	clearFields() {
+		alert("dsadassdads");
+		$("#route-info").html("");
+		$("#route-data").html("");
+	}
+
 	receivedRouteInfo(response){
+		//alert(response);
 		console.log("receivedRouteInfo");
 		console.log(response);
 
@@ -274,6 +282,10 @@ class Tracker extends React.Component {
     //
 
 			}
+		else {
+			$("#route-info").html("");
+			$("#route-data").html("");
+		}
 	}
 
 	receivedDestinationRoutes(x){

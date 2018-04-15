@@ -28,7 +28,12 @@ defmodule BusTracker do
   end
 
   def get_route_info(route_id, source_id) do
-    resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?filter[stop]=#{source_id}&filter[route]=#{route_id}")
+    IO.inspect "route_id"
+    IO.inspect route_id
+    IO.inspect "source_id"
+    IO.inspect source_id
+
+    resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?filter[stop]=#{source_id}&filter[route]=#{route_id}&include=vehicle")
 
     data = Poison.decode!(resp.body)
     data["data"]
