@@ -188,9 +188,18 @@ class Tracker extends React.Component {
 	handleRoutes(e){
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
-		var cRoutes=this.commonRoutes.map(route =>{
-				return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info routebtn">Route'+ parseInt(route) +'</button>'
-			});
+		// var cRoutes=this.commonRoutes.map(route =>{
+		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info routebtn">Route'+ parseInt(route) +'</button>'
+		// 	});
+		console.log("type of");
+		console.log(typeof route);
+
+			var cRoutes=this.commonRoutes.map(route =>{
+				console.log("type of");
+				console.log(typeof route);
+
+					return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button>'
+				});
 
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
