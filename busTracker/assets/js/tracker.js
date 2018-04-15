@@ -195,11 +195,11 @@ class Tracker extends React.Component {
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
-<<<<<<< HEAD
+
 			$(".rbt").click((e) => {this.handleRouteInfo(e);});
 
-=======
-			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.destination.id)});
+
+			$(".rbt").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
 
 		// console.log("ok");
 		// return (
@@ -214,7 +214,7 @@ class Tracker extends React.Component {
 		// 	}};
 		// 	</ul>
 		// );
->>>>>>> e7cb989c0b81dc035b2b50aea70d8f29aa0b79f7
+
 	}
 
 	handleRouteInfo(e, destId){
@@ -254,10 +254,12 @@ class Tracker extends React.Component {
 		console.log("receivedRouteInfo");
 		console.log(response);
 
+
 		if (response.routes)
 		{
 		var info = response.routes.map(route => {
-			return "<li>"+route.attributes.arrival_time+"</li>"
+			if(route.attributes.arrival_time!=null)
+				return "<li>"+route.attributes.arrival_time+"</li>"
 		});
 
 		$("#route-info").html("<ul>"+info+"</ul>");

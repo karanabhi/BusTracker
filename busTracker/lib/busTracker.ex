@@ -27,8 +27,8 @@ defmodule BusTracker do
     data["data"]
   end
 
-  def get_route_info(route_id, destination_id) do
-    resp = HTTPoison.get!("https://api-v3.mbta.com/schedules?filter[stop]=#{destination_id}&filter[route]=#{route_id}")
+  def get_route_info(route_id, source_id) do
+    resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?filter[stop]=#{source_id}&filter[route]=#{route_id}")
 
     data = Poison.decode!(resp.body)
     data["data"]
