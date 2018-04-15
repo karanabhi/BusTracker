@@ -27,6 +27,10 @@ defmodule BusTracker do
     data["data"]
   end
 
+  def get_route_info(route) do
+    IO.inspect route
+  end
+
   def get_route_attributes(stopId) do
     routes = get_routes_data(stopId)
     Enum.map routes, fn x ->

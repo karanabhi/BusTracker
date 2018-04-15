@@ -35,6 +35,7 @@ class Tracker extends React.Component {
 		this.renderStops = this.renderStops.bind(this);
 		this.handleSourceChange = this.handleSourceChange.bind(this);
 		this.handleDestinationChange = this.handleDestinationChange.bind(this);
+		this.handleRouteInfo = this.handleRouteInfo.bind(this);
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
@@ -133,8 +134,8 @@ class Tracker extends React.Component {
 		const
 			source = {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 
-		console.log("x");
-		console.log(x);
+		console.log("source");
+		console.log(x[0].id);
 		var id = x[0].id;
 		var label = x[0].label;
 		var latitude = x[0].latitude;
@@ -173,6 +174,9 @@ class Tracker extends React.Component {
 		// });
 
 		//this.handleDestinationRoutesData();
+
+		console.log("destination");
+		console.log(x[0].id);
 		this.setState({destination: destination}, function () {
 			this.handleDestinationRoutesData();
 		})
@@ -182,16 +186,33 @@ class Tracker extends React.Component {
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
 		var cRoutes=this.commonRoutes.map(route =>{
-				return '<button onClick="'+this.handleRouteInfo.bind(this)+'" key='+parseInt(route) + ' id='+parseInt(route)+' className="btn btn-info">Route'+ parseInt(route) +'</button>'
+				return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 			});
 
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
+			$(".rbt").click((e) => {this.handleRouteInfo(e)});
+
+		// console.log("ok");
+		// return (
+		// 	<ul>
+		// 	{() => {
+		// 		this.commonRoutes.map((item) => {
+		// 			console.log(item);
+		// 			let boundItemClick = this.handleRouteInfo.bind(this, item);
+		// 			return <li key={parseInt(item)} onClick={boundItemClick}> xxxxx
+		// 			</li>
+		// 		});
+		// 	}};
+		// 	</ul>
+		// );
 	}
 
-	handleRouteInfo(event){
-		console.log("ddd");
+	handleRouteInfo(e){
+		//alert("askb");
+		//console.log(e.target.id);
+		this.channel.push("get_route_info", {id: e.target.id}).receive("ok", resp => {console.log("ok")});
 	}
 
 	handleSourceRoutesData(){
