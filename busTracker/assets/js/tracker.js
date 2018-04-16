@@ -156,6 +156,7 @@ class Tracker extends React.Component {
 		//alert("yes");
 		 $("#route-data").html("Search a route!");
 		 $("#route-info").html("");
+		 $("#vehicle-data").html("");
 		 this.commonRoutes=[];
 		 if(x!=""){
 			 var
@@ -181,6 +182,7 @@ class Tracker extends React.Component {
 	handleDestinationChange(x){
 		 $("#route-data").html("Search a route!");
 		 $("#route-info").html("");
+		 $("#vehicle-data").html("");
 		 this.commonRoutes=[];
 		var
 			destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
@@ -193,6 +195,7 @@ class Tracker extends React.Component {
 	}
 
 	handleRoutes(e){
+		$("#vehicle-data").html("");
 		this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
 		console.log("commonRoutes");
 		console.log(this.commonRoutes);
