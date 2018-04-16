@@ -127,8 +127,12 @@ class Tracker extends React.Component {
 						<br/>
 						<div id="route-info" className="col-md-3 ">
 						</div>
+
 						<hr/>
 						<div id="map-canvas" className="col-md-6 map_canvas"></div>
+				</div>
+				<div id="vehicle-data">
+
 				</div>
 			</div>);
 	}
@@ -187,6 +191,8 @@ class Tracker extends React.Component {
 
 	handleRoutes(e){
 		this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
+		console.log("commonRoutes");
+		console.log(this.commonRoutes);
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
 		// var cRoutes=this.commonRoutes.map(route =>{
@@ -229,6 +235,13 @@ class Tracker extends React.Component {
 		// 	}};
 		// 	</ul>
 		// );
+
+	}
+
+	getVehicleData(vehicle_id) {
+		console.log("data");
+		console.log(vehicle_id)
+		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 
 	}
 
@@ -281,11 +294,29 @@ class Tracker extends React.Component {
 		if (response.routes)
 		{
 		var info = response.routes.map(route => {
-			if(route.attributes.arrival_time!=null)
-				return "<li>"+route.attributes.arrival_time+"</li>"
+			if(route.attributes.arrival_time!=null) {
+			console.log("vehcile data");
+			console.log(route);
+			console.log("vehicle id");
+			if(route.relationships.vehicle.data != null)
+				console.log(route.relationships.vehicle.data.id)
+			console.log("time");
+			console.log(route.attributes.arrival_time);
+				return '<li>'+route.attributes.arrival_time+'</li> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button>';
+			}
 		});
 
+
 		$("#route-info").html("<ul>"+info+"</ul>");
+
+		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
+
+		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
+
+		//$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
+		$(".vehiclebtn").click((e) => console.log(e.target.id));
+
+		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
 		// var cRoutes=this.commonRoutes.map(route =>{
 		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 		// 	});
@@ -310,7 +341,7 @@ class Tracker extends React.Component {
 			//$("#route-data").html(this.commonRoutes);
 			console.log("Destination routes");
 			console.log(this.dRoutes);
-			console.log(this.commonRoutes);
+
 		}
 
 	}
@@ -319,6 +350,7 @@ class Tracker extends React.Component {
 	var common = $.grep(array1, function(element) {
 	   return $.inArray(element, array2 ) !== -1;
 	});
+
 	return common;
 }
 
