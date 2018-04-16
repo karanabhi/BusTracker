@@ -134,20 +134,20 @@ class Tracker extends React.Component {
 							<div id="route-info">
 							</div>
 						</div>
+						<div className="row">
+						<div id="vehicle-data">
 
-<<<<<<< HEAD
-						<hr/>
-						<div id="map-canvas" className="col-md-6 map_canvas"></div>
-=======
+						</div>
+						</div>
+
+
 					</div>
 					<hr/>
 					<div id="map-canvas" className="col-md-6 map_canvas"></div>
 
->>>>>>> 88f49458e3dec503a8d3c17eec38f920e064e648
-				</div>
-				<div id="vehicle-data">
 
 				</div>
+
 			</div>);
 	}
 
@@ -267,7 +267,7 @@ class Tracker extends React.Component {
 		if (response.routes.length > 0)
 		{
 		var info = response.routes.map(route => {
-<<<<<<< HEAD
+
 			if(route.attributes.arrival_time!=null) {
 			console.log("vehcile data");
 			console.log(route);
@@ -276,18 +276,17 @@ class Tracker extends React.Component {
 				console.log(route.relationships.vehicle.data.id)
 			console.log("time");
 			console.log(route.attributes.arrival_time);
-				return '<li>'+route.attributes.arrival_time+'</li> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button>';
+				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button> <br/>';
 			}
-=======
-			if(route.attributes.arrival_time!=null)
-				return "<label>"+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+"</label><br/>"
->>>>>>> 88f49458e3dec503a8d3c17eec38f920e064e648
+
+
+
 		});
 		$("#route-info").html(info);
 
-<<<<<<< HEAD
 
-		$("#route-info").html("<ul>"+info+"</ul>");
+
+
 
 		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
 
@@ -297,8 +296,7 @@ class Tracker extends React.Component {
 		$(".vehiclebtn").click((e) => console.log(e.target.id));
 
 		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
-=======
->>>>>>> 88f49458e3dec503a8d3c17eec38f920e064e648
+
 		// var cRoutes=this.commonRoutes.map(route =>{
 		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 		// 	});
