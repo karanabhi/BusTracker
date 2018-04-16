@@ -1,7 +1,16 @@
 /* This file is for your main application css. */
 
 @import "bootstrap";
+@media all and (min-width: 480px) {
+  .login {
+    padding: 60px 0;
+  }
 
+  .login form {
+    margin: 2ex;
+    max-width: 320px;
+  }
+}
 .map_canvas {
   height: 400px;
   width: 600px;
