@@ -219,7 +219,7 @@ class Tracker extends React.Component {
 	}
 
 	getVehicleData(vehicle_id) {
-		console.log("data");
+		console.log("vehcile_id-------------------");
 		console.log(vehicle_id)
 		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 
@@ -272,11 +272,14 @@ class Tracker extends React.Component {
 			console.log("vehcile data");
 			console.log(route);
 			console.log("vehicle id");
-			if(route.relationships.vehicle.data != null)
-				console.log(route.relationships.vehicle.data.id)
+
+				//console.log(route.relationships.vehicle.data.id)
 			console.log("time");
 			console.log(route.attributes.arrival_time);
+			if(route.relationships.vehicle.data != null)
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button> <br/>';
+			else
+			return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
 			}
 
 
@@ -292,8 +295,8 @@ class Tracker extends React.Component {
 
 		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
 
-		//$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
-		$(".vehiclebtn").click((e) => console.log(e.target.id));
+		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id.attributes.vehicle.id)});
+		//$(".vehiclebtn").click((e) => console.log(e.target.id.attributes.vehicle.data.id));
 
 		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
 
