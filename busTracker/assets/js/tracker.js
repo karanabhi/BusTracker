@@ -133,20 +133,12 @@ class Tracker extends React.Component {
 							<label id="route-info-title"><strong><i>Next Arrivals</i></strong></label><br/>
 							<div id="route-info">
 							</div>
-<<<<<<< HEAD
 						</div>
 						<div className="row">
 						<div id="vehicle-data">
 
 						</div>
-=======
 
-						</div>
-						<div className="row">
-						<div id="vehicle-data">
-
-						</div>
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 						</div>
 
 
@@ -228,15 +220,14 @@ class Tracker extends React.Component {
 	}
 
 
-<<<<<<< HEAD
-=======
+
 	// getVehicleData(vehicle_id) {
 	// 	console.log("data");
 	// 	console.log(vehicle_id)
 	// }
 		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
+
 	receivedVehicleData(data) {
 		console.log("receivedVehcileData");
 		console.log(data.data);
@@ -258,10 +249,7 @@ class Tracker extends React.Component {
 		console.log("vehcile_id-------------------");
 		console.log(vehicle_id)
 		this.channel.push("get_vehicle_data", {vehicle_id: vehicle_id}).receive("ok", resp => {this.receivedVehicleData(resp)});
-<<<<<<< HEAD
-=======
 
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 
 	}
 
@@ -307,40 +295,29 @@ class Tracker extends React.Component {
 
 		//alert(response.length);
 		if (response.routes)
-<<<<<<< HEAD
-=======
 
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 		{
 		var info = response.routes.map(route => {
 
 			if(route.attributes.arrival_time!=null) {
-<<<<<<< HEAD
-=======
+
 
 			console.log("vehcile data");
 
 			console.log("vehicle data");
 
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
+
 			console.log(route);
 			console.log("vehicle id");
 			if(route.relationships.vehicle.data != null)
 				console.log(route.relationships.vehicle.data.id)
 			console.log("time");
 			console.log(route.attributes.arrival_time);
-<<<<<<< HEAD
-=======
 
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 			if(route.relationships.vehicle.data != null)
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
 			else
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
-<<<<<<< HEAD
-=======
-
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 			}
 
 
@@ -349,9 +326,6 @@ class Tracker extends React.Component {
 		$("#route-info").html(info);
 
 
-
-<<<<<<< HEAD
-=======
 
 
 		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
@@ -367,15 +341,10 @@ class Tracker extends React.Component {
 		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 		// 	});
     //
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 
 
 
 		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
-<<<<<<< HEAD
-=======
-
->>>>>>> ed3c697373821c650e77cde3277ea30725b51c69
 
 			}
 		else {
