@@ -135,6 +135,7 @@ class Tracker extends React.Component {
 							</div>
 						</div>
 						<div className="row">
+						<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
 						<div id="vehicle-data">
 
 						</div>
@@ -230,7 +231,21 @@ class Tracker extends React.Component {
 			var info = 'Incoming at '+data.data.included[0].attributes.name;
 
 		var latitude = data.data.data.attributes.latitude;
-		var latitude = data.data.data.attributes.longitude;
+		var longitude = data.data.data.attributes.longitude;
+    var pos = {
+          lat: latitude,
+          lng: longitude
+        };
+
+
+		var infoWindow = new google.maps.InfoWindow;
+
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(info);
+    infoWindow.open(window.map);
+    //window.map.setCenter(pos);
+
+
 
 		$('#vehicle-data').html(info);
 	}

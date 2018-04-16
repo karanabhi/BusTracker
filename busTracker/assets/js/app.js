@@ -23,9 +23,9 @@ import socket from "./socket"
 import tracker_init from "./tracker";
 
 
-var map,infoWindow;
+var infoWindow;
 function initMap(){
-  map = new google.maps.Map(document.getElementById('map-canvas'), {
+  window.map = new google.maps.Map(document.getElementById('map-canvas'), {
             center: {lat: 42.3386095, lng: -71.0944618},
             zoom: 18
           });
@@ -38,18 +38,23 @@ function initMap(){
               lng: position.coords.longitude
             };
 
+      var marker = new google.maps.Marker({
+                            position: pos,
+                            map: window.map
+                        });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
         console.log(pos.lat);
         console.log(pos.lng);
         infoWindow.setPosition(pos);
         infoWindow.setContent('You are here.');
         infoWindow.open(map);
-        map.setCenter(pos);
+        window.map.setCenter(pos);
       }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+        handleLocationError(true, infoWindow, window.map.getCenter());
       },{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
     }else {
           // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+          handleLocationError(false, infoWindow, window.map.getCenter());
 
       }
 }
