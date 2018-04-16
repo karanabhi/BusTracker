@@ -6,9 +6,9 @@ import classnames from 'classnames';
 import showGMap from './gMap';
 
 
-export default function tracker_init(root, channel) {
-	ReactDOM.render(<Tracker channel={channel}/>, root);
-}
+// export default function tracker_init(root, channel) {
+// 	ReactDOM.render(<Tracker channel={channel}/>, root);
+// }
 
 class Tracker extends React.Component {
 
@@ -133,6 +133,7 @@ class Tracker extends React.Component {
 							<label id="route-info-title"><strong><i>Next Arrivals</i></strong></label><br/>
 							<div id="route-info">
 							</div>
+<<<<<<< HEAD
 						</div>
 						<div className="row">
 						<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
@@ -140,6 +141,14 @@ class Tracker extends React.Component {
 
 						</div>
 						</div>
+=======
+						</div>
+						<div className="row">
+						<div id="vehicle-data">
+
+						</div>
+						</div>
+>>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 
 
 					</div>
@@ -219,6 +228,12 @@ class Tracker extends React.Component {
 
 	}
 
+<<<<<<< HEAD
+	getVehicleData(vehicle_id) {
+		console.log("data");
+		console.log(vehicle_id)
+		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
+=======
 	receivedVehicleData(data) {
 		console.log("receivedVehcileData");
 		console.log(data.data);
@@ -254,12 +269,14 @@ class Tracker extends React.Component {
 		console.log("vehcile_id-------------------");
 		console.log(vehicle_id)
 		this.channel.push("get_vehicle_data", {vehicle_id: vehicle_id}).receive("ok", resp => {this.receivedVehicleData(resp)});
+>>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 
 	}
 
 	handleRouteInfo(e, sourceId){
 		//alert("askb");
 		//console.log(e.target.id);
+		$('#vehicle-data').html("");
 		console.log(e.target);
 		this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 	}
@@ -281,12 +298,12 @@ class Tracker extends React.Component {
 		console.log(x);
 		if (x.routes)
 		{
-		this.sRoutes = x.routes.map(route => (
-			route.relationships.route.data.id
-		));
-		this.sRoutes = this.GetUnique(this.sRoutes);
-		console.log("source routes");
-		console.log(this.sRoutes);
+			this.sRoutes = x.routes.map(route => (
+				route.relationships.route.data.id
+			));
+			this.sRoutes = this.GetUnique(this.sRoutes);
+			console.log("source routes");
+			console.log(this.sRoutes);
 
 			}
 	}
@@ -295,23 +312,36 @@ class Tracker extends React.Component {
 		//alert(response);
 		console.log("receivedRouteInfo");
 
+<<<<<<< HEAD
+		alert(response.length);
+		if (response.routes.length > 0)
+=======
 		//alert(response.length);
 		if (response.routes)
+>>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 		{
 		var info = response.routes.map(route => {
 
 			if(route.attributes.arrival_time!=null) {
+<<<<<<< HEAD
+			console.log("vehcile data");
+=======
 			console.log("vehicle data");
+>>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 			console.log(route);
 			console.log("vehicle id");
 			if(route.relationships.vehicle.data != null)
 				console.log(route.relationships.vehicle.data.id)
 			console.log("time");
 			console.log(route.attributes.arrival_time);
+<<<<<<< HEAD
+				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button> <br/>';
+=======
 			if(route.relationships.vehicle.data != null)
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
 			else
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
+>>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 			}
 
 
@@ -321,10 +351,28 @@ class Tracker extends React.Component {
 
 
 
+<<<<<<< HEAD
+
+
+		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
+
+		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
+
+		//$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
+		$(".vehiclebtn").click((e) => console.log(e.target.id));
+
+		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
+
+		// var cRoutes=this.commonRoutes.map(route =>{
+		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
+		// 	});
+    //
+=======
 
 
 
 		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
+>>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 
 			}
 		else {
@@ -380,3 +428,5 @@ function Stop(params){
 
 	return (<option value={params.stop.attributes.name} id={params.key}>{params.stop.attributes.name}</option>);
 }
+
+export default Tracker;
