@@ -218,10 +218,27 @@ class Tracker extends React.Component {
 
 	}
 
+	receivedVehicleData(data) {
+		console.log("receivedVehcileData");
+		console.log(data.data);
+		console.log(data.data.data.attributes.current_status);
+		if(data.data.data.attributes.current_status == 'STOPPED_AT')
+			var info = 'Stopped at ' +data.data.included[0].attributes.name;
+		else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
+			var info = 'In transit to '+data.data.included[0].attributes.name;
+		else if(data.data.data.attributes.current_status == 'INCOMING_AT')
+			var info = 'Incoming at '+data.data.included[0].attributes.name;
+
+		var latitude = data.data.data.attributes.latitude;
+		var latitude = data.data.data.attributes.longitude;
+
+		$('#vehicle-data').html(info);
+	}
+
 	getVehicleData(vehicle_id) {
 		console.log("vehcile_id-------------------");
 		console.log(vehicle_id)
-		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
+		this.channel.push("get_vehicle_data", {vehicle_id: vehicle_id}).receive("ok", resp => {this.receivedVehicleData(resp)});
 
 	}
 
@@ -263,23 +280,23 @@ class Tracker extends React.Component {
 		//alert(response);
 		console.log("receivedRouteInfo");
 
-		alert(response.length);
-		if (response.routes.length > 0)
+		//alert(response.length);
+		if (response.routes)
 		{
 		var info = response.routes.map(route => {
 
 			if(route.attributes.arrival_time!=null) {
-			console.log("vehcile data");
+			console.log("vehicle data");
 			console.log(route);
 			console.log("vehicle id");
-
-				//console.log(route.relationships.vehicle.data.id)
+			if(route.relationships.vehicle.data != null)
+				console.log(route.relationships.vehicle.data.id)
 			console.log("time");
 			console.log(route.attributes.arrival_time);
 			if(route.relationships.vehicle.data != null)
-				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button> <br/>';
+				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button> </label> <br/>';
 			else
-			return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
+				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
 			}
 
 
@@ -291,19 +308,8 @@ class Tracker extends React.Component {
 
 
 
-		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
 
-		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
-
-		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id.attributes.vehicle.id)});
-		//$(".vehiclebtn").click((e) => console.log(e.target.id.attributes.vehicle.data.id));
-
-		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
-
-		// var cRoutes=this.commonRoutes.map(route =>{
-		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
-		// 	});
-    //
+		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
 
 			}
 		else {
