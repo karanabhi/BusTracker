@@ -21,6 +21,9 @@ let Session = connect(({token}) => {return {token};})((props) => {
     location.replace("/");
   }
 
+  console.log("props.token");
+  console.log(props.token);
+
   return <div className="navbar-text">
             <label>Welcome, { props.token.user_name }</label> &nbsp;|&nbsp;
             <Button color="link" onClick={logout}>LogOut</Button>
