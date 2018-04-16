@@ -245,6 +245,7 @@ class Tracker extends React.Component {
 	handleRouteInfo(e, sourceId){
 		//alert("askb");
 		//console.log(e.target.id);
+		$('#vehicle-data').html("");
 		console.log(e.target);
 		this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 	}
@@ -266,12 +267,12 @@ class Tracker extends React.Component {
 		console.log(x);
 		if (x.routes)
 		{
-		this.sRoutes = x.routes.map(route => (
-			route.relationships.route.data.id
-		));
-		this.sRoutes = this.GetUnique(this.sRoutes);
-		console.log("source routes");
-		console.log(this.sRoutes);
+			this.sRoutes = x.routes.map(route => (
+				route.relationships.route.data.id
+			));
+			this.sRoutes = this.GetUnique(this.sRoutes);
+			console.log("source routes");
+			console.log(this.sRoutes);
 
 			}
 	}
