@@ -122,14 +122,28 @@ class Tracker extends React.Component {
 				</div>
 				<br/><hr/>
 				<div className="row">
-						<div id="route-data" className="col-md-3 route-data">
+					<div className="col-md-5 route-div">
+
+						<div className="row">
+							<div id="route-data">
+								Search a route!
+							</div>
 						</div>
-						<br/>
-						<div id="route-info" className="col-md-3 ">
+						<div className="row">
+							<label id="route-info-title"><strong><i>Next Arrivals</i></strong></label><br/>
+							<div id="route-info">
+							</div>
 						</div>
 
+<<<<<<< HEAD
 						<hr/>
 						<div id="map-canvas" className="col-md-6 map_canvas"></div>
+=======
+					</div>
+					<hr/>
+					<div id="map-canvas" className="col-md-6 map_canvas"></div>
+
+>>>>>>> 88f49458e3dec503a8d3c17eec38f920e064e648
 				</div>
 				<div id="vehicle-data">
 
@@ -139,7 +153,7 @@ class Tracker extends React.Component {
 
 	handleSourceChange(x){
 		//alert("yes");
-		 $("#route-data").html("");
+		 $("#route-data").html("Search a route!");
 		 $("#route-info").html("");
 		 this.commonRoutes=[];
 		 if(x!=""){
@@ -164,24 +178,12 @@ class Tracker extends React.Component {
 	}
 
 	handleDestinationChange(x){
-		 $("#route-data").html("");
+		 $("#route-data").html("Search a route!");
 		 $("#route-info").html("");
 		 this.commonRoutes=[];
 		var
 			destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 			console.log(x[0].id);
-		// this.setState({
-		// 	stops: this.state.stops,
-		// 	destination: {
-		// 		id: destination.id,
-		// 		label: destination.label,
-		// 		latitude: destination.latitude,
-		// 		longitude: destination.longitude
-		// 	}
-		// });
-
-		//this.handleDestinationRoutesData();
-
 		console.log("destination");
 		console.log(x[0].id);
 		this.setState({destination: destination}, function () {
@@ -212,29 +214,7 @@ class Tracker extends React.Component {
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
 
-
-
-
-
 			$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
-
-
-
-
-
-		// console.log("ok");
-		// return (
-		// 	<ul>
-		// 	{() => {
-		// 		this.commonRoutes.map((item) => {
-		// 			console.log(item);
-		// 			let boundItemClick = this.handleRouteInfo.bind(this, item);
-		// 			return <li key={parseInt(item)} onClick={boundItemClick}> xxxxx
-		// 			</li>
-		// 		});
-		// 	}};
-		// 	</ul>
-		// );
 
 	}
 
@@ -279,21 +259,15 @@ class Tracker extends React.Component {
 			}
 	}
 
-	clearFields() {
-		alert("dsadassdads");
-		$("#route-info").html("");
-		$("#route-data").html("");
-	}
-
 	receivedRouteInfo(response){
 		//alert(response);
 		console.log("receivedRouteInfo");
-		console.log(response);
 
-
-		if (response.routes)
+		alert(response.length);
+		if (response.routes.length > 0)
 		{
 		var info = response.routes.map(route => {
+<<<<<<< HEAD
 			if(route.attributes.arrival_time!=null) {
 			console.log("vehcile data");
 			console.log(route);
@@ -304,8 +278,14 @@ class Tracker extends React.Component {
 			console.log(route.attributes.arrival_time);
 				return '<li>'+route.attributes.arrival_time+'</li> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button>';
 			}
+=======
+			if(route.attributes.arrival_time!=null)
+				return "<label>"+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+"</label><br/>"
+>>>>>>> 88f49458e3dec503a8d3c17eec38f920e064e648
 		});
+		$("#route-info").html(info);
 
+<<<<<<< HEAD
 
 		$("#route-info").html("<ul>"+info+"</ul>");
 
@@ -317,6 +297,8 @@ class Tracker extends React.Component {
 		$(".vehiclebtn").click((e) => console.log(e.target.id));
 
 		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
+=======
+>>>>>>> 88f49458e3dec503a8d3c17eec38f920e064e648
 		// var cRoutes=this.commonRoutes.map(route =>{
 		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 		// 	});
@@ -324,8 +306,9 @@ class Tracker extends React.Component {
 
 			}
 		else {
+			alert("here");
 			$("#route-info").html("");
-			$("#route-data").html("");
+			$("#route-data").html("No Route Found!");
 		}
 	}
 
