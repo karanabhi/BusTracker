@@ -36,11 +36,9 @@ function Nav(props) {
   if (props.token) {
     nav_items = <ul className="navbar-nav mr-auto">
                         <NavItem>
-                          <NavLink to="/tasklist" exact={true} activeClassName="active" className="nav-link">TaskList</NavLink>
+                          <NavLink to="/tasklist" exact={true} activeClassName="active" className="nav-link">Recent Searches</NavLink>
                         </NavItem>
-                        <NavItem>
-                          <NavLink to="/users" exact={true} activeClassName="active" className="nav-link">All Users</NavLink>
-                        </NavItem>
+
                       </ul>;
     session_info = <Session token={props.token} />;
   }
