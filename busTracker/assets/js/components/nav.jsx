@@ -22,7 +22,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
   }
 
   return <div className="navbar-text">
-            <label>Welcome, { props.token.user_name }</label> &nbsp;|&nbsp;
+            <label>Welcome, { props.token.user_id }</label> &nbsp;|&nbsp;
             <Button color="link" onClick={logout}>LogOut</Button>
           </div>;
 });
