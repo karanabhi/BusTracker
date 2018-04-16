@@ -10,13 +10,30 @@
   float: right;
 //  background-color: gray;
 }
-.route-data {
+#route-data {
   display: inline-block;
   float: left;
   width: 500px;
+  min-height: 40px;
+  padding: 10px;
 }
 .hidden {
   display: none;
+}
+.route-div{
+  border: 1px solid cadetblue;
+  border-radius: 5px;
+}
+
+#route-info-title{
+  border-bottom: 1px dotted;
+  border-top: 1px dotted;
+  text-align: center;
+  width: 100%;
+}
+#route-info{
+  padding-left: 10px;
+  padding-top: 10px;
 }
 /* Optional: Makes the sample page fill the window. */
 

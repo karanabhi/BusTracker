@@ -23,6 +23,18 @@ defmodule BusTrackerWeb.TrackerChannel do
 
   end
 
+  def handle_in("get_vehicle_data", payload, socket) do
+
+      data = BusTracker.get_vehicle_data(payload["vehicle_id"]);
+      socket = socket
+               |> assign(:data, data)
+
+      #{:ok, %{"routes" => routes},socket}
+        {:reply, {:ok, %{"data" => data}}, socket}
+
+  end
+
+
   def handle_in("get_route_info", payload, socket) do
 
       routes = BusTracker.get_route_info(payload["route_id"], payload["source_id"]);
