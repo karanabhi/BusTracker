@@ -6,9 +6,9 @@ import classnames from 'classnames';
 import showGMap from './gMap';
 
 
-export default function tracker_init(root, channel) {
-	ReactDOM.render(<Tracker channel={channel}/>, root);
-}
+// export default function tracker_init(root, channel) {
+// 	ReactDOM.render(<Tracker channel={channel}/>, root);
+// }
 
 class Tracker extends React.Component {
 
@@ -122,20 +122,38 @@ class Tracker extends React.Component {
 				</div>
 				<br/><hr/>
 				<div className="row">
-						<div id="route-data" className="col-md-3 route-data">
+					<div className="col-md-5 route-div">
+
+						<div className="row">
+							<div id="route-data">
+								Search a route!
+							</div>
 						</div>
-						<br/>
-						<div id="route-info" className="col-md-3 ">
+						<div className="row">
+							<label id="route-info-title"><strong><i>Next Arrivals</i></strong></label><br/>
+							<div id="route-info">
+							</div>
 						</div>
-						<hr/>
-						<div id="map-canvas" className="col-md-6 map_canvas"></div>
+						<div className="row">
+						<div id="vehicle-data">
+
+						</div>
+						</div>
+
+
+					</div>
+					<hr/>
+					<div id="map-canvas" className="col-md-6 map_canvas"></div>
+
+
 				</div>
+
 			</div>);
 	}
 
 	handleSourceChange(x){
 		//alert("yes");
-		 $("#route-data").html("");
+		 $("#route-data").html("Search a route!");
 		 $("#route-info").html("");
 		 this.commonRoutes=[];
 		 if(x!=""){
@@ -160,24 +178,12 @@ class Tracker extends React.Component {
 	}
 
 	handleDestinationChange(x){
-		 $("#route-data").html("");
+		 $("#route-data").html("Search a route!");
 		 $("#route-info").html("");
 		 this.commonRoutes=[];
 		var
 			destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 			console.log(x[0].id);
-		// this.setState({
-		// 	stops: this.state.stops,
-		// 	destination: {
-		// 		id: destination.id,
-		// 		label: destination.label,
-		// 		latitude: destination.latitude,
-		// 		longitude: destination.longitude
-		// 	}
-		// });
-
-		//this.handleDestinationRoutesData();
-
 		console.log("destination");
 		console.log(x[0].id);
 		this.setState({destination: destination}, function () {
@@ -186,6 +192,9 @@ class Tracker extends React.Component {
 	}
 
 	handleRoutes(e){
+		this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
+		console.log("commonRoutes");
+		console.log(this.commonRoutes);
 		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 		var str="";
 		// var cRoutes=this.commonRoutes.map(route =>{
@@ -205,29 +214,14 @@ class Tracker extends React.Component {
 			console.log(cRoutes)	;
 			$("#route-data").html(cRoutes);
 
-
-
-
-
 			$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
 
+	}
 
-
-
-
-		// console.log("ok");
-		// return (
-		// 	<ul>
-		// 	{() => {
-		// 		this.commonRoutes.map((item) => {
-		// 			console.log(item);
-		// 			let boundItemClick = this.handleRouteInfo.bind(this, item);
-		// 			return <li key={parseInt(item)} onClick={boundItemClick}> xxxxx
-		// 			</li>
-		// 		});
-		// 	}};
-		// 	</ul>
-		// );
+	getVehicleData(vehicle_id) {
+		console.log("data");
+		console.log(vehicle_id)
+		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 
 	}
 
@@ -265,26 +259,44 @@ class Tracker extends React.Component {
 			}
 	}
 
-	clearFields() {
-		alert("dsadassdads");
-		$("#route-info").html("");
-		$("#route-data").html("");
-	}
-
 	receivedRouteInfo(response){
 		//alert(response);
 		console.log("receivedRouteInfo");
-		console.log(response);
 
-
-		if (response.routes)
+		alert(response.length);
+		if (response.routes.length > 0)
 		{
 		var info = response.routes.map(route => {
-			if(route.attributes.arrival_time!=null)
-				return "<li>"+route.attributes.arrival_time+"</li>"
-		});
 
-		$("#route-info").html("<ul>"+info+"</ul>");
+			if(route.attributes.arrival_time!=null) {
+			console.log("vehcile data");
+			console.log(route);
+			console.log("vehicle id");
+			if(route.relationships.vehicle.data != null)
+				console.log(route.relationships.vehicle.data.id)
+			console.log("time");
+			console.log(route.attributes.arrival_time);
+				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> <button key='+route+' id='+route+' class="btn btn-secondary vehiclebtn"> Get Vehicle data </button> <br/>';
+			}
+
+
+
+		});
+		$("#route-info").html(info);
+
+
+
+
+
+		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
+
+		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
+
+		//$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
+		$(".vehiclebtn").click((e) => console.log(e.target.id));
+
+		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
+
 		// var cRoutes=this.commonRoutes.map(route =>{
 		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
 		// 	});
@@ -292,8 +304,9 @@ class Tracker extends React.Component {
 
 			}
 		else {
+			alert("here");
 			$("#route-info").html("");
-			$("#route-data").html("");
+			$("#route-data").html("No Route Found!");
 		}
 	}
 
@@ -305,11 +318,11 @@ class Tracker extends React.Component {
 			));
 			this.dRoutes = this.GetUnique(this.dRoutes);
 			//console.log(dRoutes1);
-			this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
+
 			//$("#route-data").html(this.commonRoutes);
 			console.log("Destination routes");
 			console.log(this.dRoutes);
-			console.log(this.commonRoutes);
+
 		}
 
 	}
@@ -318,6 +331,7 @@ class Tracker extends React.Component {
 	var common = $.grep(array1, function(element) {
 	   return $.inArray(element, array2 ) !== -1;
 	});
+
 	return common;
 }
 
@@ -342,3 +356,5 @@ function Stop(params){
 
 	return (<option value={params.stop.attributes.name} id={params.key}>{params.stop.attributes.name}</option>);
 }
+
+export default Tracker;

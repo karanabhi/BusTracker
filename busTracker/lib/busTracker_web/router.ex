@@ -17,11 +17,15 @@ defmodule BusTrackerWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/tracker", PageController, :index
+    get "/register", PageController, :index
   end
 
   # Other scopes may use custom stacks.
   scope "/api/v1", BusTrackerWeb do
     pipe_through :api
+
+    post "/token", TokenController, :create
     resources "/users", UserController, except: [:new, :edit]
     resources "/searches", SearchController, except: [:new, :edit]
   end

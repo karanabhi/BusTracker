@@ -19,15 +19,17 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
+import api from './api';
+import main_init from "./components/main";
+import store from './store'
 
-import tracker_init from "./tracker";
 
 
 var map,infoWindow;
 function initMap(){
   map = new google.maps.Map(document.getElementById('map-canvas'), {
             center: {lat: 42.3386095, lng: -71.0944618},
-            zoom: 20
+            zoom: 18
           });
   infoWindow = new google.maps.InfoWindow;
 
@@ -67,12 +69,11 @@ function init() {
   if(root){
   // Now that you are connected, you can join channels with a topic:
     let channel = socket.channel("tracker:lobby", {});
-    tracker_init(root,channel);
+    main_init(root,channel,store);
     if(document.getElementById('map-canvas')){
       initMap();
     }
   }
 }
 
-// Use jQuery to delay until page loaded.
 $(init);
