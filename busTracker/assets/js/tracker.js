@@ -134,6 +134,7 @@ class Tracker extends React.Component {
 							<div id="route-info">
 							</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 						</div>
 						<div className="row">
 						<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
@@ -142,12 +143,24 @@ class Tracker extends React.Component {
 						</div>
 						</div>
 =======
+=======
+>>>>>>> 8c0743b61274c553505dd294db0a93a7297705fb
 						</div>
 						<div className="row">
 						<div id="vehicle-data">
 
 						</div>
 						</div>
+<<<<<<< HEAD
+=======
+=======
+						</div>
+						<div className="row">
+						<div id="vehicle-data">
+
+						</div>
+						</div>
+>>>>>>> 8c0743b61274c553505dd294db0a93a7297705fb
 >>>>>>> 6fb2941ff0fe70363f429d1f5ab2849376cc5988
 
 
