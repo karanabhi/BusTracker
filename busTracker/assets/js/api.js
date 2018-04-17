@@ -33,6 +33,12 @@ class TheServer {
         });
         if(document.getElementById("redirectToTasklist"))
           document.getElementById("redirectToTasklist").click();
+
+          //alert("ksdfsrdtfygui");
+          // if(document.getElementById('map-canvas')){
+             //initMap();
+          // }
+        //alert("ksdf");
       },
       // error: (msg) => {
       //   store.dispatch({

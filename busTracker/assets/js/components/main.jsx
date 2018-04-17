@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import LogIn from './login';
 import Register from './register';
 import store from '../store';
-import Tracker from '../tracker';
+import Tracker from './tracker';
 import Nav from './nav';
 
 

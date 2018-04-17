@@ -1,16 +1,14 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import classnames from 'classnames';
 import showGMap from './gMap';
 
 
-export default function tracker_init(root, channel) {
-	ReactDOM.render(<Tracker channel={channel}/>, root);
-}
-
 class Tracker extends React.Component {
+
 
 	constructor(props) {
 		super(props);
@@ -31,11 +29,10 @@ class Tracker extends React.Component {
 			}
 		};
 
+		//this.initMap();
 		this.channel = props.channel;
 		this.renderStops = this.renderStops.bind(this);
-		//this.handleSourceChange = this.handleSourceChange.bind(this);
-		//this.handleDestinationChange = this.handleDestinationChange.bind(this);
-		//this.handleRouteInfo = this.handleRouteInfo.bind(this);
+
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
@@ -45,6 +42,7 @@ class Tracker extends React.Component {
 		.receive("ok",this.createState.bind(this))
 		.receive("error",resp => "Error while joining");
 	}
+
 
 	createState(st1){
 		var c = {
@@ -68,8 +66,10 @@ class Tracker extends React.Component {
 
 	render() {
 
-		//$("map-canvas").hide;
-
+		// //$("map-canvas").hide;
+		// if(props.login.email == ""){
+		// 	return <div style={{padding: "4ex"}}><Link to="/" id="notloggedin"> LogIn </Link></div>;
+		// }
 
 		var stops = "";
 		var stops2 = "";
@@ -301,7 +301,11 @@ class Tracker extends React.Component {
 		var info = response.routes.map(route => {
 
 			if(route.attributes.arrival_time!=null) {
+
+			console.log("vehcile data");
+
 			console.log("vehicle data");
+
 			console.log(route);
 			console.log("vehicle id");
 			if(route.relationships.vehicle.data != null)
@@ -318,11 +322,6 @@ class Tracker extends React.Component {
 
 		});
 		$("#route-info").html(info);
-
-
-
-
-
 
 		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
 
@@ -374,9 +373,66 @@ class Tracker extends React.Component {
     return outputArray;
 }
 
+
+
+componentDidMount(){
+	this.initMap();
+}
+
+
+initMap(){
+  //alert("yo");
+  window.map = new google.maps.Map(document.getElementById('map-canvas'), {
+            center: {lat: 42.3386095, lng: -71.0944618},
+            zoom: 18
+          });
+  var infoWindow = new google.maps.InfoWindow;
+
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+      var marker = new google.maps.Marker({
+                            position: pos,
+                            map: window.map
+                        });
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+        console.log(pos.lat);
+        console.log(pos.lng);
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('You are here.');
+        infoWindow.open(map);
+        window.map.setCenter(pos);
+      }, function() {
+				infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
+			  infoWindow.setContent('Error: The Geolocation service failed.');
+			  infoWindow.open(map);
+      },{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
+    }else {
+          // Browser doesn't support Geolocation
+					infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
+				  infoWindow.setContent('Error: Your browser doesn\'t support geolocation.');
+				  infoWindow.open(map);
+
+      }
+}
+
+
 }//class
 
 function Stop(params){
 
 	return (<option value={params.stop.attributes.name} id={params.key}>{params.stop.attributes.name}</option>);
 }
+
+// function state2props(state) {
+//   return {
+//           login: state.login,
+//           token: state.token};
+// }
+//
+// export default connect(state2props)(Tracker);
+export default Tracker;

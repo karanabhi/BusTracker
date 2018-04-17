@@ -4,32 +4,6 @@ Referred from Lecture Notes
 import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
 
-/*
- *  state layout:
- *  {
- *   tasks: [... Tasks ...],
- *   users: [... Users ...],
- *   form: {
- *     user_id: "",
- *     title: "",
- *     description: "",
- *     minutes: 0,
- *     completed: false,
- *     token: ""
- *   },
- *   token:{
- *     user_id: Number,
- *     user_name: String,
- *     token: string
- *   },
- *   login: {
- *     email: string,
- *     pass: string
- *   },
- *   is_checked: boolean
- * }
- *
- * */
 function token(state = null, action) {
    switch (action.type) {
      case 'SET_TOKEN':

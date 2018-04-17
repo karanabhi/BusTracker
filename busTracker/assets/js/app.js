@@ -21,12 +21,11 @@ import "phoenix_html"
 import socket from "./socket"
 import api from './api';
 import main_init from "./components/main";
-import store from './store'
-
-
+import store from './store';
 
 var infoWindow;
 function initMap(){
+  alert("yo");
   window.map = new google.maps.Map(document.getElementById('map-canvas'), {
             center: {lat: 42.3386095, lng: -71.0944618},
             zoom: 18
@@ -72,12 +71,12 @@ function init() {
   let root = document.getElementById('tracker');
 
   if(root){
-  // Now that you are connected, you can join channels with a topic:
+  // Now that you are connected, you can join c;hannels with a topic:
     let channel = socket.channel("tracker:lobby", {});
     main_init(root,channel,store);
-    if(document.getElementById('map-canvas')){
-      initMap();
-    }
+    // if(document.getElementById('map-canvas')){
+    //   initMap();
+    // }
   }
 }
 
