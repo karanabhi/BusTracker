@@ -31,6 +31,12 @@ class TheServer {
           type: 'SET_TOKEN',
           token: resp,
         });
+        console.log(resp);
+        localStorage.setItem("login_token",resp.token);
+        localStorage.setItem("login_id",resp.user_id);
+        localStorage.setItem("login_user_name",resp.user_name);
+        //alert(localStorage.getItem("login_user_name"));
+
         if(document.getElementById("redirectToTasklist"))
           document.getElementById("redirectToTasklist").click();
 
