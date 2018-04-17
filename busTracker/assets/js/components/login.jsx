@@ -44,17 +44,17 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   function log_in(ev) {
     ev.preventDefault();
     api.submit_login(props.login);
-    if(props.login)
-    {
-      //document.getElementById("redirectToTasklist").click();
-    }
-    //console.log(props.login);
   }
 
   return( <div className="login">
+<<<<<<< HEAD
             <label className="heading-login">Welcome to MBTA Tracker!</label><br/>
             <Form>
             <label><h3>Please Sign In</h3></label>
+=======
+            <label><h2>Sign In!</h2></label>
+            <Form >
+>>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
               <FormGroup>
                 <Input type="email" name="email" placeholder="Email"
                        value={props.login.email} onChange={update} />
@@ -66,6 +66,6 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
               <Button onClick={log_in}>Log In</Button> &nbsp;
               <Link to="/register">Register</Link>
             </Form>
-            <Link to="/tracker" id="redirectToTasklist" type="hidden"></Link>
+            <Link to="/tracker" id="redirectToHome" type="hidden"></Link>
           </div>);
 });

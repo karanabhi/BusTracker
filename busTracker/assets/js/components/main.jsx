@@ -28,12 +28,14 @@ let Main = connect((state) => state)((props) => {
   console.log(props.root);
     return <Router>
               <div>
-                <Nav />
                 <Route path="/" exact={true} render={() =>
-                    <LogIn />
+                  <LogIn />
                 } />
               <Route path="/tracker" exact={true} render={() =>
-                    <Tracker root={props.root} channel={props.channel} />
+                    <div>
+                      <Nav />
+                      <Tracker root={props.root} channel={props.channel} />
+                    </div>
                 } />
               <Route path="/register" exact={true} render={() =>
                     <Register />
