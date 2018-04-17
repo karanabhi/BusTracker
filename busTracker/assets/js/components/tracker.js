@@ -223,18 +223,7 @@ class Tracker extends React.Component {
 
 	}
 
-<<<<<<< HEAD:busTracker/assets/js/components/tracker.js
-=======
 
-
-	// getVehicleData(vehicle_id) {
-	// 	console.log("data");
-	// 	console.log(vehicle_id)
-	// }
-		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
-
-
->>>>>>> 1a408fe04540a14e7c8d6cfc8a4fb32ce20b0d29:busTracker/assets/js/tracker.js
 	receivedVehicleData(data) {
 		console.log("receivedVehcileData");
 		console.log(data.data);
@@ -341,28 +330,6 @@ class Tracker extends React.Component {
 		});
 		$("#route-info").html(info);
 
-<<<<<<< HEAD:busTracker/assets/js/components/tracker.js
-=======
-
-
-
-		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
-
-		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
-
-		//$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
-
-
-		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
-
-		// var cRoutes=this.commonRoutes.map(route =>{
-		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
-		// 	});
-    //
-
-
-
->>>>>>> 1a408fe04540a14e7c8d6cfc8a4fb32ce20b0d29:busTracker/assets/js/tracker.js
 		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
 
 			}
