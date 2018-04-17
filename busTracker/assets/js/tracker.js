@@ -1,14 +1,16 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import classnames from 'classnames';
-import showGMap from './gMap';
+import showGMap from './components/gMap';
 
+
+// export default function tracker_init(root, channel) {
+// 	ReactDOM.render(<Tracker channel={channel}/>, root);
+// }
 
 class Tracker extends React.Component {
-
 
 	constructor(props) {
 		super(props);
@@ -29,10 +31,11 @@ class Tracker extends React.Component {
 			}
 		};
 
-		//this.initMap();
 		this.channel = props.channel;
 		this.renderStops = this.renderStops.bind(this);
-
+		//this.handleSourceChange = this.handleSourceChange.bind(this);
+		//this.handleDestinationChange = this.handleDestinationChange.bind(this);
+		//this.handleRouteInfo = this.handleRouteInfo.bind(this);
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
@@ -42,7 +45,6 @@ class Tracker extends React.Component {
 		.receive("ok",this.createState.bind(this))
 		.receive("error",resp => "Error while joining");
 	}
-
 
 	createState(st1){
 		var c = {
@@ -66,10 +68,8 @@ class Tracker extends React.Component {
 
 	render() {
 
-		// //$("map-canvas").hide;
-		// if(props.login.email == ""){
-		// 	return <div style={{padding: "4ex"}}><Link to="/" id="notloggedin"> LogIn </Link></div>;
-		// }
+		//$("map-canvas").hide;
+
 
 		var stops = "";
 		var stops2 = "";
@@ -135,7 +135,6 @@ class Tracker extends React.Component {
 							</div>
 						</div>
 						<div className="row">
-						<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
 						<div id="vehicle-data">
 
 						</div>
@@ -224,6 +223,14 @@ class Tracker extends React.Component {
 	}
 
 
+
+	// getVehicleData(vehicle_id) {
+	// 	console.log("data");
+	// 	console.log(vehicle_id)
+	// }
+		//this.channel.push("get_vehicle_data", {vehcile_id: vehcile_id}).receive("ok", resp => {this.receivedRouteInfo(resp)});
+
+
 	receivedVehicleData(data) {
 		console.log("receivedVehcileData");
 		console.log(data.data);
@@ -236,21 +243,7 @@ class Tracker extends React.Component {
 			var info = 'Incoming at '+data.data.included[0].attributes.name;
 
 		var latitude = data.data.data.attributes.latitude;
-		var longitude = data.data.data.attributes.longitude;
-    var pos = {
-          lat: latitude,
-          lng: longitude
-        };
-
-
-		var infoWindow = new google.maps.InfoWindow;
-
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(info);
-    infoWindow.open(window.map);
-    //window.map.setCenter(pos);
-
-
+		var latitude = data.data.data.attributes.longitude;
 
 		$('#vehicle-data').html(info);
 	}
@@ -260,12 +253,13 @@ class Tracker extends React.Component {
 		console.log(vehicle_id)
 		this.channel.push("get_vehicle_data", {vehicle_id: vehicle_id}).receive("ok", resp => {this.receivedVehicleData(resp)});
 
+
 	}
 
 	handleRouteInfo(e, sourceId){
 		//alert("askb");
 		//console.log(e.target.id);
-		$("#vehicle-data").html("");
+		$('#vehicle-data').html("");
 		console.log(e.target);
 		this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 	}
@@ -287,12 +281,12 @@ class Tracker extends React.Component {
 		console.log(x);
 		if (x.routes)
 		{
-		this.sRoutes = x.routes.map(route => (
-			route.relationships.route.data.id
-		));
-		this.sRoutes = this.GetUnique(this.sRoutes);
-		console.log("source routes");
-		console.log(this.sRoutes);
+			this.sRoutes = x.routes.map(route => (
+				route.relationships.route.data.id
+			));
+			this.sRoutes = this.GetUnique(this.sRoutes);
+			console.log("source routes");
+			console.log(this.sRoutes);
 
 			}
 	}
@@ -301,8 +295,10 @@ class Tracker extends React.Component {
 		//alert(response);
 		console.log("receivedRouteInfo");
 
+
 		//alert(response.length);
 		if (response.routes)
+
 		{
 		var info = response.routes.map(route => {
 
@@ -320,6 +316,7 @@ class Tracker extends React.Component {
 				console.log(route.relationships.vehicle.data.id)
 			console.log("time");
 			console.log(route.attributes.arrival_time);
+
 			if(route.relationships.vehicle.data != null)
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
 			else
@@ -330,6 +327,25 @@ class Tracker extends React.Component {
 
 		});
 		$("#route-info").html(info);
+
+
+
+
+		//$(".vehcilebtn").click((e) => {this.getVehcileData(e.target.id)});
+
+		//$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
+
+		//$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
+
+
+		//<button className="btn btn-secondary" id="vehicle-data"> Get Vehicle status </button>
+
+		// var cRoutes=this.commonRoutes.map(route =>{
+		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info rbt">Route'+ parseInt(route) +'</button>'
+		// 	});
+    //
+
+
 
 		$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
 
@@ -381,54 +397,6 @@ class Tracker extends React.Component {
     return outputArray;
 }
 
-
-
-componentDidMount(){
-	this.initMap();
-}
-
-
-initMap(){
-  //alert("yo");
-  window.map = new google.maps.Map(document.getElementById('map-canvas'), {
-            center: {lat: 42.3386095, lng: -71.0944618},
-            zoom: 18
-          });
-  var infoWindow = new google.maps.InfoWindow;
-
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-      var marker = new google.maps.Marker({
-                            position: pos,
-                            map: window.map
-                        });
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-        console.log(pos.lat);
-        console.log(pos.lng);
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('You are here.');
-        infoWindow.open(map);
-        window.map.setCenter(pos);
-      }, function() {
-				infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
-			  infoWindow.setContent('Error: The Geolocation service failed.');
-			  infoWindow.open(map);
-      },{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
-    }else {
-          // Browser doesn't support Geolocation
-					infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
-				  infoWindow.setContent('Error: Your browser doesn\'t support geolocation.');
-				  infoWindow.open(map);
-
-      }
-}
-
-
 }//class
 
 function Stop(params){
@@ -436,11 +404,4 @@ function Stop(params){
 	return (<option value={params.stop.attributes.name} id={params.key}>{params.stop.attributes.name}</option>);
 }
 
-// function state2props(state) {
-//   return {
-//           login: state.login,
-//           token: state.token};
-// }
-//
-// export default connect(state2props)(Tracker);
 export default Tracker;
