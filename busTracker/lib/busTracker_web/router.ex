@@ -28,5 +28,6 @@ defmodule BusTrackerWeb.Router do
     post "/token", TokenController, :create
     resources "/users", UserController, except: [:new, :edit]
     resources "/searches", SearchController, except: [:new, :edit]
+    resources "/recent", SearchController, except: [:new, :edit]
   end
 end

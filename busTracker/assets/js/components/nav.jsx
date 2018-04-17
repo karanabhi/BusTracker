@@ -49,7 +49,7 @@ function Nav(props) {
                         <NavItem>
                           <NavLink to="/searches" exact={true} activeClassName="active" className="nav-link">Search History</NavLink>
 
-                          <NavLink to="/tasklist" exact={true} activeClassName="active" className="nav-link">Recent Searches</NavLink>
+                          <NavLink to="/recent" exact={true} activeClassName="active" className="nav-link">Recent Searches</NavLink>
 
                         </NavItem>
 
