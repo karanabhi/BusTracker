@@ -1,6 +1,17 @@
 /* This file is for your main application css. */
 
 @import "bootstrap";
+body {
+  background-image: url(/images/2.jpg);
+}
+
+.heading-login {
+
+    font-size: xx-large;
+    color: white;
+    margin-left: -31px;
+}
+
 @media all and (min-width: 480px) {
   .login {
     padding: 60px 0;
@@ -10,8 +21,19 @@
   .login form {
     margin: 2ex;
     max-width: 320px;
+    background-color: beige;
+    padding: 20px 50px 35px 50px;
+    border-radius: 7px;
+
   }
+
 }
+
+
+
+
+
+
 .map_canvas {
   height: 400px;
   width: 600px;
@@ -33,6 +55,12 @@
 .route-div{
   border: 1px solid cadetblue;
   border-radius: 5px;
+  max-height: 350px;
+
+}
+
+.vehiclebtn {
+  margin-left: 200px;
 }
 
 #route-info-title{
@@ -46,10 +74,18 @@
   padding-top: 10px;
   min-height: 40px;
   max-height: 200px;
-  overflow-y: hidden;
+  overflow-y: auto;
+  min-width: 470px;
+  padding-bottom: 10px;
 }
 #route-data{
   padding: 10px;
+}
+
+#vehicle-data{
+  padding-left: 1rem;
+  padding-top: 1rem;
+
 }
 /* Optional: Makes the sample page fill the window. */
 

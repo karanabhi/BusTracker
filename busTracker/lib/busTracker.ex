@@ -28,7 +28,7 @@ defmodule BusTracker do
   end
 
   def get_vehicle_data(vehicle_id) do
-    resp = HTTPoison.get!("https://api-v3.mbta.com/vehicles/#{vehicle_id}?&include=stop")
+    resp = HTTPoison.get!("https://api-v3.mbta.com/vehicles/#{vehicle_id}?&include=stop,trip")
     data = Poison.decode!(resp.body)
     data
   end

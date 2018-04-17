@@ -45,7 +45,7 @@ function RegisterForm(props){
                 <Input type="password" id="pass" name="pass" placeholder="Password"/>
               </FormGroup>
               <FormGroup>
-                <input type="password" name="password_confirmation" placeholder="confirm password" />
+                <Input type="password" name="password_confirmation" placeholder="Confirm Password" />
               </FormGroup>
 
 

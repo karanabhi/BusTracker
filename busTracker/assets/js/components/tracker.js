@@ -207,13 +207,18 @@ class Tracker extends React.Component {
 		// 	});
 		console.log("type of");
 		console.log(typeof route);
+		if(this.commonRoutes.length>0) {
 
 			var cRoutes=this.commonRoutes.map(route =>{
 				console.log("type of");
 				console.log(typeof route);
 
-					return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button>'
+					return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button> &emsp;'
 				});
+			}
+			else {
+				var cRoutes = "No direct MBTA Service Found!";
+			}
 
 			//this.routeBtns=cRoutes;
 			console.log(cRoutes)	;
@@ -229,11 +234,11 @@ class Tracker extends React.Component {
 		console.log(data.data);
 		console.log(data.data.data.attributes.current_status);
 		if(data.data.data.attributes.current_status == 'STOPPED_AT')
-			var info = 'Stopped at ' +data.data.included[0].attributes.name;
+			var info = '<b>'+data.data.included[1].attributes.headsign+':</b> stopped at ' +data.data.included[0].attributes.name;
 		else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
-			var info = 'In transit to '+data.data.included[0].attributes.name;
+			var info = '<b>'+data.data.included[1].attributes.headsign+':</b> in transit to '+data.data.included[0].attributes.name;
 		else if(data.data.data.attributes.current_status == 'INCOMING_AT')
-			var info = 'Incoming at '+data.data.included[0].attributes.name;
+			var info = '<b>'+data.data.included[1].attributes.headsign+':</b> incoming at '+data.data.included[0].attributes.name;
 
 		var latitude = data.data.data.attributes.latitude;
 		var longitude = data.data.data.attributes.longitude;
@@ -300,9 +305,10 @@ class Tracker extends React.Component {
 	receivedRouteInfo(response){
 		//alert(response);
 		console.log("receivedRouteInfo");
-
+		console.log(response);
+		var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;'
 		//alert(response.length);
-		if (response.routes)
+		if (response.routes.length>0)
 		{
 		var info = response.routes.map(route => {
 
@@ -323,7 +329,7 @@ class Tracker extends React.Component {
 			if(route.relationships.vehicle.data != null)
 				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
 			else
-				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
+				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> '+spaces+' No vehicle data available <br/>';
 			}
 
 
@@ -336,8 +342,8 @@ class Tracker extends React.Component {
 			}
 		else {
 			alert("here");
-			$("#route-info").html("");
-			$("#route-data").html("No Route Found!");
+			$("#route-info").html("Route Data Not Found!");
+			//$("#route-data").html("No Route Found!");
 		}
 	}
 

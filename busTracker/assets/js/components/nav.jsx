@@ -66,7 +66,7 @@ function Nav(props) {
     <div className="container">
       <nav className="navbar navbar-dark bg-dark navbar-expand">
         <span className="navbar-brand">
-          Bus Tracker
+          MBTA Tracker
         </span>
         {nav_items}
         <span>
