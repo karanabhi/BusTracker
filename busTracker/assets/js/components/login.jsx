@@ -44,15 +44,10 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   function log_in(ev) {
     ev.preventDefault();
     api.submit_login(props.login);
-    if(props.login)
-    {
-      //document.getElementById("redirectToTasklist").click();
-    }
-    //console.log(props.login);
   }
 
   return( <div className="login">
-            <label><h2>Please Sign In</h2></label>
+            <label><h2>Sign In!</h2></label>
             <Form >
               <FormGroup>
                 <Input type="email" name="email" placeholder="Email"
@@ -65,6 +60,6 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
               <Button onClick={log_in}>Log In</Button> &nbsp;
               <Link to="/register">Register</Link>
             </Form>
-            <Link to="/tracker" id="redirectToTasklist" type="hidden"></Link>
+            <Link to="/tracker" id="redirectToHome" type="hidden"></Link>
           </div>);
 });
