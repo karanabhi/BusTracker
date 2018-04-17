@@ -40,27 +40,26 @@ function Nav(props) {
   let session_info;
   console.log("Props Token: ");
   console.log(props.token);
-  //if (props.token) {
-  if (localStorage.getItem("login_token")) {
+  if (props.token) {
+  //if (localStorage.getItem("login_token")) {
     nav_items = <ul className="navbar-nav mr-auto">
                         <NavItem>
-<<<<<<< HEAD
                           <NavLink to="/tracker" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
                         </NavItem>
                         <NavItem>
                           <NavLink to="/searches" exact={true} activeClassName="active" className="nav-link">Search History</NavLink>
-=======
+
                           <NavLink to="/tasklist" exact={true} activeClassName="active" className="nav-link">Recent Searches</NavLink>
->>>>>>> 1a408fe04540a14e7c8d6cfc8a4fb32ce20b0d29
+
                         </NavItem>
 
                       </ul>;
-        newToken= {
-            user_id: localStorage.getItem("login_user_id"),
-            user_name: localStorage.getItem("login_user_name"),
-            token: localStorage.getItem("login_token")
-          }
-    session_info = <Session token={newToken} />;
+//        newToken= {
+//            user_id: localStorage.getItem("login_user_id"),
+//            user_name: localStorage.getItem("login_user_name"),
+//            token: localStorage.getItem("login_token")
+//          }
+    session_info = <Session token={props.token} />;
   }
 
   return (
