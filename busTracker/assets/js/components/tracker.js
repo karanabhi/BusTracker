@@ -74,7 +74,7 @@ class Tracker extends React.Component {
 		var stops2 = "";
 		if(this.state.stops)
 		{
-			//console.log("Stops working!");
+			console.log("Stops working!");
 			stops = this.state.stops.map(stop => (
 				stop.id
 			));
