@@ -18,6 +18,11 @@ let Session = connect(({token}) => {return {token};})((props) => {
         token: ""
       }
     });
+    alert("logout");
+    localStorage.removeItem("login_token");
+    localStorage.removeItem("login_id");
+    localStorage.removeItem("login_user_name");
+    alert(localStorage.getItem("login_token"));
     location.replace("/");
   }
 
@@ -33,14 +38,22 @@ let Session = connect(({token}) => {return {token};})((props) => {
 function Nav(props) {
   let nav_items;
   let session_info;
-  if (props.token) {
+  console.log("Props Token: ");
+  console.log(props.token);
+  //if (props.token) {
+  if (localStorage.getItem("login_token")) {
     nav_items = <ul className="navbar-nav mr-auto">
                         <NavItem>
                           <NavLink to="/tasklist" exact={true} activeClassName="active" className="nav-link">Recent Searches</NavLink>
                         </NavItem>
 
                       </ul>;
-    session_info = <Session token={props.token} />;
+        newToken= {
+            user_id: localStorage.getItem("login_user_id"),
+            user_name: localStorage.getItem("login_user_name"),
+            token: localStorage.getItem("login_token")
+          }
+    session_info = <Session token={newToken} />;
   }
 
   return (
