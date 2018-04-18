@@ -25,3 +25,11 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * https://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
   * https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_glyph_search&stacked=h
   * https://getbootstrap.com/docs/4.0/components/collapse/
+  * https://api-v3.mbta.com/docs/swagger/index.html#/Stop/ApiWeb_StopController_index
+  * https://developers.google.com/maps/documentation/roads/snap
+  * https://www.youtube.com/watch?v=QuuL29iiOn0
+  * https://github.com/abhinavagrawal1995/codetrip
+  * https://www.codeproject.com/Tips/507855/Get-Unique-Values-from-a-JavaScript-Array 
+  * https://stackoverflow.com/questions/22163143/how-to-find-common-elements-only-between-2-arrays-in-jquery 
+  * https://www.w3schools.com/html/html5_geolocation.asp
+  * https://developers.google.com/maps/documentation/javascript/examples/map-geolocation 
