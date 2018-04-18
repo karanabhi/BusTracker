@@ -30,8 +30,8 @@ let Session = connect(({token}) => {return {token};})((props) => {
   console.log(props.token);
   var uName=localStorage.getItem("login_user_name");
   return <div className="navbar-text">
-          <label>Welcome, { uName }</label> &nbsp;|&nbsp;
-          <Button color="link" onClick={logout}>LogOut</Button>
+          <label className="welcome">Welcome, <b>{ uName }</b></label> &nbsp;|&nbsp;
+          <Button color="link" onClick={logout}>Logout</Button>
           </div>;
 });
 
@@ -46,18 +46,20 @@ function Nav(props) {
     if (localStorage.getItem("login_token")) {
     nav_items = <ul className="navbar-nav mr-auto">
                 <NavItem>
-                <NavLink to="/tracker" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
+                <NavLink to="/tracker" exact={true} activeClassName="active" className="nav-link"><b>Home</b></NavLink>
                 </NavItem>
                 <NavItem>
-                <NavLink to="/searches" exact={true} activeClassName="active" className="nav-link">Search History</NavLink>
+                <NavLink to="/searches" exact={true} activeClassName="active" className="nav-link"><b>Search History</b></NavLink>
                 </NavItem>
                 </ul>;
     session_info = <Session token={props.token} />;
   }
 
+
+
   return (
     <div className="container">
-      <nav className="navbar navbar-dark bg-dark navbar-expand">
+      <nav className="navbar navbar-expand">
         <span className="navbar-brand">
           MBTA Tracker
         </span>

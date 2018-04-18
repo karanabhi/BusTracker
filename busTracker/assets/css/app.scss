@@ -2,14 +2,71 @@
 
 @import "bootstrap";
 body {
-  background-image: url(/images/2.jpg);
+  background-image: url(/images/3.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1400px 1000px;
+}
+
+.container-fluid {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 50%;
+}
+
+.welcome {
+  color: white;
+}
+
+.nav-link {
+    color: #9fc69f;
+}
+
+.login_div {
+  margin-top: 2em;
+}
+
+.navbar {
+  background-color: navy;
+}
+
+.navbar-brand {
+  color: white;
+}
+
+.signin-label {
+  font-size: 20px;
+  padding-bottom: 1em;
+  padding-top: 0.5em;
+  margin-left: 81px;
+  color: white;
+}
+
+.loginbtn {
+  padding-right: 3em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  background-color: #dc143c;
 }
 
 .heading-login {
 
-    font-size: xx-large;
-    color: white;
-    margin-left: -31px;
+  font-size: xx-large;
+  color: black;
+  margin-left: -26px;
+  background-color: white;
+  padding: 0ex 1ex 0ex 1ex;
+  border-radius: 4px;
+    //margin-top: 10ex;
+}
+
+.register-button {
+  color: white;
+  font-size:16px;
+  text-decoration: underline;
 }
 
 @media all and (min-width: 480px) {
@@ -19,11 +76,11 @@ body {
   }
 
   .login form {
-    margin: 2ex;
-    max-width: 320px;
-    background-color: beige;
-    padding: 20px 50px 35px 50px;
+    padding: 18px 47px 35px 50px;
     border-radius: 7px;
+    margin-top: 6ex;
+    max-width: 350px;
+    margin-left: 44px;
 
   }
 
@@ -43,6 +100,7 @@ body {
   overflow: visible;
   position: static;
   float: right;
+  margin-right: 1em;
 //  background-color: gray;
 }
 #route-data {
@@ -56,19 +114,39 @@ body {
   display: none;
 }
 .route-div{
-  border: 1px solid cadetblue;
+  border: 1.5px solid navy;
   border-radius: 5px;
   max-height: 380px;
-  background-color: beige;
+  //background-color: #ceebfd;
+  background-color: white;
+  margin-left: 1em;
+
 }
 
+// .mapcanvas {
+//   z-index: 1;
+//   position: absolute;
+//   height: 100%;
+//   width: 100%;
+//   padding: 0px;
+//   border-width: 0px;
+//   margin: 0px;
+//   left: 0px;
+//   top: 0px;
+// }
 
+.container {
+    width: 1170px;
+    background-color: white;
+}
 
 #route-info-title{
   border-bottom: 1px dotted;
   border-top: 1px dotted;
   text-align: center;
   width: 100%;
+  background-color: navy;
+  color: white;
 }
 #route-info{
   padding-left: 10px;

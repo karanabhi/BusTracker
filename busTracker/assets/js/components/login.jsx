@@ -49,7 +49,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   return( <div className="login">
             <label className="heading-login">Welcome to MBTA Tracker!</label><br/>
             <Form>
-            <label><h3>Sign In!</h3></label>
+            <label className="signin-label">Sign In</label>
               <FormGroup>
                 <Input type="email" name="email" placeholder="Email"
                        value={props.login.email} onChange={update} />
@@ -58,8 +58,10 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
                 <Input type="password" name="pass" placeholder="Password"
                        value={props.login.pass} onChange={update} />
               </FormGroup>
-              <Button onClick={log_in}>Log In</Button> &nbsp;
-              <Link to="/register">Register</Link>
+              <div className="login_div">
+                <Button className="btn loginbtn" onClick={log_in}><b>Log In</b></Button> &emsp; | &emsp;
+                <Link className="register-button" to="/register">  Register </Link>
+              </div>
             </Form>
             <Link to="/tracker" id="redirectToHome" type="hidden"></Link>
           </div>);
