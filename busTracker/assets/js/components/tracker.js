@@ -224,13 +224,13 @@ class Tracker extends React.Component {
 				console.log(data.data.data.attributes.current_status);
 				console.log("head sign");
 				console.log()
-				if(data.data.included[0].attributes.headsign == null || data.data.included[1].attributes.name == null) {
+				if(data.data.included[0].type == "trip" && data.data.included[1].type == "stop") {
 					if(data.data.data.attributes.current_status == 'STOPPED_AT')
-					var info = 'Stopped at ' +data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> stopped at ' +data.data.included[1].attributes.name;
 					else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
-					var info = 'In transit to '+data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> in transit to '+data.data.included[1].attributes.name;
 					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
-					var info = 'Incoming at '+data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> incoming at '+data.data.included[1].attributes.name;
 
 					let infoWindow = new google.maps.InfoWindow;
 
@@ -243,11 +243,11 @@ class Tracker extends React.Component {
 				}
 				else {
 					if(data.data.data.attributes.current_status == 'STOPPED_AT')
-					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> stopped at ' +data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[1].attributes.headsign+':</b> stopped at ' +data.data.included[0].attributes.name;
 					else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
-					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> in transit to '+data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[1].attributes.headsign+':</b> in transit to '+data.data.included[0].attributes.name;
 					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
-					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> incoming at '+data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[1].attributes.headsign+':</b> incoming at '+data.data.included[0].attributes.name;
 
 					let infoWindow = new google.maps.InfoWindow;
 
@@ -323,7 +323,7 @@ class Tracker extends React.Component {
 					});
 				}	else {
 
-					$("#route-data").html("No Route Found!");
+					$("#route-info").html("Route Data Not Found!");
 				}
 
 				$("#route-info").html(info);
