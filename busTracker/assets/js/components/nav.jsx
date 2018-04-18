@@ -57,7 +57,6 @@ function Nav(props) {
 
   return (
     <div className="container">
-<<<<<<< HEAD
       <nav className="navbar navbar-dark bg-dark navbar-expand">
         <span className="navbar-brand">
           MBTA Tracker
@@ -67,17 +66,6 @@ function Nav(props) {
         { session_info }
         </span>
       </nav>
-=======
-    <nav className="navbar navbar-dark bg-dark navbar-expand">
-    <span className="navbar-brand">
-    Bus Tracker
-    </span>
-    {nav_items}
-    <span>
-    { session_info }
-    </span>
-    </nav>
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
     </div>
   );
 }

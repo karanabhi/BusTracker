@@ -74,7 +74,7 @@ class Tracker extends React.Component {
 		var stops2 = "";
 		if(this.state.stops)
 		{
-			//console.log("Stops working!");
+			console.log("Stops working!");
 			stops = this.state.stops.map(stop => (
 				stop.id
 			));
@@ -88,8 +88,6 @@ class Tracker extends React.Component {
 
 			return(
 				<div className="container">
-				<div id="navbar"></div>
-
 				<div className="container-fluid">
 				<div className="row">
 				<div className="col-xs-12">
@@ -133,19 +131,12 @@ class Tracker extends React.Component {
 				<div className="row">
 				<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
 				<div id="vehicle-data">
-
 				</div>
-
 				</div>
-
-
 				</div>
 				<hr/>
 				<div id="map-canvas" className="col-md-6 map_canvas"></div>
-
-
 				</div>
-
 				</div>);
 
 			}
@@ -181,8 +172,7 @@ class Tracker extends React.Component {
 				$("#route-info").html("");
 				$("#vehicle-data").html("");
 				this.commonRoutes=[];
-				var
-				destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
+				var	destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 				console.log(x[0].id);
 				console.log("destination");
 				console.log(x[0].id);
@@ -200,92 +190,75 @@ class Tracker extends React.Component {
 				var str="";
 				// var cRoutes=this.commonRoutes.map(route =>{
 				// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info routebtn">Route'+ parseInt(route) +'</button>'
-				// 	});
-				console.log("type of");
-				console.log(typeof route);
+				//
+				if(this.commonRoutes.length>0) {
+					 	console.log("Common Routes");
+						console.log(this.commonRoutes);
+					var cRoutes=this.commonRoutes.map(route =>{
+						console.log("type of");
+						console.log(typeof route);
 
-				var cRoutes=this.commonRoutes.map(route =>{
-					console.log("type of");
-					console.log(typeof route);
-
-					return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button>'
-				});
-
-				//this.routeBtns=cRoutes;
-				console.log(cRoutes)	;
+						return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button> &emsp;'
+					});
+				}
+				else {
+					var cRoutes = "No direct MBTA Service Found!";
+				}
 				$("#route-data").html(cRoutes);
+				$(".routebtn").click((e)=>{this.handleRouteInfo(e,this.state.source.id)});
 
-				$(".routebtn").click((e) => {this.handleRouteInfo(e, this.state.source.id)});
-
-<<<<<<< HEAD
-	handleRoutes(e){
-		$("#vehicle-data").html("");
-		this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
-		console.log("commonRoutes");
-		console.log(this.commonRoutes);
-		showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
-		var str="";
-		// var cRoutes=this.commonRoutes.map(route =>{
-		// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info routebtn">Route'+ parseInt(route) +'</button>'
-		// 	});
-		console.log("type of");
-		console.log(typeof route);
-		if(this.commonRoutes.length>0) {
-
-			var cRoutes=this.commonRoutes.map(route =>{
-				console.log("type of");
-				console.log(typeof route);
-
-					return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button> &emsp;'
-				});
-			}
-			else {
-				var cRoutes = "No direct MBTA Service Found!";
-			}
-=======
 			}
 
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
+
+			handleRouteInfo(e, sourceId){
+				//alert("askb");
+				//console.log(e.target.id);
+				$("#vehicle-data").html("");
+				console.log(e.target.id);
+				this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
+			}
 
 			receivedVehicleData(data) {
 				console.log("receivedVehcileData");
 				console.log(data.data);
 				console.log(data.data.data.attributes.current_status);
-				if(data.data.data.attributes.current_status == 'STOPPED_AT')
-				var info = 'Stopped at ' +data.data.included[0].attributes.name;
-				else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
-				var info = 'In transit to '+data.data.included[0].attributes.name;
-				else if(data.data.data.attributes.current_status == 'INCOMING_AT')
-				var info = 'Incoming at '+data.data.included[0].attributes.name;
+				console.log("head sign");
+				console.log()
+				if(data.data.included[0].attributes.headsign == null || data.data.included[1].attributes.name == null) {
+					if(data.data.data.attributes.current_status == 'STOPPED_AT')
+					var info = 'Stopped at ' +data.data.included[1].attributes.name;
+					else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
+					var info = 'In transit to '+data.data.included[1].attributes.name;
+					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
+					var info = 'Incoming at '+data.data.included[1].attributes.name;
 
-				var latitude = data.data.data.attributes.latitude;
-				var longitude = data.data.data.attributes.longitude;
-				var pos = {
-					lat: latitude,
-					lng: longitude
-				};
+					let infoWindow = new google.maps.InfoWindow;
 
+					var latitude = data.data.data.attributes.latitude;
+					var longitude = data.data.data.attributes.longitude;
+					infoWindow.setPosition({lat: latitude, lng: longitude});
+					infoWindow.setContent(info);
+					infoWindow.open(window.map);
 
-				var infoWindow = new google.maps.InfoWindow;
+				}
+				else {
+					if(data.data.data.attributes.current_status == 'STOPPED_AT')
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> stopped at ' +data.data.included[1].attributes.name;
+					else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> in transit to '+data.data.included[1].attributes.name;
+					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> incoming at '+data.data.included[1].attributes.name;
 
-<<<<<<< HEAD
-	receivedVehicleData(data) {
-		console.log("receivedVehcileData");
-		console.log(data.data);
-		console.log(data.data.data.attributes.current_status);
-		if(data.data.data.attributes.current_status == 'STOPPED_AT')
-			var info = '<b>'+data.data.included[1].attributes.headsign+':</b> stopped at ' +data.data.included[0].attributes.name;
-		else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
-			var info = '<b>'+data.data.included[1].attributes.headsign+':</b> in transit to '+data.data.included[0].attributes.name;
-		else if(data.data.data.attributes.current_status == 'INCOMING_AT')
-			var info = '<b>'+data.data.included[1].attributes.headsign+':</b> incoming at '+data.data.included[0].attributes.name;
-=======
-				infoWindow.setPosition(pos);
-				infoWindow.setContent(info);
-				infoWindow.open(window.map);
-				//window.map.setCenter(pos);
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
+					let infoWindow = new google.maps.InfoWindow;
 
+					var latitude = data.data.data.attributes.latitude;
+					var longitude = data.data.data.attributes.longitude;
+					infoWindow.setPosition({lat: latitude, lng: longitude});
+					infoWindow.setContent(info);
+					infoWindow.open(window.map);
+
+				}
+								//window.map.setCenter(pos);
 
 
 				$('#vehicle-data').html(info);
@@ -298,14 +271,6 @@ class Tracker extends React.Component {
 
 			}
 
-			handleRouteInfo(e, sourceId){
-				//alert("askb");
-				//console.log(e.target.id);
-				$("#vehicle-data").html("");
-				console.log(e.target);
-				this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
-			}
-
 			handleSourceRoutesData(){
 				console.log("state");
 				console.log(this.state);
@@ -313,7 +278,6 @@ class Tracker extends React.Component {
 			}
 
 			handleDestinationRoutesData(){
-				console.log("state");
 				console.log(this.state);
 				this.channel.push("get_routes", {tracker: this.state.destination.id}).receive("ok", resp => {this.receivedDestinationRoutes(resp)});
 			}
@@ -333,35 +297,18 @@ class Tracker extends React.Component {
 				}
 			}
 
+
 			receivedRouteInfo(response){
 				//alert(response);
 				console.log("receivedRouteInfo");
-
+				console.log(response);
+				var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;'
 				//alert(response.length);
-				if (response.routes)
+				if (response.routes.length>0)
 				{
 					var info = response.routes.map(route => {
-
-						if(route.attributes.arrival_time!=null) {
-
-
-							console.log("vehcile data");
-
-<<<<<<< HEAD
-	receivedRouteInfo(response){
-		//alert(response);
-		console.log("receivedRouteInfo");
-		console.log(response);
-		var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;'
-		//alert(response.length);
-		if (response.routes.length>0)
-		{
-		var info = response.routes.map(route => {
-=======
-							console.log("vehicle data");
-
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
-
+						if(route.attributes.arrival_time != null)
+						{
 							console.log(route);
 							console.log("vehicle id");
 							if(route.relationships.vehicle.data != null)
@@ -371,35 +318,16 @@ class Tracker extends React.Component {
 							if(route.relationships.vehicle.data != null)
 							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
 							else
-							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> No vehicle data available <br/>';
+							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> '+spaces+' No vehicle data available <br/>';
 						}
-
-
-
 					});
-					$("#route-info").html(info);
+				}	else {
 
-					$(".vehiclebtn").click((e) => {this.getVehicleData(e.target.id)});
-
-<<<<<<< HEAD
-			console.log(route);
-			console.log("vehicle id");
-			if(route.relationships.vehicle.data != null)
-				console.log(route.relationships.vehicle.data.id)
-			console.log("time");
-			console.log(route.attributes.arrival_time);
-			if(route.relationships.vehicle.data != null)
-				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
-			else
-				return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> '+spaces+' No vehicle data available <br/>';
-=======
-				}
-				else {
-					alert("here");
-					$("#route-info").html("");
 					$("#route-data").html("No Route Found!");
 				}
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
+
+				$("#route-info").html(info);
+				$(".vehiclebtn").click(e => {this.getVehicleData(e.target.id)});
 			}
 
 			receivedDestinationRoutes(x){
@@ -426,15 +354,7 @@ class Tracker extends React.Component {
 
 				return common;
 			}
-<<<<<<< HEAD
-		else {
-			alert("here");
-			$("#route-info").html("Route Data Not Found!");
-			//$("#route-data").html("No Route Found!");
-		}
-	}
-=======
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
+
 
 			GetUnique(inputArray, x)
 			{

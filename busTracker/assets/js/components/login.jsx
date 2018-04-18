@@ -47,14 +47,9 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   }
 
   return( <div className="login">
-<<<<<<< HEAD
             <label className="heading-login">Welcome to MBTA Tracker!</label><br/>
             <Form>
-            <label><h3>Please Sign In</h3></label>
-=======
-            <label><h2>Sign In!</h2></label>
-            <Form >
->>>>>>> 6c36a2bbccdeb3ca94969f699f5fbfaf38501d68
+            <label><h3>Sign In!</h3></label>
               <FormGroup>
                 <Input type="email" name="email" placeholder="Email"
                        value={props.login.email} onChange={update} />

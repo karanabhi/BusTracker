@@ -40,10 +40,8 @@ let Main = connect((state) => state)((props) => {
               <Route path="/register" exact={true} render={() =>
                     <Register />
                 } />
-
             </div>
           </Router>;
-
 });
 
 
