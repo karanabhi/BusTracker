@@ -42,7 +42,7 @@ alias BusTracker.Accounts.User
   end
   def put_pass_hash(changeset), do: changeset
 
-  def valid_password?(password) when byte_size(password) > 7 do
+  def valid_password?(password) do
     {:ok, password}
   end
   def valid_password?(_), do: {:error, "The password is too short"}
