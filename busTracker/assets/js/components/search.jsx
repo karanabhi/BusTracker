@@ -16,16 +16,13 @@ export default function Search(params) {
   }
   let search = params.search;
 
-console.log("adlakdjb;as;lmlkjn");
-console.log(search);
-
 
   let show_delete_button;
   if(localStorage.getItem("login_id") == search.user.id)
   {
-    //show_edit_link = <Link to={"/tasks/" + task.id}>Edit</Link>;
+
     let searchQuery = JSON.parse(search.query);
-    console.log(searchQuery);
+
       return(<Card>
         <CardBody>
             <div>

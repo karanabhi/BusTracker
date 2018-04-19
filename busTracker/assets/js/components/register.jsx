@@ -18,6 +18,9 @@ function RegisterForm(props){
 
   function register(ev) {
     ev.preventDefault();
+    if($("#pass").val() != $("#passConf").val()){
+      alert("Passwords don't match!");
+    }
     let user={
         name: $("#username").val(),
         email: $("#email").val(),
@@ -26,11 +29,8 @@ function RegisterForm(props){
 
     api.register_user(user);
 
-    if(props.login)
-    {
 
-    }
-    //console.log(props.login);
+
   }
 
   return( <div className="login">
@@ -45,12 +45,13 @@ function RegisterForm(props){
                 <Input type="password" id="pass" name="pass" placeholder="Password"/>
               </FormGroup>
               <FormGroup>
-                <Input type="password" name="password_confirmation" placeholder="Confirm Password" />
+                <Input type="password" id="passConf" name="password_confirmation" placeholder="Confirm Password" />
               </FormGroup>
 
 
               <Button onClick={register}>Register</Button> &emsp;
               <Link to="/">Back</Link>
             </Form>
+            <Link to="/tracker" id="redirectToHome" type="hidden"></Link>
           </div>);
 }

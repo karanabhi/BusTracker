@@ -57,7 +57,6 @@ defmodule BusTracker.Searches do
     {:ok, search} = %Search{}
     |> Search.changeset(attrs)
     |> Repo.insert()
-    IO.inspect Repo.preload(search, :user)
     {:ok, Repo.preload(search, :user)}
   end
 

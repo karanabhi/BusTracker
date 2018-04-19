@@ -16,7 +16,7 @@ import Searches from './searches';
 
 
 export default function main_init(root, channel){
-console.log("herereerererere");
+
 ReactDOM.render(
   <Provider store={store}>
   <Main channel={channel} root={root}/>
@@ -24,10 +24,7 @@ ReactDOM.render(
 }
 
 let Main = connect((state) => state)((props) => {
-  console.log("channel ");
-  console.log(props.channel);
-  console.log(props.root);
-  console.log(props.searches);
+  
     return <Router>
               <div>
                 <Route path="/" exact={true} render={() =>
@@ -46,7 +43,7 @@ let Main = connect((state) => state)((props) => {
                 <div>
                   <Nav />
                   <Searches searches={_.filter(props.searches, (pp) => {
-                  
+
                       if(pp.user){
 
                         return parseInt(localStorage.getItem("login_id")) == pp.user.id;
@@ -59,7 +56,3 @@ let Main = connect((state) => state)((props) => {
             </div>
           </Router>;
 });
-
-
-
-// Use jQuery to delay until page loaded.

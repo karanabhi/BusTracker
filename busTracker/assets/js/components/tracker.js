@@ -14,7 +14,6 @@ class Tracker extends React.Component {
 		super(props);
 
 		if (localStorage.getItem("login_token") == null){
-			//alert("Please Login!");
 			return location.replace("/");
 		}
 
@@ -43,6 +42,7 @@ class Tracker extends React.Component {
 		this.commonRoutes="";
 
 
+		if(this.channel.state != "joined")
 		this.channel.join()
 		.receive("ok",this.createState.bind(this))
 		.receive("error",resp => "Error while joining");
@@ -75,7 +75,7 @@ class Tracker extends React.Component {
 		var stops2 = "";
 		if(this.state.stops)
 		{
-			console.log("Stops working!");
+
 			stops = this.state.stops.map(stop => (
 				stop.id
 			));
@@ -157,7 +157,7 @@ class Tracker extends React.Component {
 						user_id: localStorage.getItem("login_id"),
 						query: JSON.stringify(q)
 				}
-				//console.log(data);
+
 				api.insertIntoSearchDb(data);
 			}//handleSearchHistory()
 
@@ -171,15 +171,10 @@ class Tracker extends React.Component {
 					var
 					source = {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 
-					console.log("source");
-					console.log(x[0].id);
 					var id = x[0].id;
 					var label = x[0].label;
 					var latitude = x[0].latitude;
 					var longitude = x[0].longitude;
-
-					console.log(x[0].id);
-
 
 					this.setState({source: source}, function () {
 						this.handleSourceRoutesData();
@@ -194,9 +189,7 @@ class Tracker extends React.Component {
 				$("#vehicle-data").html("");
 				this.commonRoutes=[];
 				var	destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
-				console.log(x[0].id);
-				console.log("destination");
-				console.log(x[0].id);
+
 				this.setState({destination: destination}, function () {
 					this.handleDestinationRoutesData();
 				})
@@ -209,20 +202,10 @@ class Tracker extends React.Component {
 
 				$("#vehicle-data").html("");
 				this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
-				console.log("commonRoutes");
-				console.log(this.commonRoutes);
 				showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 				var str="";
-				// var cRoutes=this.commonRoutes.map(route =>{
-				// 		return '<button key='+parseInt(route) + ' id='+parseInt(route)+' class="btn btn-info routebtn">Route'+ parseInt(route) +'</button>'
-				//
 				if(this.commonRoutes.length>0) {
-					 	console.log("Common Routes");
-						console.log(this.commonRoutes);
 					var cRoutes=this.commonRoutes.map(route =>{
-						console.log("type of");
-						console.log(typeof route);
-
 						return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button> &emsp;'
 					});
 				}
@@ -236,26 +219,19 @@ class Tracker extends React.Component {
 
 
 			handleRouteInfo(e, sourceId){
-				//alert("askb");
-				//console.log(e.target.id);
+
 				$("#vehicle-data").html("");
-				console.log(e.target.id);
 				this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 			}
 
 			receivedVehicleData(data) {
-				console.log("receivedVehcileData");
-				console.log(data.data);
-				console.log(data.data.data.attributes.current_status);
-				console.log("head sign");
-				console.log()
 				if(data.data.included[0].type == "trip" && data.data.included[1].type == "stop") {
 					if(data.data.data.attributes.current_status == 'STOPPED_AT')
-					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> stopped at ' +data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> Stopped At ' +data.data.included[1].attributes.name;
 					else if(data.data.data.attributes.current_status == 'IN_TRANSIT_TO')
-					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> in transit to '+data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> In Transit to '+data.data.included[1].attributes.name;
 					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
-					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> incoming at '+data.data.included[1].attributes.name;
+					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> Incoming At '+data.data.included[1].attributes.name;
 
 					let infoWindow = new google.maps.InfoWindow;
 
@@ -290,56 +266,44 @@ class Tracker extends React.Component {
 			}
 
 			getVehicleData(vehicle_id) {
-				console.log("vehcile_id-------------------");
-				console.log(vehicle_id)
 				this.channel.push("get_vehicle_data", {vehicle_id: vehicle_id}).receive("ok", resp => {this.receivedVehicleData(resp)});
 
 			}
 
 			handleSourceRoutesData(){
-				console.log("state");
-				console.log(this.state);
+
 				this.channel.push("get_routes", {tracker: this.state.source.id}).receive("ok", resp => {this.receivedSourceRoutes(resp)});
 			}
 
 			handleDestinationRoutesData(){
-				console.log(this.state);
+
 				this.channel.push("get_routes", {tracker: this.state.destination.id}).receive("ok", resp => {this.receivedDestinationRoutes(resp)});
 			}
 
 			receivedSourceRoutes(x){
-				console.log("receivedSourceRoutes");
-				console.log(x);
+
 				if (x.routes)
 				{
 					this.sRoutes = x.routes.map(route => (
 						route.relationships.route.data.id
 					));
 					this.sRoutes = this.GetUnique(this.sRoutes);
-					console.log("source routes");
-					console.log(this.sRoutes);
 
 				}
 			}
 
 
 			receivedRouteInfo(response){
-				//alert(response);
-				console.log("receivedRouteInfo");
-				console.log(response);
+
 				var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;'
-				//alert(response.length);
+
 				if (response.routes.length>0)
 				{
 					var info = response.routes.map(route => {
 						if(route.attributes.arrival_time != null)
 						{
-							console.log(route);
-							console.log("vehicle id");
+
 							if(route.relationships.vehicle.data != null)
-							console.log(route.relationships.vehicle.data.id)
-							console.log("time");
-							console.log(route.attributes.arrival_time);
 							if(route.relationships.vehicle.data != null)
 							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
 							else
@@ -362,17 +326,14 @@ class Tracker extends React.Component {
 						route.relationships.route.data.id
 					));
 					this.dRoutes = this.GetUnique(this.dRoutes);
-					//console.log(dRoutes1);
-
-					//$("#route-data").html(this.commonRoutes);
-					console.log("Destination routes");
-					console.log(this.dRoutes);
-
 				}
 
 			}
 
 			getCommonRoutes(array1, array2) {
+				if (this.state.source.id == this.state.destination.id){
+					return [];
+				}
 				var common = $.grep(array1, function(element) {
 					return $.inArray(element, array2 ) !== -1;
 				});
@@ -423,8 +384,7 @@ class Tracker extends React.Component {
 							map: window.map
 						});
 						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-						console.log(pos.lat);
-						console.log(pos.lng);
+
 						infoWindow.setPosition(pos);
 						infoWindow.setContent('You are here.');
 						infoWindow.open(map);
@@ -443,19 +403,11 @@ class Tracker extends React.Component {
 				}
 			}
 
-
-		}//class
+		}
 
 		function Stop(params){
 
 			return (<option value={params.stop.attributes.name} id={params.key}>{params.stop.attributes.name}</option>);
 		}
 
-		// function state2props(state) {
-		//   return {
-		//           login: state.login,
-		//           token: state.token};
-		// }
-		//
-		// export default connect(state2props)(Tracker);
 		export default Tracker;

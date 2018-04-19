@@ -63,7 +63,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
               </FormGroup>
               <div className="login_div">
                 <Button className="btn loginbtn" onClick={log_in}><b>Log In</b></Button> &emsp; | &emsp;
-                <Link className="register-button" to="/register">  Register </Link>
+                <Link className="register-button" to="/register">Register</Link>
               </div>
             </Form>
             <Link to="/tracker" id="redirectToHome" type="hidden"></Link>
