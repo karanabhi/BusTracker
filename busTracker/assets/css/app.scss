@@ -8,12 +8,8 @@ body {
   background-size: 1400px 1000px;
 }
 
-.container-fluid {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  width: 50%;
+.searchBox {
+  width: 100%;
 }
 
 .welcome {
@@ -56,7 +52,6 @@ body {
 
   font-size: xx-large;
   color: black;
-  margin-left: -26px;
   background-color: white;
   padding: 0ex 1ex 0ex 1ex;
   border-radius: 4px;
@@ -81,13 +76,26 @@ body {
     margin-top: 6ex;
     max-width: 350px;
     margin-left: 44px;
-
+  }
+  .heading-login{
+    margin-left: -26px;
   }
 
+}
+.login form{
+  margin-left: 1em;
+  margin-right: 1em;
 }
 @media all and (min-width: 370px) {
   .vehiclebtn {
     margin-left: 200px !important;
+  }
+  .searchBox{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width:50%;
   }
 }
 
@@ -96,17 +104,20 @@ body {
 }
 .map_canvas {
   height: 400px;
-  width: 600px;
-  overflow: visible;
-  position: static;
-  float: right;
+  max-width: 600px;
+  min-width: 250px;
+  //overflow: auto;
+  position: relative;
+  margin-left: 1em;
   margin-right: 1em;
+  //float: right;
+  //margin-right: 1em;
 //  background-color: gray;
 }
 #route-data {
   display: inline-block;
   float: left;
-  width: 500px;
+  //width: 500px;
   min-height: 40px;
   padding: 10px;
 }
@@ -120,10 +131,11 @@ body {
   //background-color: #ceebfd;
   background-color: white;
   margin-left: 1em;
+  margin-right: 1em;
 
 }
 
-// .mapcanvas {
+// .map_canvas {
 //   z-index: 1;
 //   position: absolute;
 //   height: 100%;
@@ -135,10 +147,10 @@ body {
 //   top: 0px;
 // }
 
-.container {
-    width: 1170px;
-    background-color: white;
-}
+// .container {
+//     width: 1170px;
+//     background-color: white;
+// }
 
 #route-info-title{
   border-bottom: 1px dotted;
@@ -154,7 +166,7 @@ body {
   min-height: 40px;
   max-height: 200px;
   overflow-y: auto;
-  min-width: 470px;
+  width:100%;
   padding-bottom: 10px;
 }
 #route-data{

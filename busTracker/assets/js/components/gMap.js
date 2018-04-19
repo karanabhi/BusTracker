@@ -33,6 +33,7 @@ function showMap(mySrc,myDest,directionsService,directionsDisplay) {
   };
 
   directionsService.route(request, function (result, status) {
+    directionDisplay.set('directions', null);
     directionsDisplay.setDirections(result);
   });
 

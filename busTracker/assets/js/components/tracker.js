@@ -89,55 +89,54 @@ class Tracker extends React.Component {
 			return(
 				<div className="container">
 				<div className="container-fluid">
-				<div className="row">
-				<div className="col-xs-12">
-				<Fragment>
-				<Typeahead options={stops2} placeholder="Choose a source station..." valueKey="id"
-				onChange={selected => {this.handleSourceChange(selected);}}/>
-				</Fragment>
-				</div>
-				</div>
-				<br/>
-				<div className="row">
-				<div className="col-xs-12">
-				<Fragment>
-				<Typeahead	options={stops2} placeholder="Choose a Destination station..." valueKey="id"
-				onChange={selected => {this.handleDestinationChange(selected);}}/>
-				</Fragment>
-				</div>
-				</div>
-				<br/>
-				<div className="row">
-				<div className="col" align="center">
-				<button id="showMapBtn"  className="btn btn-success btn-md center-block"
-				onClick={this.handleRoutes.bind(this)}>Get Routes!</button>
-				</div>
-				</div>
+					<div className="searchBox">
+						<div className="row">
+							<div className="col-xs-12">
+								<Fragment>
+									<Typeahead options={stops2} placeholder="Choose a source station..." valueKey="id"
+									onChange={selected => {this.handleSourceChange(selected);}}/>
+								</Fragment>
+							</div>
+						</div>
+						<br/>
+						<div className="row">
+							<div className="col-xs-12">
+								<Fragment>
+									<Typeahead	options={stops2} placeholder="Choose a Destination station..." valueKey="id"
+									onChange={selected => {this.handleDestinationChange(selected);}}/>
+								</Fragment>
+							</div>
+						</div>
+						<br/>
+						<div className="row">
+							<div className="col" align="center">
+								<button id="showMapBtn"  className="btn btn-success btn-md center-block"
+								onClick={this.handleRoutes.bind(this)}>Get Routes!</button>
+							</div>
+						</div>
+					</div>	
 				</div>
 				<br/><hr/>
 				<div className="row">
-				<div className="col-md-5 route-div">
-
-				<div className="row">
-				<div id="route-data">
-				Search a route!
+					<div className="col-md-5 route-div">
+						<div className="row">
+							<div id="route-data">
+								Search a route!
+							</div>
+						</div>
+						<div className="row">
+							<label id="route-info-title"><strong><i>Next Arrivals</i></strong></label><br/>
+							<div id="route-info"></div>
+						</div>
+						<div className="row">
+							<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
+							<div id="vehicle-data"></div>
+						</div>
+					</div>
+					<hr/>
+					<div id="map-canvas" className="col-md-6 map_canvas"></div>
 				</div>
-				</div>
-				<div className="row">
-				<label id="route-info-title"><strong><i>Next Arrivals</i></strong></label><br/>
-				<div id="route-info">
-				</div>
-				</div>
-				<div className="row">
-				<label id="route-info-title"><strong><i>Vehicle Info</i></strong></label><br/>
-				<div id="vehicle-data">
-				</div>
-				</div>
-				</div>
-				<hr/>
-				<div id="map-canvas" className="col-md-6 map_canvas"></div>
-				</div>
-				</div>);
+			</div>);
 
 			}
 			handleSourceChange(x){
