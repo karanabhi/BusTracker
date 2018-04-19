@@ -30,6 +30,7 @@ function init() {
   if(root){
   // Now that you are connected, you can join c;hannels with a topic:
     let channel = socket.channel("tracker:lobby", {});
+    api.getSearchDBData();
     main_init(root,channel,store);
     // if(document.getElementById('map-canvas')){
     //   initMap();

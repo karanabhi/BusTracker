@@ -6,6 +6,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import classnames from 'classnames';
 import showGMap from './gMap';
 import Link from 'react-dom';
+import api from '../api';
 
 class Tracker extends React.Component {
 
@@ -86,6 +87,9 @@ class Tracker extends React.Component {
 				));
 			}
 
+			//Hiding save search option initially
+			$("#searchHistoryBtn").hide();
+
 			return(
 				<div className="container">
 				<div className="container-fluid">
@@ -111,10 +115,12 @@ class Tracker extends React.Component {
 						<div className="row">
 							<div className="col" align="center">
 								<button id="showMapBtn"  className="btn btn-success btn-md center-block"
-								onClick={this.handleRoutes.bind(this)}>Get Routes!</button>
+								onClick={this.handleRoutes.bind(this)}>Get Routes!</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<button id="searchHistoryBtn"  className="btn btn-info btn-md center-block"
+								onClick={this.handleSearchHistory.bind(this)}>Save Search</button>
 							</div>
 						</div>
-					</div>	
+					</div>
 				</div>
 				<br/><hr/>
 				<div className="row">
@@ -139,6 +145,22 @@ class Tracker extends React.Component {
 			</div>);
 
 			}
+
+			handleSearchHistory(){
+				var q={
+					sourceName: this.state.source.label,
+					destinationName: this.state.destination.label,
+					sourceId: this.state.source.id,
+					destinationId: this.state.destination.id
+				};
+				var data={
+						user_id: localStorage.getItem("login_id"),
+						query: JSON.stringify(q)
+				}
+				//console.log(data);
+				api.insertIntoSearchDb(data);
+			}//handleSearchHistory()
+
 			handleSourceChange(x){
 				//alert("yes");
 				$("#route-data").html("Search a route!");
@@ -181,6 +203,10 @@ class Tracker extends React.Component {
 			}
 
 			handleRoutes(e){
+
+				//Show Search History button
+				$("#searchHistoryBtn").show();
+
 				$("#vehicle-data").html("");
 				this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
 				console.log("commonRoutes");

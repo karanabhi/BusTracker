@@ -19,6 +19,7 @@ defmodule BusTracker.Searches do
   """
   def list_searches do
     Repo.all(Search)
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,7 +36,10 @@ defmodule BusTracker.Searches do
       ** (Ecto.NoResultsError)
 
   """
-  def get_search!(id), do: Repo.get!(Search, id)
+  def get_search!(id) do
+    Repo.get!(Search, id)
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a search.
@@ -50,9 +54,11 @@ defmodule BusTracker.Searches do
 
   """
   def create_search(attrs \\ %{}) do
-    %Search{}
+    {:ok, search} = %Search{}
     |> Search.changeset(attrs)
     |> Repo.insert()
+    IO.inspect Repo.preload(search, :user)
+    {:ok, Repo.preload(search, :user)}
   end
 
   @doc """

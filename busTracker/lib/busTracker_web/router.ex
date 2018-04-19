@@ -19,6 +19,7 @@ defmodule BusTrackerWeb.Router do
     get "/", PageController, :index
     get "/tracker", PageController, :index
     get "/register", PageController, :index
+    get "/searches", PageController, :index
   end
 
   # Other scopes may use custom stacks.
@@ -26,8 +27,8 @@ defmodule BusTrackerWeb.Router do
     pipe_through :api
 
     post "/token", TokenController, :create
+    delete "/searches/:id", SearchController, :delete
     resources "/users", UserController, except: [:new, :edit]
     resources "/searches", SearchController, except: [:new, :edit]
-    resources "/recent", SearchController, except: [:new, :edit]
   end
 end

@@ -5,7 +5,7 @@ defmodule BusTracker.Searches.Search do
 
   schema "searches" do
     field :query, :string
-    field :user_id, :id
+    belongs_to :user, BusTracker.Accounts.User
 
     timestamps()
   end
@@ -13,7 +13,7 @@ defmodule BusTracker.Searches.Search do
   @doc false
   def changeset(search, attrs) do
     search
-    |> cast(attrs, [:query])
-    |> validate_required([:query])
+    |> cast(attrs, [:query, :user_id])
+    |> validate_required([:query, :user_id])
   end
 end

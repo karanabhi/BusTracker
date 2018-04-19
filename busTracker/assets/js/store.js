@@ -29,12 +29,25 @@ function login(state = empty_login, action) {
    }
 }
 
-
+function searches(state = [], action) {
+  switch (action.type) {
+    case 'LIST_SEARCHES':
+      console.log("avdbshfnlkmg;lmgklfjkhjvdbgfnm;ldgfmfklsjkbgjn");
+      console.log(action.searches);
+      return [...action.searches];
+    case 'DELETE_SEARCH':
+        return state.filter(search => search.id !== action.id);
+    case 'ADD_SEARCH':
+      return [action.search, ...state];
+    default:
+    return state;
+  }
+}
 
 
 function root_reducer(state0, action) {
   //console.log("reducer", action);
-  let reducer = combineReducers({token, login});
+  let reducer = combineReducers({token, login, searches});
   let state1 = reducer(state0, action);
   //console.log("state1", state1);
   return deepFreeze(state1);

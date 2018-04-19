@@ -2,6 +2,53 @@ import store from './store';
 
 class TheServer {
 
+  insertIntoSearchDb(data){
+    console.log(data);
+    $.ajax("/api/v1/searches", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ search: data }),
+      success: (resp) => {
+        console.log("ahghhakslk");
+        console.log(resp.data);
+        store.dispatch({
+          type: 'ADD_SEARCH',
+          search: resp.data,
+        });
+      },
+    });
+  }
+  //Get All search history data
+  getSearchDBData(){
+    $.ajax("/api/v1/searches", {
+      method: "get",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        console.log("Search History entered: ");
+        console.log(resp);
+        store.dispatch({
+          type: 'LIST_SEARCHES',
+          searches: resp.data,
+        });
+      },
+    });
+  }
+
+  delete_search(data) {
+    $.ajax("/api/v1/searches/" + data, {
+      method: "DELETE",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      success: (resp) => {
+        store.dispatch({
+          type: 'DELETE_SEARCH',
+          id: data,
+        });
+      },
+    });
+  }
 
   register_user(data) {
     $.ajax("/api/v1/users", {

@@ -37,7 +37,7 @@ body {
   padding-bottom: 1em;
   padding-top: 0.5em;
   margin-left: 81px;
-  color: white;
+  color: black;
 }
 
 .loginbtn {
@@ -52,14 +52,14 @@ body {
 
   font-size: xx-large;
   color: black;
-  background-color: white;
+  background-color: aliceblue;
+  color: black;
   padding: 0ex 1ex 0ex 1ex;
   border-radius: 4px;
-    //margin-top: 10ex;
 }
 
 .register-button {
-  color: white;
+  color: blue;
   font-size:16px;
   text-decoration: underline;
 }
@@ -67,11 +67,11 @@ body {
 @media all and (min-width: 480px) {
   .login {
     padding: 60px 0;
-    margin-left: 28em;
+    margin-left: 50em;
   }
 
   .login form {
-    padding: 18px 47px 35px 50px;
+    padding: 18px 23px 35px 30px;
     border-radius: 7px;
     margin-top: 6ex;
     max-width: 350px;
@@ -83,8 +83,11 @@ body {
 
 }
 .login form{
+  padding: 18px 47px 35px 50px;
+  border-radius: 7px;
   margin-left: 1em;
   margin-right: 1em;
+  background-color: bisque;
 }
 @media all and (min-width: 370px) {
   .vehiclebtn {
@@ -147,10 +150,9 @@ body {
 //   top: 0px;
 // }
 
-// .container {
-//     width: 1170px;
-//     background-color: white;
-// }
+.container {
+    background-color: white;
+}
 
 #route-info-title{
   border-bottom: 1px dotted;

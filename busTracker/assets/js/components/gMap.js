@@ -20,7 +20,9 @@ export default function showGMap(lat1,long1,lat2,long2){
   //                       map: window.map
   //                   });
 
+  directionsDisplay.set('directions', null);
   directionsDisplay.setMap(window.map);
+
 showMap(mySrc,myDest,directionsService,directionsDisplay);
 }
 
@@ -33,7 +35,7 @@ function showMap(mySrc,myDest,directionsService,directionsDisplay) {
   };
 
   directionsService.route(request, function (result, status) {
-    directionDisplay.set('directions', null);
+
     directionsDisplay.setDirections(result);
   });
 

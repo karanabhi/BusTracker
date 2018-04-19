@@ -19,11 +19,10 @@ alias BusTracker.Accounts.User
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :password, :password_hash])
+    |> cast(attrs, [:name, :email, :password_hash])
     |> validate_confirmation(:password)
     |> validate_password(:password)
-    |> put_pass_hash()
-    |> validate_required([:email])
+    |> validate_required([:name, :email])
   end
 
   # Password validation
@@ -36,11 +35,6 @@ alias BusTracker.Accounts.User
       end
     end)
   end
-
-  def put_pass_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, Comeonin.Argon2.add_hash(password))
-  end
-  def put_pass_hash(changeset), do: changeset
 
   def valid_password?(password) do
     {:ok, password}

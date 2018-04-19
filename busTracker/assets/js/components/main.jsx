@@ -11,6 +11,7 @@ import Register from './register';
 import store from '../store';
 import Tracker from './tracker';
 import Nav from './nav';
+import Searches from './searches';
 
 
 
@@ -26,6 +27,7 @@ let Main = connect((state) => state)((props) => {
   console.log("channel ");
   console.log(props.channel);
   console.log(props.root);
+  console.log(props.searches);
     return <Router>
               <div>
                 <Route path="/" exact={true} render={() =>
@@ -39,6 +41,20 @@ let Main = connect((state) => state)((props) => {
                 } />
               <Route path="/register" exact={true} render={() =>
                     <Register />
+                } />
+              <Route path="/searches" render={({match}) =>
+                <div>
+                  <Nav />
+                  <Searches searches={_.filter(props.searches, (pp) => {
+                  
+                      if(pp.user){
+
+                        return parseInt(localStorage.getItem("login_id")) == pp.user.id;
+                      }else{
+                        return false;}
+                    }
+                  )} />
+                </div>
                 } />
             </div>
           </Router>;
