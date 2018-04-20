@@ -40,3 +40,4 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * https://sweetalert.js.org/guides/
   * https://www.liveviewgps.com/blog/5-advantages-gained-gps-fleet-tracking-winter/
   * https://loading.io/
+  * https://smallenvelop.com/display-loading-icon-page-loads-completely/
