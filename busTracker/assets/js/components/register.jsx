@@ -16,18 +16,38 @@ export default class Register extends React.Component{
 
 function RegisterForm(props){
 
+
+
   function register(ev) {
-    ev.preventDefault();
     if($("#pass").val() != $("#passConf").val()){
-      alert("Passwords don't match!");
+      swal("Passwords do not match", "Please try again", "error");
     }
-    let user={
-        name: $("#username").val(),
-        email: $("#email").val(),
-        password: $("#pass").val(),
+    else {
+      swal({
+        title: "Registration Successful!",
+        text: "",
+        icon: "success",
+        button: "Okay",
+        dangerMode: false,
+      })
+      .then((ok) => {
+        if (ok) {
+          ev.preventDefault();
+
+          let user={
+              name: $("#username").val(),
+              email: $("#email").val(),
+              password: $("#pass").val(),
+          }
+
+          api.register_user(user);
+
+        }
+      });
     }
 
-    api.register_user(user);
+    //swal("Registration Successful!", "", "success");
+
 
 
 
@@ -35,21 +55,42 @@ function RegisterForm(props){
 
   return( <div className="login">
             <Form >
+              <label className="signin-label">Register</label>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                  </div>
                 <Input type="text" id="username" name="username" placeholder="Name"/>
-              </FormGroup>
+                </div>
+            </FormGroup>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                  </div>
                 <Input type="email" id="email" name="email" placeholder="Email"/>
-              </FormGroup>
+                </div>
+            </FormGroup>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
                 <Input type="password" id="pass" name="pass" placeholder="Password"/>
-              </FormGroup>
+                </div>
+            </FormGroup>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
                 <Input type="password" id="passConf" name="password_confirmation" placeholder="Confirm Password" />
-              </FormGroup>
+                </div>
+            </FormGroup>
 
 
-              <Button onClick={register}>Register</Button> &emsp;
+              <Button className="btn btn-primary" onClick={register}>Register</Button> &emsp;
               <Link to="/">Back</Link>
             </Form>
             <Link to="/tracker" id="redirectToHome" type="hidden"></Link>

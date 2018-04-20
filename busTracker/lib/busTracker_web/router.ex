@@ -20,6 +20,7 @@ defmodule BusTrackerWeb.Router do
     get "/tracker", PageController, :index
     get "/register", PageController, :index
     get "/searches", PageController, :index
+
   end
 
   # Other scopes may use custom stacks.

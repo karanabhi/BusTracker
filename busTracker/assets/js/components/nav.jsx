@@ -10,29 +10,39 @@ import api from '../api';
 let Session = connect(({token}) => {return {token};})((props) => {
 
   function logout(ev){
-    props.dispatch({
-      type: 'DELETE_TOKEN',
-      token: {
-        user_id: "",
-        user_name: "",
-        token: ""
+    swal({
+      title: "Are you sure you want to log off?",
+      text: "",
+      icon: "warning",
+      buttons: true,
+      dangerMode: false,
+    })
+    .then((logout) => {
+      if (logout) {
+        props.dispatch({
+          type: 'DELETE_TOKEN',
+          token: {
+            user_id: "",
+            user_name: "",
+            token: ""
+          }
+        });
+
+        localStorage.removeItem("login_token");
+        localStorage.removeItem("login_id");
+        localStorage.removeItem("login_user_name");
+
+        location.replace("/");
+
       }
     });
 
-    localStorage.removeItem("login_token");
-    localStorage.removeItem("login_id");
-    localStorage.removeItem("login_user_name");
 
-    location.replace("/");
   }
 
   var uName=localStorage.getItem("login_user_name");
-  // return <div className="navbar-text">
-  //         <label className="welcome">Welcome, <b>{ uName }</b></label> &nbsp;|&nbsp;
-  //         <Button color="link" onClick={logout}>Logout</Button>
-  //         </div>;
 
-  return  <ul className="nav navbar-nav navbar-right">
+  return  <ul className="nav navbar-nav navbar-right navbar-text">
             <li><label className="welcome">Welcome, <b>{ uName }</b></label>&emsp;<Button color="link" onClick={logout}>Logout</Button></li>
           </ul>;
 });
@@ -42,14 +52,7 @@ function Nav(props) {
   let session_info;
 
   if (localStorage.getItem("login_token")) {
-    // nav_items = <ul className="navbar-nav mr-auto navbar-side-item">
-    //             <NavItem>
-    //             <NavLink to="/tracker" exact={true} activeClassName="active" className="nav-link"><b>Home</b></NavLink>
-    //             </NavItem>
-    //             <NavItem>
-    //             <NavLink to="/searches" exact={true} activeClassName="active" className="nav-link"><b>Search History</b></NavLink>
-    //             </NavItem>
-    //             </ul>;
+
     session_info = <Session token={props.token} />;
 
     nav_items = <ul className="nav navbar-nav navbar-left">
@@ -59,7 +62,7 @@ function Nav(props) {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink to="/searches" exact={true} activeClassName="active" className="nav-link">
+                  <NavLink to="/searches" exact={false} activeClassName="active" className="nav-link">
                     <b>Search History</b>
                   </NavLink>
                 </NavItem>
@@ -78,7 +81,7 @@ function Nav(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-inverse navbar-static-top">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#"><b>BusTracker</b></a>
+        <a className="navbar-brand" href="#"><b>MBTA Tracker</b></a>
           <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" aria-expanded="false" aria-controls="myNavbar"
             onClick={toggleNav}>
             <span className="icon-bar"></span>
@@ -92,19 +95,6 @@ function Nav(props) {
   </div>
 </nav>);
 
-
-    // <div className="container">
-    //   <nav className="navbar navbar-expand">
-    //     <span className="navbar-brand">
-    //       MBTA Tracker
-    //     </span>
-    //     {nav_items}
-    //     <span>
-    //     { session_info }
-    //     </span>
-    //   </nav>
-    // </div>
-  //);
 }
 
 function state2props(state) {

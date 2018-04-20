@@ -92,7 +92,10 @@ class TheServer {
         //alert("ksdf");
       },
       error: (msg) => {
-        alert("Something went wrong!");
+
+        swal("Something Went Wrong!", "Please try again", "error");
+
+        //alert("Something went wrong!");
         // store.dispatch({
         //   type: 'SET_LOGIN_ERROR',
         //   error: msg,
