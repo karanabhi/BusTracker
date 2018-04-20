@@ -94,7 +94,7 @@ class TheServer {
         //alert("ksdf");
       },
       error: (msg) => {
-
+        $(".fetchingStops").hide();
         swal("Something Went Wrong!", "Please try again", "error");
 
         //alert("Something went wrong!");
