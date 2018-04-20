@@ -55,18 +55,39 @@ function RegisterForm(props){
 
   return( <div className="login">
             <Form >
+              <label className="signin-label">Register</label>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-user"></span>
+                  </div>
                 <Input type="text" id="username" name="username" placeholder="Name"/>
-              </FormGroup>
+                </div>
+            </FormGroup>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                  </div>
                 <Input type="email" id="email" name="email" placeholder="Email"/>
-              </FormGroup>
+                </div>
+            </FormGroup>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
                 <Input type="password" id="pass" name="pass" placeholder="Password"/>
-              </FormGroup>
+                </div>
+            </FormGroup>
               <FormGroup>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                  </div>
                 <Input type="password" id="passConf" name="password_confirmation" placeholder="Confirm Password" />
-              </FormGroup>
+                </div>
+            </FormGroup>
 
 
               <Button className="btn btn-primary" onClick={register}>Register</Button> &emsp;

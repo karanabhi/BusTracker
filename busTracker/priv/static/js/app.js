@@ -61062,6 +61062,7 @@ var Collapse = function (_Component) {
 
       var transitionProps = pick(otherProps, TransitionPropTypeKeys);
       var childProps = omit(otherProps, TransitionPropTypeKeys);
+<<<<<<< HEAD
 
       return React__default.createElement(
         Transition,
@@ -61125,6 +61126,71 @@ var ListGroupItem = function ListGroupItem(props) {
 
   var classes = mapToCssModules(classNames(className, active ? 'active' : false, disabled ? 'disabled' : false, action ? 'list-group-item-action' : false, color ? 'list-group-item-' + color : false, 'list-group-item'), cssModule);
 
+=======
+
+      return React__default.createElement(
+        Transition,
+        _extends({}, transitionProps, {
+          'in': isOpen,
+          onEntering: this.onEntering,
+          onEntered: this.onEntered,
+          onExit: this.onExit,
+          onExiting: this.onExiting,
+          onExited: this.onExited
+        }),
+        function (status) {
+          var collapseClass = getTransitionClass(status);
+          var classes = mapToCssModules(classNames(className, collapseClass, navbar && 'navbar-collapse'), cssModule);
+          var style = height === null ? null : { height: height };
+          return React__default.createElement(
+            Tag,
+            _extends({}, childProps, {
+              style: _extends({}, childProps.style, style),
+              className: classes
+            }),
+            children
+          );
+        }
+      );
+    }
+  }]);
+  return Collapse;
+}(React.Component);
+
+Collapse.propTypes = propTypes$67;
+Collapse.defaultProps = defaultProps$61;
+
+var propTypes$68 = {
+  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  active: PropTypes.bool,
+  disabled: PropTypes.bool,
+  color: PropTypes.string,
+  action: PropTypes.bool,
+  className: PropTypes.any,
+  cssModule: PropTypes.object
+};
+
+var defaultProps$62 = {
+  tag: 'li'
+};
+
+var handleDisabledOnClick = function handleDisabledOnClick(e) {
+  e.preventDefault();
+};
+
+var ListGroupItem = function ListGroupItem(props) {
+  var className = props.className,
+      cssModule = props.cssModule,
+      Tag = props.tag,
+      active = props.active,
+      disabled = props.disabled,
+      action = props.action,
+      color = props.color,
+      attributes = objectWithoutProperties(props, ['className', 'cssModule', 'tag', 'active', 'disabled', 'action', 'color']);
+
+  var classes = mapToCssModules(classNames(className, active ? 'active' : false, disabled ? 'disabled' : false, action ? 'list-group-item-action' : false, color ? 'list-group-item-' + color : false, 'list-group-item'), cssModule);
+
+>>>>>>> b26eead025043be65b97d4b6a81e6c5b06c8ce6c
   // Prevent click event when disabled.
   if (disabled) {
     attributes.onClick = handleDisabledOnClick;
@@ -64376,14 +64442,32 @@ var LoginForm = (0, _reactRedux.connect)(function (_ref) {
       _react2.default.createElement(
         _reactstrap.FormGroup,
         null,
-        _react2.default.createElement(_reactstrap.Input, { type: 'email', name: 'email', placeholder: 'Email',
-          value: props.login.email, onChange: update })
+        _react2.default.createElement(
+          'div',
+          { 'class': 'input-group' },
+          _react2.default.createElement(
+            'div',
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-envelope' })
+          ),
+          _react2.default.createElement(_reactstrap.Input, { type: 'email', name: 'email', placeholder: 'Email',
+            value: props.login.email, onChange: update })
+        )
       ),
       _react2.default.createElement(
         _reactstrap.FormGroup,
         null,
-        _react2.default.createElement(_reactstrap.Input, { type: 'password', name: 'pass', placeholder: 'Password',
-          value: props.login.pass, onChange: update })
+        _react2.default.createElement(
+          'div',
+          { 'class': 'input-group' },
+          _react2.default.createElement(
+            'span',
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('i', { 'class': 'glyphicon glyphicon-lock' })
+          ),
+          _react2.default.createElement(_reactstrap.Input, { type: 'password', name: 'pass', placeholder: 'Password',
+            value: props.login.pass, onChange: update })
+        )
       ),
       _react2.default.createElement(
         'div',
@@ -64756,24 +64840,65 @@ function RegisterForm(props) {
       _reactstrap.Form,
       null,
       _react2.default.createElement(
-        _reactstrap.FormGroup,
-        null,
-        _react2.default.createElement(_reactstrap.Input, { type: 'text', id: 'username', name: 'username', placeholder: 'Name' })
+        'label',
+        { className: 'signin-label' },
+        'Register'
       ),
       _react2.default.createElement(
         _reactstrap.FormGroup,
         null,
-        _react2.default.createElement(_reactstrap.Input, { type: 'email', id: 'email', name: 'email', placeholder: 'Email' })
+        _react2.default.createElement(
+          'div',
+          { 'class': 'input-group' },
+          _react2.default.createElement(
+            'div',
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-user' })
+          ),
+          _react2.default.createElement(_reactstrap.Input, { type: 'text', id: 'username', name: 'username', placeholder: 'Name' })
+        )
       ),
       _react2.default.createElement(
         _reactstrap.FormGroup,
         null,
-        _react2.default.createElement(_reactstrap.Input, { type: 'password', id: 'pass', name: 'pass', placeholder: 'Password' })
+        _react2.default.createElement(
+          'div',
+          { 'class': 'input-group' },
+          _react2.default.createElement(
+            'div',
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-envelope' })
+          ),
+          _react2.default.createElement(_reactstrap.Input, { type: 'email', id: 'email', name: 'email', placeholder: 'Email' })
+        )
       ),
       _react2.default.createElement(
         _reactstrap.FormGroup,
         null,
-        _react2.default.createElement(_reactstrap.Input, { type: 'password', id: 'passConf', name: 'password_confirmation', placeholder: 'Confirm Password' })
+        _react2.default.createElement(
+          'div',
+          { 'class': 'input-group' },
+          _react2.default.createElement(
+            'div',
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-lock' })
+          ),
+          _react2.default.createElement(_reactstrap.Input, { type: 'password', id: 'pass', name: 'pass', placeholder: 'Password' })
+        )
+      ),
+      _react2.default.createElement(
+        _reactstrap.FormGroup,
+        null,
+        _react2.default.createElement(
+          'div',
+          { 'class': 'input-group' },
+          _react2.default.createElement(
+            'div',
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-lock' })
+          ),
+          _react2.default.createElement(_reactstrap.Input, { type: 'password', id: 'passConf', name: 'password_confirmation', placeholder: 'Confirm Password' })
+        )
       ),
       _react2.default.createElement(
         _reactstrap.Button,

@@ -6257,7 +6257,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #dee2e6 !important; } }
 
 body {
-  background-image: url(/images/3.jpg);
+  background-image: url(/images/12.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1400px 1000px; }
@@ -6275,7 +6275,7 @@ body {
   margin-top: 2em; }
 
 .navbar {
-  background-color: navy; }
+  background-color: #19194d; }
 
 .navbar-brand {
   color: white; }
@@ -6297,8 +6297,6 @@ body {
 .heading-login {
   font-size: xx-large;
   color: black;
-  background-color: aliceblue;
-  color: black;
   padding: 0ex 1ex 0ex 1ex;
   border-radius: 4px; }
 
@@ -6316,7 +6314,8 @@ body {
     border-radius: 7px;
     margin-top: 6ex;
     max-width: 350px;
-    margin-left: 44px; }
+    margin-left: 44px;
+    background: white; }
   .heading-login {
     margin-left: -26px; } }
 
@@ -6324,8 +6323,10 @@ body {
   padding: 18px 47px 35px 50px;
   border-radius: 7px;
   margin-left: 1em;
-  margin-right: 1em;
-  background-color: bisque; }
+  margin-right: 1em; }
+
+.form-control {
+  border: 10px ridge black; }
 
 @media all and (min-width: 370px) {
   .vehiclebtn {
@@ -6358,7 +6359,7 @@ body {
   display: none; }
 
 .route-div {
-  border: 1.5px solid navy;
+  border: 1.5px solid #19194d;
   border-radius: 5px;
   max-height: 380px;
   background-color: white;
@@ -6373,7 +6374,7 @@ body {
   border-top: 1px dotted;
   text-align: center;
   width: 100%;
-  background-color: navy;
+  background-color: #19194d;
   color: white; }
 
 #route-info {
