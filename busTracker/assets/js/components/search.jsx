@@ -47,6 +47,9 @@ export default function Search(params) {
 
     let searchQuery = JSON.parse(search.query);
 
+    // <Button onClick={(e) => searchAgain(e, searchQuery)}>Search Again</Button>
+    //   &emsp;|&emsp;
+
       return(
         <div className="row searchCard">&emsp;
           <Card>
@@ -56,9 +59,8 @@ export default function Search(params) {
                 <p><i>Destination</i>: { searchQuery.destinationName }</p>
 
               </div>
-              <Button onClick={(e) => searchAgain(e, searchQuery)}>Search Again</Button>
-                &emsp;|&emsp;
-              <Button className="btn-danger" onClick={(e) => deleteSearch(e, search.id)}>Delete</Button>
+
+              <Button className="btn-danger" onClick={(e) => deleteSearch(e, search.id)}> <span className="glyphicon glyphicon-trash"></span>&nbsp; &nbsp;Delete</Button>
             </CardBody>
           </Card>
         </div>);

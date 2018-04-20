@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
 import api from '../api';
+import swal from 'sweetalert';
 
 export default class Register extends React.Component{
   constructor(props){
@@ -57,33 +58,33 @@ function RegisterForm(props){
             <Form >
               <label className="signin-label">Register</label>
               <FormGroup>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-user"></span>
+                <div className="input-group">
+                  <div className="input-group-addon">
+                    <span className="glyphicon glyphicon-user"></span>
                   </div>
                 <Input type="text" id="username" name="username" placeholder="Name"/>
                 </div>
             </FormGroup>
               <FormGroup>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-envelope"></span>
+                <div className="input-group">
+                  <div className="input-group-addon">
+                    <span className="glyphicon glyphicon-envelope"></span>
                   </div>
                 <Input type="email" id="email" name="email" placeholder="Email"/>
                 </div>
             </FormGroup>
               <FormGroup>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-lock"></span>
+                <div className="input-group">
+                  <div className="input-group-addon">
+                    <span className="glyphicon glyphicon-lock"></span>
                   </div>
                 <Input type="password" id="pass" name="pass" placeholder="Password"/>
                 </div>
             </FormGroup>
               <FormGroup>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-lock"></span>
+                <div className="input-group">
+                  <div className="input-group-addon">
+                    <span className="glyphicon glyphicon-lock"></span>
                   </div>
                 <Input type="password" id="passConf" name="password_confirmation" placeholder="Confirm Password" />
                 </div>

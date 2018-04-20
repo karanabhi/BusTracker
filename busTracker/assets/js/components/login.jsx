@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
 import api from '../api';
-
+import swal from 'sweetalert';
 
 export default class LogIn extends React.Component{
   constructor(props){
@@ -54,9 +54,9 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   <Form>
     <label className="signin-label">Sign In</label>
     <FormGroup>
-      <div class="input-group">
-        <div class="input-group-addon">
-          <span class="glyphicon glyphicon-envelope"></span>
+      <div className="input-group">
+        <div className="input-group-addon">
+          <span className="glyphicon glyphicon-envelope"></span>
         </div>
 
         <Input type="email" name="email" placeholder="Email"
@@ -65,14 +65,14 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
       </div>
     </FormGroup>
     <FormGroup>
-      <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <div className="input-group">
+        <span className="input-group-addon"><i className="glyphicon glyphicon-lock"></i></span>
         <Input type="password" name="pass" placeholder="Password"
           value={props.login.pass} onChange={update} />
       </div>
     </FormGroup>
     <div className="login_div">
-      <Button className="btn loginbtn" onClick={log_in}><b>Log In</b></Button> &emsp; | &emsp;
+      <Button className="btn loginbtn" onClick={log_in}><span className="glyphicon glyphicon-log-in"></span>&nbsp;<b>Log In</b></Button> &emsp; | &emsp;
         <Link className="register-button" to="/register">Register</Link>
       </div>
     </Form>

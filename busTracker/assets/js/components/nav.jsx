@@ -11,7 +11,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
 
   function logout(ev){
     swal({
-      title: "Are you sure you want to log off?",
+      title: "Are you sure you want to log out?",
       text: "",
       icon: "warning",
       buttons: true,
@@ -43,7 +43,9 @@ let Session = connect(({token}) => {return {token};})((props) => {
   var uName=localStorage.getItem("login_user_name");
 
   return  <ul className="nav navbar-nav navbar-right navbar-text">
-            <li><label className="welcome">Welcome, <b>{ uName }</b></label>&emsp;<Button color="link" onClick={logout}>Logout</Button></li>
+            <li><label className="welcome"><span className="glyphicon glyphicon-user"></span>
+            &emsp; Welcome, <b>{ uName }</b></label>&emsp;
+            <Button color="link" onClick={logout}><span className="glyphicon glyphicon-log-out"></span>&emsp;Logout</Button></li>
           </ul>;
 });
 
@@ -58,12 +60,12 @@ function Nav(props) {
     nav_items = <ul className="nav navbar-nav navbar-left">
                 <NavItem>
                   <NavLink to="/tracker" exact={true} activeClassName="active" className="nav-link">
-                    <b>Home</b>
+                    <span className="glyphicon glyphicon-home btn-lg"></span>
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink to="/searches" exact={false} activeClassName="active" className="nav-link">
-                    <b>Search History</b>
+                    <span className="glyphicon glyphicon-search btn-lg"></span><b>Search History</b>
                   </NavLink>
                 </NavItem>
               </ul>;

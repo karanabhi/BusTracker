@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import showGMap from './gMap';
 import Link from 'react-dom';
 import api from '../api';
+import swal from 'sweetalert';
 
 class Tracker extends React.Component {
 
@@ -98,7 +99,7 @@ class Tracker extends React.Component {
 
 			return(
 				<div className="container">
-				<div className="container-fluid">
+
 					<div className="searchBox">
 						<div className="row">
 							<div className="col-xs-12">
@@ -135,11 +136,11 @@ class Tracker extends React.Component {
 								<button id="showMapBtn"  className="btn btn-success btn-md center-block"
 								onClick={this.handleRoutes.bind(this)}> <span className="glyphicon glyphicon-search"></span>  Search Routes</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<button id="searchHistoryBtn"  className="btn btn-info btn-md center-block"
-								onClick={this.handleSearchHistory.bind(this)}>Save Search</button>
+								onClick={this.handleSearchHistory.bind(this)}><span className="glyphicon glyphicon-pushpin"></span>&nbsp;&nbsp;Save Search</button>
 							</div>
 						</div>
 					</div>
-				</div>
+				
 				<br/><hr/>
 				<div className="row">
 					<div className="col-md-5 route-div">
@@ -165,16 +166,30 @@ class Tracker extends React.Component {
 			}
 
 			handleSearchHistory(){
-				var q={
-					sourceName: this.state.source.label,
-					destinationName: this.state.destination.label,
-					sourceId: this.state.source.id,
-					destinationId: this.state.destination.id
-				};
-				var data={
-						user_id: localStorage.getItem("login_id"),
-						query: JSON.stringify(q)
-				}
+				swal({
+	        title: "Your Search has been saved!",
+	        text: "",
+	        icon: "success",
+	        button: "Okay",
+	        dangerMode: false,
+	      })
+	      .then((ok) => {
+	        if (ok) {
+						var q={
+							sourceName: this.state.source.label,
+							destinationName: this.state.destination.label,
+							sourceId: this.state.source.id,
+							destinationId: this.state.destination.id
+						};
+						var data={
+								user_id: localStorage.getItem("login_id"),
+								query: JSON.stringify(q)
+						}
+
+						api.insertIntoSearchDb(data);
+
+	        }
+	      });
 
 				api.insertIntoSearchDb(data);
 			}
@@ -242,17 +257,12 @@ class Tracker extends React.Component {
 				$("#searchHistoryBtn").show();
 
 				$("#vehicle-data").html("");
-				console.log("handle routes");
-				console.log("sRoutes");
-				console.log(this.sRoutes);
-				console.log("dRoutes");
-				console.log(this.dRoutes);
 				this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
 				showGMap(this.state.source.latitude,this.state.source.longitude,this.state.destination.latitude,this.state.destination.longitude);
 				var str="";
 				if(this.commonRoutes.length>0) {
 					var cRoutes=this.commonRoutes.map(route =>{
-						return '<button key='+route+' id='+route+' class="btn btn-info routebtn">'+ route +'</button> &emsp;'
+						return '<button key='+route+' id='+route+' class="btn btn-warning routebtn"><span class="glyphicon glyphicon-road"></span>&nbsp;'+ route +'</button> &emsp;'
 					});
 				}
 				else {
@@ -359,7 +369,7 @@ class Tracker extends React.Component {
 							console.log(route);
 							console.log(route.attributes.arrival_time);
 							if(route.relationships.vehicle.data != null)
-							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';
+							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-info vehiclebtn"><i class="material-icons">directions_transit</i>&nbsp; Info </button> </label> <br/>';
 							else
 							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'</label> '+spaces+' No vehicle data available <br/>';
 						}

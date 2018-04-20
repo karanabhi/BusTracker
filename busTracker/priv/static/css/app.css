@@ -6317,8 +6317,7 @@ body {
     border-radius: 7px;
     margin-top: 6ex;
     max-width: 350px;
-    margin-left: 44px;
-    background: white; }
+    margin-left: 44px; }
   .heading-login {
     margin-left: -26px; } }
 
@@ -6326,12 +6325,13 @@ body {
   padding: 18px 47px 35px 50px;
   border-radius: 7px;
   margin-left: 1em;
-  margin-right: 1em; }
+  margin-right: 1em;
+  background: white; }
 
 .form-control {
   border: 10px ridge black; }
 
-@media all and (min-width: 370px) {
+@media all and (min-width: 440px) {
   .vehiclebtn {
     margin-left: 200px !important; }
   .searchBox {
@@ -6340,7 +6340,9 @@ body {
     margin-right: auto;
     margin-left: auto;
     width: 50%;
-    margin-top: 20px; } }
+    margin-top: 20px; }
+  #footer {
+    height: 1em !important; } }
 
 .container {
   border-radius: 7px; }
@@ -6399,6 +6401,22 @@ body {
 #vehicle-data {
   padding-left: 1rem;
   padding-top: 1rem; }
+
+#footer {
+  color: white;
+  font-variant: petite-caps;
+  font-size: 18px;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  height: 28px;
+  background: cadetblue;
+  height: 4em; }
+
+body {
+  height: 100%; }
 
 /* Optional: Makes the sample page fill the window. */
 
