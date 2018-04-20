@@ -11,8 +11,6 @@ export default function Search(params) {
 
   function deleteSearch(ev,searchId){
 
-
-
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this search!",
@@ -31,13 +29,15 @@ export default function Search(params) {
       }
     });
 
-
-
-    // var p = confirm("Are you sure? If yes, press OK");
-    // if(p){
-    //   api.delete_search(searchId);
-    // }
   }
+  function searchAgain(ev,sQ){
+
+    localStorage.setItem("searchQuery",JSON.stringify(sQ));
+
+    location.replace("/tracker");
+
+  }
+
   let search = params.search;
 
 
@@ -47,17 +47,23 @@ export default function Search(params) {
 
     let searchQuery = JSON.parse(search.query);
 
-      return(<Card>
-        <CardBody>
-            <div>
-              <p><i>Source</i>: { searchQuery.sourceName}</p>
-              <p><i>Destination</i>: { searchQuery.destinationName }</p>
+    // <Button onClick={(e) => searchAgain(e, searchQuery)}>Search Again</Button>
+    //   &emsp;|&emsp;
 
-            </div>
+      return(
+        <div className="row searchCard">&emsp;
+          <Card>
+            <CardBody>
+              <div>
+                <p><i>Source</i>: { searchQuery.sourceName}</p>
+                <p><i>Destination</i>: { searchQuery.destinationName }</p>
 
-            <Button className="btn btn-danger" onClick={(e) => deleteSearch(e, search.id)}>Delete</Button>
-          </CardBody>
-        </Card>);
+              </div>
+
+              <Button className="btn-danger" onClick={(e) => deleteSearch(e, search.id)}> <span className="glyphicon glyphicon-trash"></span>&nbsp; &nbsp;Delete</Button>
+            </CardBody>
+          </Card>
+        </div>);
   }
   return null;
 }

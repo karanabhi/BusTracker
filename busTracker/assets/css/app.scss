@@ -24,14 +24,6 @@ body {
   margin-top: 2em;
 }
 
-.navbar {
-  background-color: #19194d;
-}
-
-.navbar-brand {
-  color: white;
-}
-
 .signin-label {
   font-size: 20px;
   padding-bottom: 1em;
@@ -54,6 +46,7 @@ body {
   color: black;
   padding: 0ex 1ex 0ex 1ex;
   border-radius: 4px;
+  background-color: cadetblue;
 }
 
 .register-button {
@@ -62,6 +55,14 @@ body {
   text-decoration: underline;
 }
 
+.searchCards{
+  padding: 20px;
+}
+.searchCard{
+  width: 360px;
+  padding: 20px;
+  display: inline-flex;
+}
 @media all and (min-width: 480px) {
   .login {
     padding: 60px 0;
@@ -74,7 +75,7 @@ body {
     margin-top: 6ex;
     max-width: 350px;
     margin-left: 44px;
-    background: white;
+
   }
   .heading-login{
     margin-left: -26px;
@@ -86,13 +87,13 @@ body {
   border-radius: 7px;
   margin-left: 1em;
   margin-right: 1em;
-
+  background: white;
 }
 .form-control {
     border: 10px ridge black;
   }
 
-@media all and (min-width: 370px) {
+@media all and (min-width: 440px) {
   .vehiclebtn {
     margin-left: 200px !important;
   }
@@ -102,9 +103,16 @@ body {
     margin-right: auto;
     margin-left: auto;
     width:50%;
+    margin-top: 20px;
+  }
+  #footer{
+    height: 1em !important;
   }
 }
 
+.container{
+  border-radius: 7px;
+}
 .vehiclebtn {
   margin-left: 20px;
 }
@@ -183,58 +191,20 @@ body {
   padding-top: 1rem;
 
 }
-/* Optional: Makes the sample page fill the window. */
-
-.navbar-side {
-  height: 100%;
-  width: 25%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 0;
-  list-style: none;
-  border-left: 2px solid #ccc;
-  background-color: #f7f7f9;
-  overflow-y: scroll;
-  z-index: 1000;
-  -webkit-transform: translateX(100%);
-  -ms-transform: translateX(100%);
-  transform: translateX(100%);
-  -webkit-transition: 300ms ease;
-  transition: 300ms ease;
-
-  @include media-breakpoint-up(xs) { width: 85%; } // Small
-  @include media-breakpoint-up(sm) { width: 50%; } // Medium
-  @include media-breakpoint-up(md) { width: 25%; } // Large
-}
-
-.navbar-side-item {
-  padding: 1.5rem 0;
-  margin: 0;
-  border-bottom: 2px solid #ccc;
-  height: 5rem;
-}
-
-.side-link {
-  padding-left: 2rem;
-}
-
-.reveal {
-  -webkit-transform: translateX(0%);
-  -ms-transform: translateX(0%);
-  transform: translateX(0%);
-  -webkit-transition: 300ms ease;
-  transition: 300ms ease;
-}
-.overlay {
-  position: fixed;
-  display: none;
-  top: 0;
-  left: 0;
-  right: 0;
+#footer{
+  color: white;
+  font-variant: petite-caps;
+  font-size: 18px;
   bottom: 0;
-  cursor: pointer;
-  background-color: #ccc;
-  opacity: 0.6;
-  z-index: 990;
+  left: 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  height: 28px;
+  background: cadetblue;
+  height: 4em;
 }
+body{
+  height: 100%;
+}
+/* Optional: Makes the sample page fill the window. */

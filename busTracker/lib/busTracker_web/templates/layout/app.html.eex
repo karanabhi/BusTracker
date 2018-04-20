@@ -10,12 +10,11 @@
       window.userToken = "TODO";
     </script>
 
-    <title>Hello BusTracker!</title>
+    <title>MBTA Tracker!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <script src="dist/sweetalert.js"></script>
-    <link rel="stylesheet" href="dist/sweetalert.css">
-    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2EAUYny8KoUtJp-0yeLYuVFWG_F_ZwI4&libraries=places"
     type="text/javascript"></script>
   </head>
@@ -29,5 +28,8 @@
 
     </div> <!-- /container -->
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    <div id="footer">
+      <p>Developed by <b>Darshit Chanpura, Abhishek Karan, Suhani Ladani, Rutva Rajdev</b> at <i>Northeastern University</i></p>
+    </div>
   </body>
 </html>

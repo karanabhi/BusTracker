@@ -64275,10 +64275,6 @@ var _api = require('../api');
 
 var _api2 = _interopRequireDefault(_api);
 
-var _sweetalert = require('sweetalert');
-
-var _sweetalert2 = _interopRequireDefault(_sweetalert);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64380,11 +64376,11 @@ var LoginForm = (0, _reactRedux.connect)(function (_ref) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { 'class': 'input-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group-addon' },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-envelope' })
           ),
           _react2.default.createElement(_reactstrap.Input, { type: 'email', name: 'email', placeholder: 'Email',
             value: props.login.email, onChange: update })
@@ -64395,11 +64391,11 @@ var LoginForm = (0, _reactRedux.connect)(function (_ref) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { 'class': 'input-group' },
           _react2.default.createElement(
             'span',
-            { className: 'input-group-addon' },
-            _react2.default.createElement('i', { className: 'glyphicon glyphicon-lock' })
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('i', { 'class': 'glyphicon glyphicon-lock' })
           ),
           _react2.default.createElement(_reactstrap.Input, { type: 'password', name: 'pass', placeholder: 'Password',
             value: props.login.pass, onChange: update })
@@ -64411,8 +64407,6 @@ var LoginForm = (0, _reactRedux.connect)(function (_ref) {
         _react2.default.createElement(
           _reactstrap.Button,
           { className: 'btn loginbtn', onClick: log_in },
-          _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' }),
-          '\xA0',
           _react2.default.createElement(
             'b',
             null,
@@ -64539,174 +64533,7 @@ var Main = (0, _reactRedux.connect)(function (state) {
 });
 
 require.register("js/components/nav.jsx", function(exports, require, module) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = require('react-redux');
-
-var _reactRouterDom = require('react-router-dom');
-
-var _reactstrap = require('reactstrap');
-
-var _api = require('../api');
-
-var _api2 = _interopRequireDefault(_api);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Session = (0, _reactRedux.connect)(function (_ref) {
-  var token = _ref.token;
-  return { token: token };
-})(function (props) {
-
-  function logout(ev) {
-    swal({
-      title: "Are you sure you want to log out?",
-      text: "",
-      icon: "warning",
-      buttons: true,
-      dangerMode: false
-    }).then(function (logout) {
-      if (logout) {
-        props.dispatch({
-          type: 'DELETE_TOKEN',
-          token: {
-            user_id: "",
-            user_name: "",
-            token: ""
-          }
-        });
-
-        localStorage.removeItem("login_token");
-        localStorage.removeItem("login_id");
-        localStorage.removeItem("login_user_name");
-
-        location.replace("/");
-      }
-    });
-  }
-
-  var uName = localStorage.getItem("login_user_name");
-
-  return _react2.default.createElement(
-    'ul',
-    { className: 'nav navbar-nav navbar-right navbar-text' },
-    _react2.default.createElement(
-      'li',
-      null,
-      _react2.default.createElement(
-        'label',
-        { className: 'welcome' },
-        _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' }),
-        '\u2003 Welcome, ',
-        _react2.default.createElement(
-          'b',
-          null,
-          uName
-        )
-      ),
-      '\u2003',
-      _react2.default.createElement(
-        _reactstrap.Button,
-        { color: 'link', onClick: logout },
-        _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-out' }),
-        '\u2003Logout'
-      )
-    )
-  );
-}); /*
-    Referred from Lecture Notes
-    */
-
-
-function Nav(props) {
-  var nav_items = void 0;
-  var session_info = void 0;
-
-  if (localStorage.getItem("login_token")) {
-
-    session_info = _react2.default.createElement(Session, { token: props.token });
-
-    nav_items = _react2.default.createElement(
-      'ul',
-      { className: 'nav navbar-nav navbar-left' },
-      _react2.default.createElement(
-        _reactstrap.NavItem,
-        null,
-        _react2.default.createElement(
-          _reactRouterDom.NavLink,
-          { to: '/tracker', exact: true, activeClassName: 'active', className: 'nav-link' },
-          _react2.default.createElement('span', { className: 'glyphicon glyphicon-home btn-lg' })
-        )
-      ),
-      _react2.default.createElement(
-        _reactstrap.NavItem,
-        null,
-        _react2.default.createElement(
-          _reactRouterDom.NavLink,
-          { to: '/searches', exact: false, activeClassName: 'active', className: 'nav-link' },
-          _react2.default.createElement('span', { className: 'glyphicon glyphicon-search btn-lg' }),
-          _react2.default.createElement(
-            'b',
-            null,
-            'Search History'
-          )
-        )
-      )
-    );
-  }
-
-  function toggleNav() {
-    if ($("#myNavbar").hasClass('collapse')) $("#myNavbar").removeClass('collapse');else {
-      $("#myNavbar").addClass('collapse');
-    }
-  }
-
-  return _react2.default.createElement(
-    'nav',
-    { className: 'navbar navbar-expand-lg navbar-inverse navbar-static-top' },
-    _react2.default.createElement(
-      'div',
-      { className: 'container-fluid' },
-      _react2.default.createElement(
-        'a',
-        { className: 'navbar-brand', href: '#' },
-        _react2.default.createElement(
-          'b',
-          null,
-          'MBTA Tracker'
-        )
-      ),
-      _react2.default.createElement(
-        'button',
-        { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '#myNavbar', 'aria-expanded': 'false', 'aria-controls': 'myNavbar',
-          onClick: toggleNav },
-        _react2.default.createElement('span', { className: 'icon-bar' }),
-        _react2.default.createElement('span', { className: 'icon-bar' }),
-        _react2.default.createElement('span', { className: 'icon-bar' })
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'collapse navbar-collapse', id: 'myNavbar' },
-        nav_items,
-        session_info
-      )
-    )
-  );
-}
-
-function state2props(state) {
-  return { token: state.token };
-}
-
-exports.default = (0, _reactRedux.connect)(state2props)(Nav);
+"use strict";
 
 });
 
@@ -64732,10 +64559,6 @@ var _reactstrap = require('reactstrap');
 var _api = require('../api');
 
 var _api2 = _interopRequireDefault(_api);
-
-var _sweetalert = require('sweetalert');
-
-var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64772,9 +64595,9 @@ function RegisterForm(props) {
 
   function register(ev) {
     if ($("#pass").val() != $("#passConf").val()) {
-      (0, _sweetalert2.default)("Passwords do not match", "Please try again", "error");
+      swal("Passwords do not match", "Please try again", "error");
     } else {
-      (0, _sweetalert2.default)({
+      swal({
         title: "Registration Successful!",
         text: "",
         icon: "success",
@@ -64815,11 +64638,11 @@ function RegisterForm(props) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { 'class': 'input-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group-addon' },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-user' })
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-user' })
           ),
           _react2.default.createElement(_reactstrap.Input, { type: 'text', id: 'username', name: 'username', placeholder: 'Name' })
         )
@@ -64829,11 +64652,11 @@ function RegisterForm(props) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { 'class': 'input-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group-addon' },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-envelope' })
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-envelope' })
           ),
           _react2.default.createElement(_reactstrap.Input, { type: 'email', id: 'email', name: 'email', placeholder: 'Email' })
         )
@@ -64843,11 +64666,11 @@ function RegisterForm(props) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { 'class': 'input-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group-addon' },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-lock' })
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-lock' })
           ),
           _react2.default.createElement(_reactstrap.Input, { type: 'password', id: 'pass', name: 'pass', placeholder: 'Password' })
         )
@@ -64857,11 +64680,11 @@ function RegisterForm(props) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'input-group' },
+          { 'class': 'input-group' },
           _react2.default.createElement(
             'div',
-            { className: 'input-group-addon' },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-lock' })
+            { 'class': 'input-group-addon' },
+            _react2.default.createElement('span', { 'class': 'glyphicon glyphicon-lock' })
           ),
           _react2.default.createElement(_reactstrap.Input, { type: 'password', id: 'passConf', name: 'password_confirmation', placeholder: 'Confirm Password' })
         )
@@ -64945,9 +64768,6 @@ function Search(params) {
 
     var searchQuery = JSON.parse(search.query);
 
-    // <Button onClick={(e) => searchAgain(e, searchQuery)}>Search Again</Button>
-    //   &emsp;|&emsp;
-
     return _react2.default.createElement(
       'div',
       { className: 'row searchCard' },
@@ -64986,12 +64806,18 @@ function Search(params) {
           ),
           _react2.default.createElement(
             _reactstrap.Button,
+            { onClick: function onClick(e) {
+                return searchAgain(e, searchQuery);
+              } },
+            'Search Again'
+          ),
+          '\u2003|\u2003',
+          _react2.default.createElement(
+            _reactstrap.Button,
             { className: 'btn-danger', onClick: function onClick(e) {
                 return deleteSearch(e, search.id);
               } },
-            ' ',
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-trash' }),
-            '\xA0 \xA0Delete'
+            'Delete'
           )
         )
       )
@@ -65075,10 +64901,6 @@ var _gMap2 = _interopRequireDefault(_gMap);
 var _api = require('../api');
 
 var _api2 = _interopRequireDefault(_api);
-
-var _sweetalert = require('sweetalert');
-
-var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65188,82 +65010,85 @@ var Tracker = function (_React$Component) {
 				{ className: 'container' },
 				_react2.default.createElement(
 					'div',
-					{ className: 'searchBox' },
+					{ className: 'container-fluid' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'searchBox' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-xs-12' },
+							{ className: 'row' },
 							_react2.default.createElement(
-								_react.Fragment,
-								null,
+								'div',
+								{ className: 'col-xs-12' },
 								_react2.default.createElement(
-									'div',
-									{ className: 'input-group' },
+									_react.Fragment,
+									null,
 									_react2.default.createElement(
 										'div',
-										{ className: 'input-group-addon' },
-										_react2.default.createElement('span', { className: 'glyphicon glyphicon-search' })
-									),
-									_react2.default.createElement(_reactBootstrapTypeahead.Typeahead, { options: stops2, placeholder: 'Choose a source station...', valueKey: 'id',
-										inputProps: { id: "src" },
-										onChange: function onChange(selected) {
-											_this2.handleSourceChange(selected);
-										} })
+										{ 'class': 'input-group' },
+										_react2.default.createElement(
+											'div',
+											{ 'class': 'input-group-addon' },
+											_react2.default.createElement('span', { 'class': 'glyphicon glyphicon-search' })
+										),
+										_react2.default.createElement(_reactBootstrapTypeahead.Typeahead, { options: stops2, placeholder: 'Choose a source station...', valueKey: 'id',
+											inputProps: { id: "src" },
+											onChange: function onChange(selected) {
+												_this2.handleSourceChange(selected);
+											} })
+									)
 								)
 							)
-						)
-					),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						'div',
-						{ className: 'row' },
+						),
+						_react2.default.createElement('br', null),
 						_react2.default.createElement(
 							'div',
-							{ className: 'col-xs-12' },
+							{ className: 'row' },
 							_react2.default.createElement(
-								_react.Fragment,
-								null,
+								'div',
+								{ className: 'col-xs-12' },
 								_react2.default.createElement(
-									'div',
-									{ className: 'input-group' },
+									_react.Fragment,
+									null,
 									_react2.default.createElement(
 										'div',
-										{ className: 'input-group-addon' },
-										_react2.default.createElement('span', { className: 'glyphicon glyphicon-search' })
-									),
-									_react2.default.createElement(_reactBootstrapTypeahead.Typeahead, { options: stops2, placeholder: 'Choose a Destination station...', valueKey: 'id',
-										inputProps: { id: "dst" },
-										onChange: function onChange(selected) {
-											_this2.handleDestinationChange(selected);
-										} })
+										{ 'class': 'input-group' },
+										_react2.default.createElement(
+											'div',
+											{ 'class': 'input-group-addon' },
+											_react2.default.createElement('span', { 'class': 'glyphicon glyphicon-search' })
+										),
+										_react2.default.createElement(_reactBootstrapTypeahead.Typeahead, { options: stops2, placeholder: 'Choose a Destination station...', valueKey: 'id',
+											inputProps: { id: "dst" },
+											onChange: function onChange(selected) {
+												_this2.handleDestinationChange(selected);
+											} })
+									)
 								)
 							)
-						)
-					),
-					_react2.default.createElement('br', null),
-					_react2.default.createElement(
-						'div',
-						{ className: 'row' },
+						),
+						_react2.default.createElement('br', null),
 						_react2.default.createElement(
 							'div',
-							{ className: 'col', align: 'center' },
+							{ className: 'row' },
 							_react2.default.createElement(
-								'button',
-								{ id: 'showMapBtn', className: 'btn btn-success btn-md center-block',
-									onClick: this.handleRoutes.bind(this) },
-								' ',
-								_react2.default.createElement('span', { className: 'glyphicon glyphicon-search' }),
-								'  Search Routes'
-							),
-							' \xA0\xA0\xA0\xA0\xA0',
-							_react2.default.createElement(
-								'button',
-								{ id: 'searchHistoryBtn', className: 'btn btn-info btn-md center-block',
-									onClick: this.handleSearchHistory.bind(this) },
-								_react2.default.createElement('span', { className: 'glyphicon glyphicon-pushpin' }),
-								'\xA0\xA0Save Search'
+								'div',
+								{ className: 'col', align: 'center' },
+								_react2.default.createElement(
+									'button',
+									{ id: 'showMapBtn', className: 'btn btn-success btn-md center-block',
+										onClick: this.handleRoutes.bind(this) },
+									' ',
+									_react2.default.createElement('span', { 'class': 'glyphicon glyphicon-search' }),
+									'  Search Routes'
+								),
+								' \xA0\xA0\xA0\xA0\xA0',
+								_react2.default.createElement(
+									'button',
+									{ id: 'searchHistoryBtn', className: 'btn btn-info btn-md center-block',
+										onClick: this.handleSearchHistory.bind(this) },
+									'Save Search'
+								)
 							)
 						)
 					)
@@ -65332,30 +65157,16 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'handleSearchHistory',
 		value: function handleSearchHistory() {
-			var _this3 = this;
-
-			(0, _sweetalert2.default)({
-				title: "Your Search has been saved!",
-				text: "",
-				icon: "success",
-				button: "Okay",
-				dangerMode: false
-			}).then(function (ok) {
-				if (ok) {
-					var q = {
-						sourceName: _this3.state.source.label,
-						destinationName: _this3.state.destination.label,
-						sourceId: _this3.state.source.id,
-						destinationId: _this3.state.destination.id
-					};
-					var data = {
-						user_id: localStorage.getItem("login_id"),
-						query: JSON.stringify(q)
-					};
-
-					_api2.default.insertIntoSearchDb(data);
-				}
-			});
+			var q = {
+				sourceName: this.state.source.label,
+				destinationName: this.state.destination.label,
+				sourceId: this.state.source.id,
+				destinationId: this.state.destination.id
+			};
+			var data = {
+				user_id: localStorage.getItem("login_id"),
+				query: JSON.stringify(q)
+			};
 
 			_api2.default.insertIntoSearchDb(data);
 		}
@@ -65419,35 +65230,40 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'handleRoutes',
 		value: function handleRoutes(e) {
-			var _this4 = this;
+			var _this3 = this;
 
 			//Show Search History button
 			$("#searchHistoryBtn").show();
 
 			$("#vehicle-data").html("");
+			console.log("handle routes");
+			console.log("sRoutes");
+			console.log(this.sRoutes);
+			console.log("dRoutes");
+			console.log(this.dRoutes);
 			this.commonRoutes = this.getCommonRoutes(this.sRoutes, this.dRoutes);
 			(0, _gMap2.default)(this.state.source.latitude, this.state.source.longitude, this.state.destination.latitude, this.state.destination.longitude);
 			var str = "";
 			if (this.commonRoutes.length > 0) {
 				var cRoutes = this.commonRoutes.map(function (route) {
-					return '<button key=' + route + ' id=' + route + ' class="btn btn-warning routebtn"><span class="glyphicon glyphicon-road"></span>&nbsp;' + route + '</button> &emsp;';
+					return '<button key=' + route + ' id=' + route + ' class="btn btn-info routebtn">' + route + '</button> &emsp;';
 				});
 			} else {
 				var cRoutes = "No direct MBTA Service Found!";
 			}
 			$("#route-data").html(cRoutes);
 			$(".routebtn").click(function (e) {
-				_this4.handleRouteInfo(e, _this4.state.source.id);
+				_this3.handleRouteInfo(e, _this3.state.source.id);
 			});
 		}
 	}, {
 		key: 'handleRouteInfo',
 		value: function handleRouteInfo(e, sourceId) {
-			var _this5 = this;
+			var _this4 = this;
 
 			$("#vehicle-data").html("");
 			this.channel.push("get_route_info", { route_id: e.target.id, source_id: sourceId }).receive("ok", function (resp) {
-				_this5.receivedRouteInfo(resp);
+				_this4.receivedRouteInfo(resp);
 			});
 		}
 	}, {
@@ -65482,30 +65298,30 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'getVehicleData',
 		value: function getVehicleData(vehicle_id) {
-			var _this6 = this;
+			var _this5 = this;
 
 			this.channel.push("get_vehicle_data", { vehicle_id: vehicle_id }).receive("ok", function (resp) {
-				_this6.receivedVehicleData(resp);
+				_this5.receivedVehicleData(resp);
 			});
 		}
 	}, {
 		key: 'handleSourceRoutesData',
 		value: function handleSourceRoutesData() {
-			var _this7 = this;
+			var _this6 = this;
 
 			this.channel.push("get_routes", { tracker: this.state.source.id }).receive("ok", function (resp) {
-				_this7.receivedSourceRoutes(resp);
+				_this6.receivedSourceRoutes(resp);
 			});
 		}
 	}, {
 		key: 'handleDestinationRoutesData',
 		value: function handleDestinationRoutesData() {
-			var _this8 = this;
+			var _this7 = this;
 
 			console.log("destination");
 			console.log(this.state);
 			this.channel.push("get_routes", { tracker: this.state.destination.id }).receive("ok", function (resp) {
-				_this8.receivedDestinationRoutes(resp);
+				_this7.receivedDestinationRoutes(resp);
 			});
 		}
 	}, {
@@ -65526,7 +65342,7 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'receivedRouteInfo',
 		value: function receivedRouteInfo(response) {
-			var _this9 = this;
+			var _this8 = this;
 
 			console.log(response);
 			var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;';
@@ -65538,7 +65354,7 @@ var Tracker = function (_React$Component) {
 						console.log("data");
 						console.log(route);
 						console.log(route.attributes.arrival_time);
-						if (route.relationships.vehicle.data != null) return '<label>' + new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString() + '<button key=' + route.relationships.vehicle.data.id + ' id=' + route.relationships.vehicle.data.id + ' class="btn btn-info vehiclebtn"><i class="material-icons">directions_transit</i>&nbsp; Info </button> </label> <br/>';else return '<label>' + new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString() + '</label> ' + spaces + ' No vehicle data available <br/>';
+						if (route.relationships.vehicle.data != null) return '<label>' + new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString() + '<button key=' + route.relationships.vehicle.data.id + ' id=' + route.relationships.vehicle.data.id + ' class="btn btn-secondary vehiclebtn"> Get Vehicle Data </button> </label> <br/>';else return '<label>' + new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString() + '</label> ' + spaces + ' No vehicle data available <br/>';
 					}
 				});
 			} else {
@@ -65548,7 +65364,7 @@ var Tracker = function (_React$Component) {
 
 			$("#route-info").html(info);
 			$(".vehiclebtn").click(function (e) {
-				_this9.getVehicleData(e.target.id);
+				_this8.getVehicleData(e.target.id);
 			});
 		}
 	}, {
@@ -65839,4 +65655,4 @@ window._ = require("underscore");
 });})();require('___globals___');
 
 require('js/app');
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=./app.js-75dfcf6f5de3bf85e386c6734a9a2b45.map

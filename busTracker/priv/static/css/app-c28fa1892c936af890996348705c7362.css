@@ -6257,7 +6257,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #dee2e6 !important; } }
 
 body {
-  background-image: url(/images/12.jpg);
+  background-image: url(/images/12-afe6c73cb3a482541ab6b5accaf08411.jpg?vsn=d);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1400px 1000px; }
@@ -6273,6 +6273,12 @@ body {
 
 .login_div {
   margin-top: 2em; }
+
+.navbar {
+  background-color: #19194d; }
+
+.navbar-brand {
+  color: white; }
 
 .signin-label {
   font-size: 20px;
@@ -6292,8 +6298,7 @@ body {
   font-size: xx-large;
   color: black;
   padding: 0ex 1ex 0ex 1ex;
-  border-radius: 4px;
-  background-color: cadetblue; }
+  border-radius: 4px; }
 
 .register-button {
   color: blue;
@@ -6317,7 +6322,8 @@ body {
     border-radius: 7px;
     margin-top: 6ex;
     max-width: 350px;
-    margin-left: 44px; }
+    margin-left: 44px;
+    background: white; }
   .heading-login {
     margin-left: -26px; } }
 
@@ -6325,13 +6331,12 @@ body {
   padding: 18px 47px 35px 50px;
   border-radius: 7px;
   margin-left: 1em;
-  margin-right: 1em;
-  background: white; }
+  margin-right: 1em; }
 
 .form-control {
   border: 10px ridge black; }
 
-@media all and (min-width: 440px) {
+@media all and (min-width: 370px) {
   .vehiclebtn {
     margin-left: 200px !important; }
   .searchBox {
@@ -6340,9 +6345,7 @@ body {
     margin-right: auto;
     margin-left: auto;
     width: 50%;
-    margin-top: 20px; }
-  #footer {
-    height: 1em !important; } }
+    margin-top: 20px; } }
 
 .container {
   border-radius: 7px; }
@@ -6402,23 +6405,59 @@ body {
   padding-left: 1rem;
   padding-top: 1rem; }
 
-#footer {
-  color: white;
-  font-variant: petite-caps;
-  font-size: 18px;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  text-align: center;
-  height: 28px;
-  background: cadetblue;
-  height: 4em; }
-
-body {
-  height: 100%; }
-
 /* Optional: Makes the sample page fill the window. */
+.navbar-side {
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 2px solid #ccc;
+  background-color: #f7f7f9;
+  overflow-y: scroll;
+  z-index: 1000;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: 300ms ease;
+  transition: 300ms ease;
+  width: 85%; }
+  @media (min-width: 576px) {
+    .navbar-side {
+      width: 50%; } }
+  @media (min-width: 768px) {
+    .navbar-side {
+      width: 25%; } }
+
+.navbar-side-item {
+  padding: 1.5rem 0;
+  margin: 0;
+  border-bottom: 2px solid #ccc;
+  height: 5rem; }
+
+.side-link {
+  padding-left: 2rem; }
+
+.reveal {
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+  -webkit-transition: 300ms ease;
+  transition: 300ms ease; }
+
+.overlay {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  background-color: #ccc;
+  opacity: 0.6;
+  z-index: 990; }
 
 
 /*!
