@@ -13,7 +13,7 @@ defmodule BusTrackerWeb.TrackerChannel do
   end
 
   def handle_in("get_routes", payload, socket) do
-
+    IO.inspect("getroutesssss");
       routes = BusTracker.get_routes_data(payload["tracker"]);
       socket = socket
                |> assign(:routes, routes)

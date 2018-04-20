@@ -33,6 +33,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
  function destroy_token(ev) {
    //ev.preventDefault();
+
    api.submit_logout();
  }
 

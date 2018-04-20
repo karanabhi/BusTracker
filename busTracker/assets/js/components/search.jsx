@@ -5,14 +5,38 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardTitle, CardBody, Button } from 'reactstrap';
 import api from '../api';
+import swal from 'sweetalert';
 
 export default function Search(params) {
 
   function deleteSearch(ev,searchId){
-    var p = confirm("Are you sure? If yes, press OK");
-    if(p){
-      api.delete_search(searchId);
-    }
+
+
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this search!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        api.delete_search(searchId);
+        swal("Poof! Your search has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your Search is safe!");
+      }
+    });
+
+
+
+    // var p = confirm("Are you sure? If yes, press OK");
+    // if(p){
+    //   api.delete_search(searchId);
+    // }
   }
   let search = params.search;
 
@@ -31,7 +55,7 @@ export default function Search(params) {
 
             </div>
 
-            <Button onClick={(e) => deleteSearch(e, search.id)}>Delete</Button>
+            <Button className="btn btn-danger" onClick={(e) => deleteSearch(e, search.id)}>Delete</Button>
           </CardBody>
         </Card>);
   }

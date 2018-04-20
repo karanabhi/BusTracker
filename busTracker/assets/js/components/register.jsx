@@ -16,18 +16,38 @@ export default class Register extends React.Component{
 
 function RegisterForm(props){
 
+
+
   function register(ev) {
-    ev.preventDefault();
     if($("#pass").val() != $("#passConf").val()){
-      alert("Passwords don't match!");
+      swal("Passwords do not match", "Please try again", "error");
     }
-    let user={
-        name: $("#username").val(),
-        email: $("#email").val(),
-        password: $("#pass").val(),
+    else {
+      swal({
+        title: "Registration Successful!",
+        text: "",
+        icon: "success",
+        button: "Okay",
+        dangerMode: false,
+      })
+      .then((ok) => {
+        if (ok) {
+          ev.preventDefault();
+
+          let user={
+              name: $("#username").val(),
+              email: $("#email").val(),
+              password: $("#pass").val(),
+          }
+
+          api.register_user(user);
+
+        }
+      });
     }
 
-    api.register_user(user);
+    //swal("Registration Successful!", "", "success");
+
 
 
 
@@ -49,7 +69,7 @@ function RegisterForm(props){
               </FormGroup>
 
 
-              <Button onClick={register}>Register</Button> &emsp;
+              <Button className="btn btn-primary" onClick={register}>Register</Button> &emsp;
               <Link to="/">Back</Link>
             </Form>
             <Link to="/tracker" id="redirectToHome" type="hidden"></Link>

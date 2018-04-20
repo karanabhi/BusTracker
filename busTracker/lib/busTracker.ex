@@ -22,7 +22,9 @@ defmodule BusTracker do
 
   #Routes
   def get_routes_data(stopId) do
+    IO.inspect("BusTracker.ex");
     resp = HTTPoison.get!("https://api-v3.mbta.com/schedules?filter[stop]=#{stopId}")
+    IO.inspect resp
     data = Poison.decode!(resp.body)
     data["data"]
   end
