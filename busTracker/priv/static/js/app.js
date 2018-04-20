@@ -64101,7 +64101,7 @@ var TheServer = function () {
   }, {
     key: "submit_login",
     value: function submit_login(data) {
-
+      $(".fetchingStops").show();
       $.ajax("/api/v1/token", {
         method: "post",
         dataType: "json",
@@ -64118,6 +64118,7 @@ var TheServer = function () {
           localStorage.setItem("login_id", resp.user_id);
           localStorage.setItem("login_user_name", resp.user_name);
           //alert(localStorage.getItem("login_user_name"));
+
 
           if (document.getElementById("redirectToHome")) document.getElementById("redirectToHome").click();
 
@@ -64176,16 +64177,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-function init() {
-  var root = document.getElementById('tracker');
-
-  if (root) {
-
-    var channel = _socket2.default.channel("tracker:lobby", {});
-    _api2.default.getSearchDBData();
-    (0, _main2.default)(root, channel, _store2.default);
-  }
-} // Brunch automatically concatenates all files in your
+$(".loadingLogin").show(); // Brunch automatically concatenates all files in your
 // watched paths. Those paths can be configured at
 // config.paths.watched in "brunch-config.js".
 //
@@ -64199,6 +64191,18 @@ function init() {
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 
+function init() {
+  //$(".fetchingStops").hide();
+
+  var root = document.getElementById('tracker');
+
+  if (root) {
+
+    var channel = _socket2.default.channel("tracker:lobby", {});
+    _api2.default.getSearchDBData();
+    (0, _main2.default)(root, channel, _store2.default);
+  }
+}
 
 $(init);
 
@@ -64494,6 +64498,7 @@ function main_init(root, channel) {
 var Main = (0, _reactRedux.connect)(function (state) {
   return state;
 })(function (props) {
+  $(".loadingLogin").hide();
 
   return _react2.default.createElement(
     _reactRouterDom.BrowserRouter,
@@ -64561,19 +64566,25 @@ var _api2 = _interopRequireDefault(_api);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /*
+                                                                                                                                                                                                                  Referred from Lecture Notes
+                                                                                                                                                                                                                  */
+
+
 var Session = (0, _reactRedux.connect)(function (_ref) {
   var token = _ref.token;
   return { token: token };
 })(function (props) {
 
   function logout(ev) {
-    swal({
+    var _swal;
+
+    swal((_swal = {
       title: "Are you sure you want to log out?",
       text: "",
       icon: "warning",
-      buttons: true,
-      dangerMode: false
-    }).then(function (logout) {
+      buttons: true
+    }, _defineProperty(_swal, 'buttons', ["No!", "Yes!"]), _defineProperty(_swal, 'dangerMode', false), _swal)).then(function (logout) {
       if (logout) {
         props.dispatch({
           type: 'DELETE_TOKEN',
@@ -64621,10 +64632,7 @@ var Session = (0, _reactRedux.connect)(function (_ref) {
       )
     )
   );
-}); /*
-    Referred from Lecture Notes
-    */
-
+});
 
 function Nav(props) {
   var nav_items = void 0;
@@ -65180,8 +65188,11 @@ var Tracker = function (_React$Component) {
 				});
 			}
 
+			if (stops2.length > 0) {
+				$(".fetchingStops").fadeOut("slow");
+			}
 			//Hiding save search option initially
-			$("#searchHistoryBtn").hide();
+			//$("#searchHistoryBtn").hide();
 
 			return _react2.default.createElement(
 				'div',
@@ -65356,8 +65367,6 @@ var Tracker = function (_React$Component) {
 					_api2.default.insertIntoSearchDb(data);
 				}
 			});
-
-			_api2.default.insertIntoSearchDb(data);
 		}
 	}, {
 		key: 'handleSourceChange',

@@ -94,8 +94,11 @@ class Tracker extends React.Component {
 				));
 			}
 
+			if(stops2.length > 0){
+				$(".fetchingStops").fadeOut("slow");
+			}
 			//Hiding save search option initially
-			$("#searchHistoryBtn").hide();
+			//$("#searchHistoryBtn").hide();
 
 			return(
 				<div className="container">
@@ -140,7 +143,7 @@ class Tracker extends React.Component {
 							</div>
 						</div>
 					</div>
-				
+
 				<br/><hr/>
 				<div className="row">
 					<div className="col-md-5 route-div">
@@ -191,7 +194,7 @@ class Tracker extends React.Component {
 	        }
 	      });
 
-				api.insertIntoSearchDb(data);
+
 			}
 
 			handleSourceChange(x){

@@ -23,8 +23,10 @@ import api from './api';
 import main_init from "./components/main";
 import store from './store';
 
-
+$(".loadingLogin").show();
 function init() {
+  //$(".fetchingStops").hide();
+
   let root = document.getElementById('tracker');
 
   if(root){

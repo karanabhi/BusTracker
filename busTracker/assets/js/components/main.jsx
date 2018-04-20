@@ -24,7 +24,7 @@ ReactDOM.render(
 }
 
 let Main = connect((state) => state)((props) => {
-
+    $(".loadingLogin").hide();
 
     return <Router>
               <div>

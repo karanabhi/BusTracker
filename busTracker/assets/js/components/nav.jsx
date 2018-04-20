@@ -15,6 +15,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
       text: "",
       icon: "warning",
       buttons: true,
+      buttons: ["No!", "Yes!"],
       dangerMode: false,
     })
     .then((logout) => {

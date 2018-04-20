@@ -64,7 +64,7 @@ class TheServer {
 
 
   submit_login(data) {
-
+    $(".fetchingStops").show();
     $.ajax("/api/v1/token", {
       method: "post",
       dataType: "json",
@@ -81,6 +81,8 @@ class TheServer {
         localStorage.setItem("login_id",resp.user_id);
         localStorage.setItem("login_user_name",resp.user_name);
         //alert(localStorage.getItem("login_user_name"));
+
+
 
         if(document.getElementById("redirectToHome"))
           document.getElementById("redirectToHome").click();
