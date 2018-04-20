@@ -6450,7 +6450,7 @@ body {
   z-index: 9999;
   font-size: 40px;
   text-align: center;
-  background: url(images/128x128/Preloader_8.gif) center no-repeat #fff; }
+  background: url(images/00.gif) center no-repeat #fff; }
 
 #searchHistoryBtn {
   display: none; }

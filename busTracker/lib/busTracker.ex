@@ -22,9 +22,9 @@ defmodule BusTracker do
 
   #Routes
   def get_routes_data(stopId) do
-    IO.inspect("BusTracker.ex");
+
     resp = HTTPoison.get!("https://api-v3.mbta.com/schedules?filter[stop]=#{stopId}")
-    IO.inspect resp
+
     data = Poison.decode!(resp.body)
     data["data"]
   end
@@ -36,10 +36,7 @@ defmodule BusTracker do
   end
 
   def get_route_info(route_id, source_id) do
-    IO.inspect "route_id"
-    IO.inspect route_id
-    IO.inspect "source_id"
-    IO.inspect source_id
+    
 
     resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?filter[stop]=#{source_id}&filter[route]=#{route_id}&include=vehicle")
 

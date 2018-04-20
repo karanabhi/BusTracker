@@ -41,3 +41,30 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * https://www.liveviewgps.com/blog/5-advantages-gained-gps-fleet-tracking-winter/
   * https://loading.io/
   * https://smallenvelop.com/display-loading-icon-page-loads-completely/
+  
+  
+  
+  * https://github.com/derekeder/FusionTable-Map-Template
+  * https://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
+  * https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_glyph_search&stacked=h
+  * https://getbootstrap.com/docs/4.0/components/collapse/
+  * https://api-v3.mbta.com/docs/swagger/index.html#/Stop/ApiWeb_StopController_index
+  * https://developers.google.com/maps/documentation/roads/snap
+  * https://www.youtube.com/watch?v=QuuL29iiOn0
+  * https://github.com/abhinavagrawal1995/codetrip
+  * https://www.codeproject.com/Tips/507855/Get-Unique-Values-from-a-JavaScript-Array 
+  * https://stackoverflow.com/questions/22163143/how-to-find-common-elements-only-between-2-arrays-in-jquery 
+  * https://www.w3schools.com/html/html5_geolocation.asp
+  * https://developers.google.com/maps/documentation/javascript/examples/map-geolocation 
+  * https://ssl.c.photoshelter.com/img-get2/I0000idDiet9cV4c/fit=1000x750/mckee-110430-3096-1.jpg
+  * https://github.com/NatTuck/microblog-spa/tree/lec20-end
+  * https://github.com/NatTuck/microblog-spa/tree/lec19-end
+  * https://hexdocs.pm/ecto/0.2.6/Ecto.Query.API.html
+  * https://hexdocs.pm/ecto/Ecto.Changeset.html#validate_change/4
+  * https://elixirforum.com/t/why-cant-ecto-cast-integer-to-string/5995
+  * Prof. Tuck's Microblog App
+  * https://github.com/NatTuck/microblog
+  * https://github.com/erikras/redux-form/issues/2269
+  * Professor Tuck's Lecture on April 3, 2018
+  * http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/notes/17-passwords/user.ex
+  * https://loading.io/#_=_

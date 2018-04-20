@@ -205,15 +205,9 @@ class Tracker extends React.Component {
 				$("#vehicle-data").html("");
 				this.commonRoutes="";
 
-				//this.sRoutes = "";
-				console.log("x");
-				console.log(x);
-				console.log("dRoutes");
-				console.log(this.dRoutes);
-				console.log("sRoutes");
-				console.log(this.sRoutes);
+
 				if(x!=""){
-					console.log("yes");
+
 					var
 					source = {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 
@@ -236,19 +230,13 @@ class Tracker extends React.Component {
 				$("#vehicle-data").html("");
 				this.commonRoutes="";
 
-				console.log("x");
-				console.log(x);
-				console.log("dRoutes");
-				console.log(this.dRoutes);
-				console.log("sRoutes");
-				console.log(this.sRoutes);
+
 				if(x!="") {
-					console.log("yes");
+
 					var	destination =  {id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude}
 
 					this.setState({destination: destination}, function () {
-						console.log("stestate");
-						console.log(destination);
+
 						this.handleDestinationRoutesData();
 					});
 				}
@@ -335,19 +323,16 @@ class Tracker extends React.Component {
 			}
 
 			handleDestinationRoutesData(){
-				console.log("destination");
-				console.log(this.state);
+
 				this.channel.push("get_routes", {tracker: this.state.destination.id}).receive("ok", resp => {this.receivedDestinationRoutes(resp)});
 			}
 
 			receivedSourceRoutes(x){
-				//this.dRoutes = "";
-				console.log("xSource");
-				console.log(x);
+
 				this.sRoutes = "";
 				if (x.routes)
 				{
-					console.log("yessssss");
+					
 					this.sRoutes = x.routes.map(route => (
 						route.relationships.route.data.id
 					));
@@ -359,7 +344,7 @@ class Tracker extends React.Component {
 
 			receivedRouteInfo(response){
 
-				console.log(response);
+
 				var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;'
 
 				if (response.routes.length>0)
@@ -368,9 +353,6 @@ class Tracker extends React.Component {
 						if(route.attributes.arrival_time != null)
 						{
 
-							console.log("data");
-							console.log(route);
-							console.log(route.attributes.arrival_time);
 							if(route.relationships.vehicle.data != null)
 							return '<label>'+new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString()+'<button key='+route.relationships.vehicle.data.id+' id='+route.relationships.vehicle.data.id+' class="btn btn-info vehiclebtn"><i class="material-icons">directions_transit</i>&nbsp; Info </button> </label> <br/>';
 							else
@@ -388,12 +370,11 @@ class Tracker extends React.Component {
 
 			receivedDestinationRoutes(x){
 				this.dRoutes = "";
-				console.log("xdestination");
-				console.log(x);
+
 				//this.sRoutes = "";
 				if (x.routes)
 				{
-					console.log("yessssss");
+
 					this.dRoutes = x.routes.map(route => (
 						route.relationships.route.data.id
 					));
@@ -432,7 +413,7 @@ class Tracker extends React.Component {
 
 
 			componentDidMount(){
-				//console.log(window.searchQuery);
+
 				if(this.searchQuery){
 					$("#src").val(this.searchQuery.sourceName);
 					$("#dst").val(this.searchQuery.destinationName);
@@ -442,7 +423,7 @@ class Tracker extends React.Component {
 
 
 			initMap(){
-				//alert("yo");
+
 				window.map = new google.maps.Map(document.getElementById('map-canvas'), {
 					center: {lat: 42.3386095, lng: -71.0944618},
 					zoom: 18

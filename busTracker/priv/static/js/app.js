@@ -65378,15 +65378,8 @@ var Tracker = function (_React$Component) {
 			$("#vehicle-data").html("");
 			this.commonRoutes = "";
 
-			//this.sRoutes = "";
-			console.log("x");
-			console.log(x);
-			console.log("dRoutes");
-			console.log(this.dRoutes);
-			console.log("sRoutes");
-			console.log(this.sRoutes);
 			if (x != "") {
-				console.log("yes");
+
 				var source = { id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude };
 
 				var id = x[0].id;
@@ -65408,19 +65401,12 @@ var Tracker = function (_React$Component) {
 			$("#vehicle-data").html("");
 			this.commonRoutes = "";
 
-			console.log("x");
-			console.log(x);
-			console.log("dRoutes");
-			console.log(this.dRoutes);
-			console.log("sRoutes");
-			console.log(this.sRoutes);
 			if (x != "") {
-				console.log("yes");
+
 				var destination = { id: x[0].id, label: x[0].label, latitude: x[0].latitude, longitude: x[0].longitude };
 
 				this.setState({ destination: destination }, function () {
-					console.log("stestate");
-					console.log(destination);
+
 					this.handleDestinationRoutesData();
 				});
 			}
@@ -65511,8 +65497,6 @@ var Tracker = function (_React$Component) {
 		value: function handleDestinationRoutesData() {
 			var _this8 = this;
 
-			console.log("destination");
-			console.log(this.state);
 			this.channel.push("get_routes", { tracker: this.state.destination.id }).receive("ok", function (resp) {
 				_this8.receivedDestinationRoutes(resp);
 			});
@@ -65520,12 +65504,10 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'receivedSourceRoutes',
 		value: function receivedSourceRoutes(x) {
-			//this.dRoutes = "";
-			console.log("xSource");
-			console.log(x);
+
 			this.sRoutes = "";
 			if (x.routes) {
-				console.log("yessssss");
+
 				this.sRoutes = x.routes.map(function (route) {
 					return route.relationships.route.data.id;
 				});
@@ -65537,16 +65519,12 @@ var Tracker = function (_React$Component) {
 		value: function receivedRouteInfo(response) {
 			var _this9 = this;
 
-			console.log(response);
 			var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;';
 
 			if (response.routes.length > 0) {
 				var info = response.routes.map(function (route) {
 					if (route.attributes.arrival_time != null) {
 
-						console.log("data");
-						console.log(route);
-						console.log(route.attributes.arrival_time);
 						if (route.relationships.vehicle.data != null) return '<label>' + new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString() + '<button key=' + route.relationships.vehicle.data.id + ' id=' + route.relationships.vehicle.data.id + ' class="btn btn-info vehiclebtn"><i class="material-icons">directions_transit</i>&nbsp; Info </button> </label> <br/>';else return '<label>' + new Date(Date.parse(route.attributes.arrival_time)).toLocaleTimeString() + '</label> ' + spaces + ' No vehicle data available <br/>';
 					}
 				});
@@ -65564,11 +65542,10 @@ var Tracker = function (_React$Component) {
 		key: 'receivedDestinationRoutes',
 		value: function receivedDestinationRoutes(x) {
 			this.dRoutes = "";
-			console.log("xdestination");
-			console.log(x);
+
 			//this.sRoutes = "";
 			if (x.routes) {
-				console.log("yessssss");
+
 				this.dRoutes = x.routes.map(function (route) {
 					return route.relationships.route.data.id;
 				});
@@ -65603,7 +65580,7 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			//console.log(window.searchQuery);
+
 			if (this.searchQuery) {
 				$("#src").val(this.searchQuery.sourceName);
 				$("#dst").val(this.searchQuery.destinationName);
@@ -65613,7 +65590,7 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'initMap',
 		value: function initMap() {
-			//alert("yo");
+
 			window.map = new google.maps.Map(document.getElementById('map-canvas'), {
 				center: { lat: 42.3386095, lng: -71.0944618 },
 				zoom: 18
