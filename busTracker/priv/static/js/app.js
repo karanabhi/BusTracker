@@ -65192,7 +65192,7 @@ var Tracker = function (_React$Component) {
 				$(".fetchingStops").fadeOut("slow");
 			}
 			//Hiding save search option initially
-			//$("#searchHistoryBtn").hide();
+			$("#searchHistoryBtn").hide();
 
 			return _react2.default.createElement(
 				'div',
@@ -65268,7 +65268,7 @@ var Tracker = function (_React$Component) {
 								_react2.default.createElement('span', { className: 'glyphicon glyphicon-search' }),
 								'  Search Routes'
 							),
-							' \xA0\xA0\xA0\xA0\xA0',
+							_react2.default.createElement('br', null),
 							_react2.default.createElement(
 								'button',
 								{ id: 'searchHistoryBtn', className: 'btn btn-info btn-md center-block',
@@ -65365,6 +65365,7 @@ var Tracker = function (_React$Component) {
 					};
 
 					_api2.default.insertIntoSearchDb(data);
+					$("#searchHistoryBtn").hide();
 				}
 			});
 		}

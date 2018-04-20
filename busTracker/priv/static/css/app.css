@@ -6342,7 +6342,7 @@ body {
     width: 50%;
     margin-top: 20px; }
   #footer {
-    height: 1em !important; } }
+    height: 1.25em !important; } }
 
 .container {
   border-radius: 7px; }
@@ -6413,7 +6413,7 @@ body {
   text-align: center;
   height: 28px;
   background: cadetblue;
-  height: 4em; }
+  height: 3.5em; }
 
 body {
   height: 100%; }

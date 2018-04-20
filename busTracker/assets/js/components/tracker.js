@@ -98,7 +98,7 @@ class Tracker extends React.Component {
 				$(".fetchingStops").fadeOut("slow");
 			}
 			//Hiding save search option initially
-			//$("#searchHistoryBtn").hide();
+			$("#searchHistoryBtn").hide();
 
 			return(
 				<div className="container">
@@ -137,7 +137,8 @@ class Tracker extends React.Component {
 						<div className="row">
 							<div className="col" align="center">
 								<button id="showMapBtn"  className="btn btn-success btn-md center-block"
-								onClick={this.handleRoutes.bind(this)}> <span className="glyphicon glyphicon-search"></span>  Search Routes</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								onClick={this.handleRoutes.bind(this)}> <span className="glyphicon glyphicon-search"></span>  Search Routes</button>
+								<br/>
 								<button id="searchHistoryBtn"  className="btn btn-info btn-md center-block"
 								onClick={this.handleSearchHistory.bind(this)}><span className="glyphicon glyphicon-pushpin"></span>&nbsp;&nbsp;Save Search</button>
 							</div>
@@ -190,7 +191,7 @@ class Tracker extends React.Component {
 						}
 
 						api.insertIntoSearchDb(data);
-
+						$("#searchHistoryBtn").hide();
 	        }
 	      });
 
@@ -332,7 +333,7 @@ class Tracker extends React.Component {
 				this.sRoutes = "";
 				if (x.routes)
 				{
-					
+
 					this.sRoutes = x.routes.map(route => (
 						route.relationships.route.data.id
 					));
