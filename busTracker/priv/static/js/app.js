@@ -61062,7 +61062,6 @@ var Collapse = function (_Component) {
 
       var transitionProps = pick(otherProps, TransitionPropTypeKeys);
       var childProps = omit(otherProps, TransitionPropTypeKeys);
-<<<<<<< HEAD
 
       return React__default.createElement(
         Transition,
@@ -61126,71 +61125,6 @@ var ListGroupItem = function ListGroupItem(props) {
 
   var classes = mapToCssModules(classNames(className, active ? 'active' : false, disabled ? 'disabled' : false, action ? 'list-group-item-action' : false, color ? 'list-group-item-' + color : false, 'list-group-item'), cssModule);
 
-=======
-
-      return React__default.createElement(
-        Transition,
-        _extends({}, transitionProps, {
-          'in': isOpen,
-          onEntering: this.onEntering,
-          onEntered: this.onEntered,
-          onExit: this.onExit,
-          onExiting: this.onExiting,
-          onExited: this.onExited
-        }),
-        function (status) {
-          var collapseClass = getTransitionClass(status);
-          var classes = mapToCssModules(classNames(className, collapseClass, navbar && 'navbar-collapse'), cssModule);
-          var style = height === null ? null : { height: height };
-          return React__default.createElement(
-            Tag,
-            _extends({}, childProps, {
-              style: _extends({}, childProps.style, style),
-              className: classes
-            }),
-            children
-          );
-        }
-      );
-    }
-  }]);
-  return Collapse;
-}(React.Component);
-
-Collapse.propTypes = propTypes$67;
-Collapse.defaultProps = defaultProps$61;
-
-var propTypes$68 = {
-  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  active: PropTypes.bool,
-  disabled: PropTypes.bool,
-  color: PropTypes.string,
-  action: PropTypes.bool,
-  className: PropTypes.any,
-  cssModule: PropTypes.object
-};
-
-var defaultProps$62 = {
-  tag: 'li'
-};
-
-var handleDisabledOnClick = function handleDisabledOnClick(e) {
-  e.preventDefault();
-};
-
-var ListGroupItem = function ListGroupItem(props) {
-  var className = props.className,
-      cssModule = props.cssModule,
-      Tag = props.tag,
-      active = props.active,
-      disabled = props.disabled,
-      action = props.action,
-      color = props.color,
-      attributes = objectWithoutProperties(props, ['className', 'cssModule', 'tag', 'active', 'disabled', 'action', 'color']);
-
-  var classes = mapToCssModules(classNames(className, active ? 'active' : false, disabled ? 'disabled' : false, action ? 'list-group-item-action' : false, color ? 'list-group-item-' + color : false, 'list-group-item'), cssModule);
-
->>>>>>> b26eead025043be65b97d4b6a81e6c5b06c8ce6c
   // Prevent click event when disabled.
   if (disabled) {
     attributes.onClick = handleDisabledOnClick;
@@ -64395,7 +64329,6 @@ var LoginForm = (0, _reactRedux.connect)(function (_ref) {
 
     function destroy_token(ev) {
       //ev.preventDefault();
-
       _api2.default.submit_logout();
     }
 
@@ -65346,18 +65279,30 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'handleSearchHistory',
 		value: function handleSearchHistory() {
-			var q = {
-				sourceName: this.state.source.label,
-				destinationName: this.state.destination.label,
-				sourceId: this.state.source.id,
-				destinationId: this.state.destination.id
-			};
-			var data = {
-				user_id: localStorage.getItem("login_id"),
-				query: JSON.stringify(q)
-			};
+			var _this3 = this;
 
-			_api2.default.insertIntoSearchDb(data);
+			swal({
+				title: "Your Search has been saved!",
+				text: "",
+				icon: "success",
+				button: "Okay",
+				dangerMode: false
+			}).then(function (ok) {
+				if (ok) {
+					var q = {
+						sourceName: _this3.state.source.label,
+						destinationName: _this3.state.destination.label,
+						sourceId: _this3.state.source.id,
+						destinationId: _this3.state.destination.id
+					};
+					var data = {
+						user_id: localStorage.getItem("login_id"),
+						query: JSON.stringify(q)
+					};
+
+					_api2.default.insertIntoSearchDb(data);
+				}
+			});
 		} //handleSearchHistory()
 
 	}, {
@@ -65420,7 +65365,7 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'handleRoutes',
 		value: function handleRoutes(e) {
-			var _this3 = this;
+			var _this4 = this;
 
 			//Show Search History button
 			$("#searchHistoryBtn").show();
@@ -65443,17 +65388,17 @@ var Tracker = function (_React$Component) {
 			}
 			$("#route-data").html(cRoutes);
 			$(".routebtn").click(function (e) {
-				_this3.handleRouteInfo(e, _this3.state.source.id);
+				_this4.handleRouteInfo(e, _this4.state.source.id);
 			});
 		}
 	}, {
 		key: 'handleRouteInfo',
 		value: function handleRouteInfo(e, sourceId) {
-			var _this4 = this;
+			var _this5 = this;
 
 			$("#vehicle-data").html("");
 			this.channel.push("get_route_info", { route_id: e.target.id, source_id: sourceId }).receive("ok", function (resp) {
-				_this4.receivedRouteInfo(resp);
+				_this5.receivedRouteInfo(resp);
 			});
 		}
 	}, {
@@ -65488,30 +65433,30 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'getVehicleData',
 		value: function getVehicleData(vehicle_id) {
-			var _this5 = this;
+			var _this6 = this;
 
 			this.channel.push("get_vehicle_data", { vehicle_id: vehicle_id }).receive("ok", function (resp) {
-				_this5.receivedVehicleData(resp);
+				_this6.receivedVehicleData(resp);
 			});
 		}
 	}, {
 		key: 'handleSourceRoutesData',
 		value: function handleSourceRoutesData() {
-			var _this6 = this;
+			var _this7 = this;
 
 			this.channel.push("get_routes", { tracker: this.state.source.id }).receive("ok", function (resp) {
-				_this6.receivedSourceRoutes(resp);
+				_this7.receivedSourceRoutes(resp);
 			});
 		}
 	}, {
 		key: 'handleDestinationRoutesData',
 		value: function handleDestinationRoutesData() {
-			var _this7 = this;
+			var _this8 = this;
 
 			console.log("destination");
 			console.log(this.state);
 			this.channel.push("get_routes", { tracker: this.state.destination.id }).receive("ok", function (resp) {
-				_this7.receivedDestinationRoutes(resp);
+				_this8.receivedDestinationRoutes(resp);
 			});
 		}
 	}, {
@@ -65532,7 +65477,7 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'receivedRouteInfo',
 		value: function receivedRouteInfo(response) {
-			var _this8 = this;
+			var _this9 = this;
 
 			console.log(response);
 			var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;';
@@ -65554,7 +65499,7 @@ var Tracker = function (_React$Component) {
 
 			$("#route-info").html(info);
 			$(".vehiclebtn").click(function (e) {
-				_this8.getVehicleData(e.target.id);
+				_this9.getVehicleData(e.target.id);
 			});
 		}
 	}, {

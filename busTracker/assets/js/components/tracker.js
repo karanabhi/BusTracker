@@ -157,18 +157,31 @@ class Tracker extends React.Component {
 			}
 
 			handleSearchHistory(){
-				var q={
-					sourceName: this.state.source.label,
-					destinationName: this.state.destination.label,
-					sourceId: this.state.source.id,
-					destinationId: this.state.destination.id
-				};
-				var data={
-						user_id: localStorage.getItem("login_id"),
-						query: JSON.stringify(q)
-				}
+				swal({
+	        title: "Your Search has been saved!",
+	        text: "",
+	        icon: "success",
+	        button: "Okay",
+	        dangerMode: false,
+	      })
+	      .then((ok) => {
+	        if (ok) {
+						var q={
+							sourceName: this.state.source.label,
+							destinationName: this.state.destination.label,
+							sourceId: this.state.source.id,
+							destinationId: this.state.destination.id
+						};
+						var data={
+								user_id: localStorage.getItem("login_id"),
+								query: JSON.stringify(q)
+						}
 
-				api.insertIntoSearchDb(data);
+						api.insertIntoSearchDb(data);
+
+	        }
+	      });
+
 			}//handleSearchHistory()
 
 			handleSourceChange(x){

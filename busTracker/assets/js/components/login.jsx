@@ -32,18 +32,11 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
   let Session = connect(({token}) => {return {token};})((props) => {
 
-<<<<<<< HEAD
- function destroy_token(ev) {
-   //ev.preventDefault();
 
-   api.submit_logout();
- }
-=======
     function destroy_token(ev) {
       //ev.preventDefault();
       api.submit_logout();
     }
->>>>>>> b26eead025043be65b97d4b6a81e6c5b06c8ce6c
 
     return <div className="navbar-text">
       <Form inline>
@@ -70,7 +63,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
         <Input type="email" name="email" placeholder="Email"
           value={props.login.email} onChange={update} />
-      
+
       </div>
     </FormGroup>
     <FormGroup>
