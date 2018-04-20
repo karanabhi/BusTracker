@@ -2,7 +2,7 @@
 
 @import "bootstrap";
 body {
-  background-image: url(/images/3.jpg);
+  background-image: url(/images/12.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1400px 1000px;
@@ -25,7 +25,7 @@ body {
 }
 
 .navbar {
-  background-color: navy;
+  background-color: #19194d;
 }
 
 .navbar-brand {
@@ -52,8 +52,6 @@ body {
 
   font-size: xx-large;
   color: black;
-  background-color: aliceblue;
-  color: black;
   padding: 0ex 1ex 0ex 1ex;
   border-radius: 4px;
 }
@@ -76,6 +74,7 @@ body {
     margin-top: 6ex;
     max-width: 350px;
     margin-left: 44px;
+    background: white;
   }
   .heading-login{
     margin-left: -26px;
@@ -87,8 +86,12 @@ body {
   border-radius: 7px;
   margin-left: 1em;
   margin-right: 1em;
-  background-color: bisque;
+
 }
+.form-control {
+    border: 10px ridge black;
+  }
+
 @media all and (min-width: 370px) {
   .vehiclebtn {
     margin-left: 200px !important;
@@ -128,7 +131,7 @@ body {
   display: none;
 }
 .route-div{
-  border: 1.5px solid navy;
+  border: 1.5px solid #19194d;
   border-radius: 5px;
   max-height: 380px;
   //background-color: #ceebfd;
@@ -159,7 +162,7 @@ body {
   border-top: 1px dotted;
   text-align: center;
   width: 100%;
-  background-color: navy;
+  background-color: #19194d;
   color: white;
 }
 #route-info{
