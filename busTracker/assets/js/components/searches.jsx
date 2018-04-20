@@ -9,8 +9,9 @@ export default function Searches(params) {
     return location.replace("/");
   }
   let searches = _.map(params.searches, (pp) => <Search key={pp.id} search={pp} />);
-  return <div className="col">
-    <br/>
-    { searches }
-  </div>;
+  return <div className="container searchCards">
+
+          { searches }
+
+        </div>;
 }

@@ -14,6 +14,15 @@ export default function Search(params) {
       api.delete_search(searchId);
     }
   }
+  function searchAgain(ev,sQ){
+
+    localStorage.setItem("searchQuery",JSON.stringify(sQ));
+    //window.searchQuery = sQ;
+    location.replace("/tracker");
+    //console.log("aslkj");
+    //console.log(window.searchQuery);
+  }
+
   let search = params.search;
 
 
@@ -23,17 +32,21 @@ export default function Search(params) {
 
     let searchQuery = JSON.parse(search.query);
 
-      return(<Card>
-        <CardBody>
-            <div>
-              <p><i>Source</i>: { searchQuery.sourceName}</p>
-              <p><i>Destination</i>: { searchQuery.destinationName }</p>
+      return(
+        <div className="row searchCard">&emsp;
+          <Card>
+            <CardBody>
+              <div>
+                <p><i>Source</i>: { searchQuery.sourceName}</p>
+                <p><i>Destination</i>: { searchQuery.destinationName }</p>
 
-            </div>
-
-            <Button onClick={(e) => deleteSearch(e, search.id)}>Delete</Button>
-          </CardBody>
-        </Card>);
+              </div>
+              <Button onClick={(e) => searchAgain(e, searchQuery)}>Search Again</Button>
+                &emsp;|&emsp;
+              <Button onClick={(e) => deleteSearch(e, search.id)}>Delete</Button>
+            </CardBody>
+          </Card>
+        </div>);
   }
   return null;
 }

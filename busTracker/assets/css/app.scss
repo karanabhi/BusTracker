@@ -64,6 +64,14 @@ body {
   text-decoration: underline;
 }
 
+.searchCards{
+  padding: 20px;
+}
+.searchCard{
+  width: 360px;
+  padding: 20px;
+  display: inline-flex;
+}
 @media all and (min-width: 480px) {
   .login {
     padding: 60px 0;
@@ -99,9 +107,13 @@ body {
     margin-right: auto;
     margin-left: auto;
     width:50%;
+    margin-top: 20px;
   }
 }
 
+.container{
+  border-radius: 7px;
+}
 .vehiclebtn {
   margin-left: 20px;
 }

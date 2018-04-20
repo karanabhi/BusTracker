@@ -17,6 +17,15 @@ class Tracker extends React.Component {
 			return location.replace("/");
 		}
 
+		this.searchQuery=localStorage.getItem("searchQuery");
+		if(this.searchQuery){
+			this.searchQuery=JSON.parse(this.searchQuery);
+			console.log(this.searchQuery);
+			localStorage.removeItem("searchQuery");
+		}
+	//this.searchQ = window.searchQuery;
+//	window.searchQuery = "asdad";
+
 		this.state ={
 			stops: [],
 			source:{
@@ -47,7 +56,6 @@ class Tracker extends React.Component {
 		.receive("ok",this.createState.bind(this))
 		.receive("error",resp => "Error while joining");
 	}
-
 
 	createState(st1){
 		var c = {
@@ -98,6 +106,7 @@ class Tracker extends React.Component {
 							<div className="col-xs-12">
 								<Fragment>
 									<Typeahead options={stops2} placeholder="Choose a source station..." valueKey="id"
+									inputProps={{id: "src"}}
 									onChange={selected => {this.handleSourceChange(selected);}}/>
 								</Fragment>
 							</div>
@@ -107,6 +116,7 @@ class Tracker extends React.Component {
 							<div className="col-xs-12">
 								<Fragment>
 									<Typeahead	options={stops2} placeholder="Choose a Destination station..." valueKey="id"
+									inputProps={{id: "dst"}}
 									onChange={selected => {this.handleDestinationChange(selected);}}/>
 								</Fragment>
 							</div>
@@ -159,7 +169,7 @@ class Tracker extends React.Component {
 				}
 
 				api.insertIntoSearchDb(data);
-			}//handleSearchHistory()
+			}
 
 			handleSourceChange(x){
 				//alert("yes");
@@ -360,6 +370,11 @@ class Tracker extends React.Component {
 
 
 			componentDidMount(){
+				//console.log(window.searchQuery);
+				if(this.searchQuery){
+					$("#src").val(this.searchQuery.sourceName);
+					$("#dst").val(this.searchQuery.destinationName);
+				}
 				this.initMap();
 			}
 

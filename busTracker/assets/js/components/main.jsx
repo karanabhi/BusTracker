@@ -24,7 +24,8 @@ ReactDOM.render(
 }
 
 let Main = connect((state) => state)((props) => {
-  
+
+
     return <Router>
               <div>
                 <Route path="/" exact={true} render={() =>
