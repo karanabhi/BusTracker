@@ -312,7 +312,7 @@ class Tracker extends React.Component {
 				$("#vehicle-data").html("");
 				this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
 				if(this.currentRouteId != null){
-					this.channel.push("stop_route_updates", {id: this.currentRouteId}));
+					this.channel.push("stop_route_updates", {id: this.currentRouteId});
 				}
 				this.currentRouteId = e.target.id;
 				this.channel.push("get_route_updates", {id: localStorage.getItem("login_id"),route_id: e.target.id, source_id: sourceId});
