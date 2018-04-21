@@ -19,7 +19,7 @@ class Tracker extends React.Component {
 		if (localStorage.getItem("login_token") == null){
 			return location.replace("/");
 		}
-
+		$(".fetchingStops").show();
 		this.searchQuery=localStorage.getItem("searchQuery");
 		if(this.searchQuery){
 			this.searchQuery=JSON.parse(this.searchQuery);

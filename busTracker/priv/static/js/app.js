@@ -65115,7 +65115,7 @@ var Tracker = function (_React$Component) {
 
 			return _ret = location.replace("/"), _possibleConstructorReturn(_this, _ret);
 		}
-
+		$(".fetchingStops").show();
 		_this.searchQuery = localStorage.getItem("searchQuery");
 		if (_this.searchQuery) {
 			_this.searchQuery = JSON.parse(_this.searchQuery);
