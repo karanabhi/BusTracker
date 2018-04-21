@@ -1,6 +1,7 @@
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsService = new google.maps.DirectionsService();
 export default function showGMap(lat1,long1,lat2,long2){
-  var directionsDisplay = new google.maps.DirectionsRenderer();
-  var directionsService = new google.maps.DirectionsService();
+
 
 
 
@@ -20,7 +21,7 @@ export default function showGMap(lat1,long1,lat2,long2){
   //                       map: window.map
   //                   });
 
-  directionsDisplay.set('directions', null);
+  directionsDisplay.setMap(null);
   directionsDisplay.setMap(window.map);
 
 showMap(mySrc,myDest,directionsService,directionsDisplay);

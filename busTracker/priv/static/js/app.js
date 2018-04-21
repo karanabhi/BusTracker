@@ -64214,9 +64214,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = showGMap;
+var directionsDisplay = new google.maps.DirectionsRenderer();
+var directionsService = new google.maps.DirectionsService();
 function showGMap(lat1, long1, lat2, long2) {
-  var directionsDisplay = new google.maps.DirectionsRenderer();
-  var directionsService = new google.maps.DirectionsService();
 
   var mySrc = new google.maps.LatLng(lat1, long1); //Abington
   var myDest = new google.maps.LatLng(lat2, long2); //AirPort
@@ -64233,7 +64233,7 @@ function showGMap(lat1, long1, lat2, long2) {
   //                       map: window.map
   //                   });
 
-  directionsDisplay.set('directions', null);
+  directionsDisplay.setMap(null);
   directionsDisplay.setMap(window.map);
 
   showMap(mySrc, myDest, directionsService, directionsDisplay);
