@@ -6,19 +6,21 @@ To start your Phoenix server:
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `cd assets && npm install`
   * Install sweetalert with `npm install sweetalert --save` and `npm install bootstrap-sweetalert`
-  * Start Phoenix endpoint with `mix phx.server`
   * Install loading.io with `sudo npm install -g stylus`
   
 Run following commands in assets directory
-npm install --save jquery bootstrap popper.js react react-dom reactstrap underscore
-npm install --save-dev babel-preset-env babel-preset-react sass-brunch
-npm install react-router-dom
-npm install redux react-redux deep-freeze
-npm install sweetalert --save 
-npm install bootstrap-sweetalert
-npm install --save react-bootstrap-typeahead
-npm install
 
+* npm install --save jquery bootstrap popper.js react react-dom reactstrap underscore
+* npm install --save-dev babel-preset-env babel-preset-react sass-brunch
+* npm install react-router-dom
+* npm install redux react-redux deep-freeze
+* npm install sweetalert --save
+* npm install bootstrap-sweetalert
+* npm install --save react-bootstrap-typeahead
+* npm install
+
+ * Start Phoenix endpoint with `mix phx.server`
+ 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
