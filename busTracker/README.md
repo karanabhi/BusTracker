@@ -8,6 +8,16 @@ To start your Phoenix server:
   * Install sweetalert with `npm install sweetalert --save` and `npm install bootstrap-sweetalert`
   * Start Phoenix endpoint with `mix phx.server`
   * Install loading.io with `sudo npm install -g stylus`
+  
+Run following commands in assets directory
+npm install --save jquery bootstrap popper.js react react-dom reactstrap underscore
+npm install --save-dev babel-preset-env babel-preset-react sass-brunch
+npm install react-router-dom
+npm install redux react-redux deep-freeze
+npm install sweetalert --save 
+npm install bootstrap-sweetalert
+npm install --save react-bootstrap-typeahead
+npm install
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
@@ -41,9 +51,6 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * https://www.liveviewgps.com/blog/5-advantages-gained-gps-fleet-tracking-winter/
   * https://loading.io/
   * https://smallenvelop.com/display-loading-icon-page-loads-completely/
-  
-  
-  
   * https://github.com/derekeder/FusionTable-Map-Template
   * https://www.w3schools.com/bootstrap/bootstrap_ref_comp_glyphs.asp
   * https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_glyph_search&stacked=h
