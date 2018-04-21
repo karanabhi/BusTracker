@@ -65139,6 +65139,7 @@ var Tracker = function (_React$Component) {
 			}
 		};
 		_this.currentVehicleId = null;
+		_this.currentRouteId = null;
 		//this.initMap();
 		//this.channel = props.channel;
 		_this.renderStops = _this.renderStops.bind(_this);
@@ -65402,7 +65403,14 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'handleSourceChange',
 		value: function handleSourceChange(x) {
-			//alert("yes");
+			if (this.currentRouteId != null) {
+				this.channel.push("stop_route_updates", { id: this.currentRouteId });
+				this.currentRouteId = null;
+			}
+			if (this.currentVehicleId != null) {
+				this.channel.push("stop_vehicle_updates", { id: this.currentVehicleId });
+				this.currentVehicleId = null;
+			}
 
 			$("#route-data").html("Search a route!");
 			$("#route-info").html("");
@@ -65426,6 +65434,14 @@ var Tracker = function (_React$Component) {
 	}, {
 		key: 'handleDestinationChange',
 		value: function handleDestinationChange(x) {
+			if (this.currentRouteId != null) {
+				this.channel.push("stop_route_updates", { id: this.currentRouteId });
+				this.currentRouteId = null;
+			}
+			if (this.currentVehicleId != null) {
+				this.channel.push("stop_vehicle_updates", { id: this.currentVehicleId });
+				this.currentVehicleId = null;
+			}
 
 			$("#route-data").html("Search a route!");
 			$("#route-info").html("");
@@ -65475,6 +65491,10 @@ var Tracker = function (_React$Component) {
 			this.channel.push("get_route_info", { route_id: e.target.id, source_id: sourceId }).receive("ok", function (resp) {
 				_this5.receivedRouteInfo(resp);
 			});
+			if (this.currentRouteId != null) {
+				this.channel.push("stop_route_updates");
+			}
+			this.currentRouteId = e.target.id;
 			this.channel.push("get_route_updates", { id: localStorage.getItem("login_id"), route_id: e.target.id, source_id: sourceId });
 		}
 	}, {
@@ -65519,10 +65539,15 @@ var Tracker = function (_React$Component) {
 		value: function getVehicleData(vehicle_id) {
 			var _this6 = this;
 
-			this.currentVehicleId = vehicle_id;
 			this.channel.push("get_vehicle_data", { vehicle_id: vehicle_id }).receive("ok", function (resp) {
 				_this6.receivedVehicleData(resp);
 			});
+
+			if (this.currentVehicleId != null) {
+				this.channel.push("stop_vehicle_updates");
+			}
+
+			this.currentVehicleId = vehicle_id;
 			this.channel.push("get_vehicle_updates", { id: localStorage.getItem("login_id"), vehicle_id: vehicle_id });
 		}
 	}, {

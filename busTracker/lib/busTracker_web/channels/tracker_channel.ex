@@ -58,6 +58,16 @@ defmodule BusTrackerWeb.TrackerChannel do
       {:noreply, socket}
   end
 
+  def handle_in("stop_vehicle_updates", payload, socket) do
+      BusTracker.VehicleStatus.terminate(%{"id" => payload["id"]});
+      {:noreply, socket}
+  end
+
+  def handle_in("stop_route_updates", payload, socket) do
+      BusTracker.RouteStatus.terminate(%{"id" => payload["id"]});
+      {:noreply, socket}
+  end
+
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   def handle_in("ping", payload, socket) do

@@ -4,7 +4,7 @@ defmodule BusTracker.RouteStatus do
 
   def start_link(id, route_id, source_id) do
     route_status = BusTracker.get_route_info(route_id,source_id);
-    GenServer.start_link(__MODULE__, %{"user" => id,"route" => route_status, "route_id" => route_id, "source_id" => source_id}, name: __MODULE__)
+    GenServer.start_link(__MODULE__, %{"user" => id,"route" => route_status, "route_id" => route_id, "source_id" => source_id}, name: String.to_atom(route_id))
   end
 
   def init(state) do
@@ -25,5 +25,9 @@ defmodule BusTracker.RouteStatus do
     {:noreply, state}
   end
 
-
+  def terminate(state) do
+    if state["id"] != nil do
+      Process.exit(GenServer.whereis(String.to_atom(state["id"])) , :kill)
+    end
+  end
 end
