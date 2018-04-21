@@ -30,7 +30,6 @@ function init() {
   let root = document.getElementById('tracker');
 
   if(root){
-
     let channel = socket.channel("tracker:lobby", {});
     api.getSearchDBData();
     main_init(root,channel,store);

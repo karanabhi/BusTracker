@@ -4,6 +4,7 @@ defmodule BusTrackerWeb.TrackerChannel do
   def join("tracker:" <> name, payload, socket) do
 
       stops = BusTracker.get_stops_data();
+
       socket = socket
                |> assign(:stops, stops)
                |> assign(:name, name)
@@ -13,7 +14,7 @@ defmodule BusTrackerWeb.TrackerChannel do
   end
 
   def handle_in("get_routes", payload, socket) do
-  
+
       routes = BusTracker.get_routes_data(payload["tracker"]);
       socket = socket
                |> assign(:routes, routes)
@@ -39,13 +40,23 @@ defmodule BusTrackerWeb.TrackerChannel do
 
       routes = BusTracker.get_route_info(payload["route_id"], payload["source_id"]);
       socket = socket
-               |> assign(:routes, routes)
+               |> assign(:routeInfo, routes)
 
       #{:ok, %{"routes" => routes},socket}
-        {:reply, {:ok, %{"routes" => routes}}, socket}
+      {:reply, {:ok, %{"routes" => routes}}, socket}
+        #broadcast! socket, "routeUpdate", %{"routes" => routes}
 
   end
 
+  def handle_in("get_vehicle_updates", payload, socket) do
+      BusTracker.VehicleStatus.start_link(payload["id"],payload["vehicle_id"]);
+      {:noreply, socket}
+  end
+
+  def handle_in("get_route_updates", payload, socket) do
+      BusTracker.RouteStatus.start_link(payload["id"],payload["route_id"], payload["source_id"]);
+      {:noreply, socket}
+  end
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client

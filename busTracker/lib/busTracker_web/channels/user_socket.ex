@@ -3,7 +3,7 @@ defmodule BusTrackerWeb.UserSocket do
 
   ## Channels
   # channel "room:*", BusTrackerWeb.RoomChannel
-  channel "tracker:lobby", BusTrackerWeb.TrackerChannel
+  channel "tracker:*", BusTrackerWeb.TrackerChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

@@ -8,8 +8,10 @@ import showGMap from './gMap';
 import Link from 'react-dom';
 import api from '../api';
 import swal from 'sweetalert';
+import socket from "../socket";
 
 class Tracker extends React.Component {
+
 
 	constructor(props) {
 		super(props);
@@ -24,7 +26,7 @@ class Tracker extends React.Component {
 			localStorage.removeItem("searchQuery");
 		}
 
-
+		this.openInfoWindow;
 		this.state ={
 			stops: [],
 			source:{
@@ -40,20 +42,43 @@ class Tracker extends React.Component {
 				longitude: null,
 			}
 		};
-
+		this.currentVehicleId = null;
 		//this.initMap();
-		this.channel = props.channel;
+		//this.channel = props.channel;
 		this.renderStops = this.renderStops.bind(this);
 
 		this.sRoutes="";
 		this.dRoutes="";
 		this.commonRoutes="";
 
+		//
+		// if(this.channel.state != "joined")
+		// this.channel.join()
+		// .receive("ok",this.createState.bind(this))
+		// .receive("error",resp => "Error while joining");
+		//this.channel.terminate();
 
-		if(this.channel.state != "joined")
+		if(this.channel == undefined){
+
+		//let socket = new Socket("/socket", {params: {token: window.userToken}})
+		//socket.connect();
+		var uId = localStorage.getItem('login_id');
+
+		this.channel = socket.channel("tracker:"+uId, {});
 		this.channel.join()
 		.receive("ok",this.createState.bind(this))
 		.receive("error",resp => "Error while joining");
+		}
+
+		this.channel.on("routeUpdate", payload=>
+      {
+        this.receivedRouteInfo(payload)
+			});
+
+		this.channel.on("vehicleUpdate", payload=>
+		   {
+		    this.receivedVehicleData(payload)
+			});
 	}
 
 	createState(st1){
@@ -270,9 +295,11 @@ class Tracker extends React.Component {
 
 				$("#vehicle-data").html("");
 				this.channel.push("get_route_info", {route_id: e.target.id, source_id: sourceId}).receive("ok", resp => {this.receivedRouteInfo(resp)});
+				this.channel.push("get_route_updates", {id: localStorage.getItem("login_id"),route_id: e.target.id, source_id: sourceId});
 			}
 
 			receivedVehicleData(data) {
+				$('#vehicle-data').html(info);
 				if(data.data.included[0].type == "trip" && data.data.included[1].type == "stop") {
 					if(data.data.data.attributes.current_status == 'STOPPED_AT')
 					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> Stopped At ' +data.data.included[1].attributes.name;
@@ -281,13 +308,18 @@ class Tracker extends React.Component {
 					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
 					var info = '<b>'+data.data.included[0].attributes.headsign+':</b> Incoming At '+data.data.included[1].attributes.name;
 
-					let infoWindow = new google.maps.InfoWindow;
 
 					var latitude = data.data.data.attributes.latitude;
 					var longitude = data.data.data.attributes.longitude;
+
+					if(this.openInfoWindow){
+						this.openInfoWindow.close();
+					}
+					let infoWindow = new google.maps.InfoWindow;
 					infoWindow.setPosition({lat: latitude, lng: longitude});
 					infoWindow.setContent(info);
 					infoWindow.open(window.map);
+					this.openInfoWindow = infoWindow;
 
 				}
 				else {
@@ -298,14 +330,17 @@ class Tracker extends React.Component {
 					else if(data.data.data.attributes.current_status == 'INCOMING_AT')
 					var info = '<b>'+data.data.included[1].attributes.headsign+':</b> Incoming at '+data.data.included[0].attributes.name;
 
-					let infoWindow = new google.maps.InfoWindow;
 
 					var latitude = data.data.data.attributes.latitude;
 					var longitude = data.data.data.attributes.longitude;
+					if(this.openInfoWindow){
+						this.openInfoWindow.close();
+					}
+					let infoWindow = new google.maps.InfoWindow;
 					infoWindow.setPosition({lat: latitude, lng: longitude});
 					infoWindow.setContent(info);
 					infoWindow.open(window.map);
-
+					this.openInfoWindow = infoWindow;
 				}
 								//window.map.setCenter(pos);
 
@@ -314,8 +349,9 @@ class Tracker extends React.Component {
 			}
 
 			getVehicleData(vehicle_id) {
+				this.currentVehicleId = vehicle_id;
 				this.channel.push("get_vehicle_data", {vehicle_id: vehicle_id}).receive("ok", resp => {this.receivedVehicleData(resp)});
-
+				this.channel.push("get_vehicle_updates", {id: localStorage.getItem("login_id") ,vehicle_id: vehicle_id});
 			}
 
 			handleSourceRoutesData(){
@@ -345,7 +381,7 @@ class Tracker extends React.Component {
 
 			receivedRouteInfo(response){
 
-
+				$("#route-info").html("");
 				var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;'
 
 				if (response.routes.length>0)
@@ -440,18 +476,26 @@ class Tracker extends React.Component {
 
 						var marker = new google.maps.Marker({
 							position: pos,
-							map: window.map
+							map: window.map,
+							title: "You are here!"
 						});
 						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-
-						infoWindow.setPosition(pos);
-						infoWindow.setContent('You are here.');
-						infoWindow.open(map);
+						marker.setMap(window.map);
+						// infoWindow.setPosition(pos);
+						// infoWindow.setContent('You are here.');
+						// infoWindow.open(window.map);
 						window.map.setCenter(pos);
 					}, function() {
-						infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
-						infoWindow.setContent('Error: The Geolocation service failed.');
-						infoWindow.open(map);
+						// infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
+						// infoWindow.setContent('Error: The Geolocation service failed.');
+						// infoWindow.open(map);
+						var marker = new google.maps.Marker({
+							position: {lat: 42.3386095, lng: -71.0944618},
+							map: window.map,
+							title: "You are here!"
+						});
+						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+						marker.setMap(window.map);
 					},{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
 				}else {
 					// Browser doesn't support Geolocation
@@ -460,6 +504,11 @@ class Tracker extends React.Component {
 					infoWindow.open(map);
 
 				}
+			}
+
+
+			componentWillUnmount(){
+				this.channel.leave();
 			}
 
 		}

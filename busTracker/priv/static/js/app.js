@@ -64129,7 +64129,7 @@ var TheServer = function () {
           //alert("ksdf");
         },
         error: function error(msg) {
-
+          $(".fetchingStops").hide();
           swal("Something Went Wrong!", "Please try again", "error");
 
           //alert("Something went wrong!");
@@ -64197,7 +64197,6 @@ function init() {
   var root = document.getElementById('tracker');
 
   if (root) {
-
     var channel = _socket2.default.channel("tracker:lobby", {});
     _api2.default.getSearchDBData();
     (0, _main2.default)(root, channel, _store2.default);
@@ -64303,7 +64302,10 @@ var LogIn = function (_React$Component) {
   _createClass(LogIn, [{
     key: 'render',
     value: function render() {
-      if (localStorage.getItem("login_token")) return location.replace("/tracker");
+      if (localStorage.getItem("login_token")) {
+        $(".fetchingStops").show();
+        return location.replace("/tracker");
+      }
 
       return _react2.default.createElement(LoginForm, { props: this.props });
     }
@@ -65088,6 +65090,10 @@ var _sweetalert = require('sweetalert');
 
 var _sweetalert2 = _interopRequireDefault(_sweetalert);
 
+var _socket = require('../socket');
+
+var _socket2 = _interopRequireDefault(_socket);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65116,6 +65122,7 @@ var Tracker = function (_React$Component) {
 			localStorage.removeItem("searchQuery");
 		}
 
+		_this.openInfoWindow;
 		_this.state = {
 			stops: [],
 			source: {
@@ -65131,17 +65138,40 @@ var Tracker = function (_React$Component) {
 				longitude: null
 			}
 		};
-
+		_this.currentVehicleId = null;
 		//this.initMap();
-		_this.channel = props.channel;
+		//this.channel = props.channel;
 		_this.renderStops = _this.renderStops.bind(_this);
 
 		_this.sRoutes = "";
 		_this.dRoutes = "";
 		_this.commonRoutes = "";
 
-		if (_this.channel.state != "joined") _this.channel.join().receive("ok", _this.createState.bind(_this)).receive("error", function (resp) {
-			return "Error while joining";
+		//
+		// if(this.channel.state != "joined")
+		// this.channel.join()
+		// .receive("ok",this.createState.bind(this))
+		// .receive("error",resp => "Error while joining");
+		//this.channel.terminate();
+
+		if (_this.channel == undefined) {
+
+			//let socket = new Socket("/socket", {params: {token: window.userToken}})
+			//socket.connect();
+			var uId = localStorage.getItem('login_id');
+
+			_this.channel = _socket2.default.channel("tracker:" + uId, {});
+			_this.channel.join().receive("ok", _this.createState.bind(_this)).receive("error", function (resp) {
+				return "Error while joining";
+			});
+		}
+
+		_this.channel.on("routeUpdate", function (payload) {
+			_this.receivedRouteInfo(payload);
+		});
+
+		_this.channel.on("vehicleUpdate", function (payload) {
+			_this.receivedVehicleData(payload);
 		});
 		return _this;
 	}
@@ -65445,30 +65475,39 @@ var Tracker = function (_React$Component) {
 			this.channel.push("get_route_info", { route_id: e.target.id, source_id: sourceId }).receive("ok", function (resp) {
 				_this5.receivedRouteInfo(resp);
 			});
+			this.channel.push("get_route_updates", { id: localStorage.getItem("login_id"), route_id: e.target.id, source_id: sourceId });
 		}
 	}, {
 		key: 'receivedVehicleData',
 		value: function receivedVehicleData(data) {
+			$('#vehicle-data').html(info);
 			if (data.data.included[0].type == "trip" && data.data.included[1].type == "stop") {
 				if (data.data.data.attributes.current_status == 'STOPPED_AT') var info = '<b>' + data.data.included[0].attributes.headsign + ':</b> Stopped At ' + data.data.included[1].attributes.name;else if (data.data.data.attributes.current_status == 'IN_TRANSIT_TO') var info = '<b>' + data.data.included[0].attributes.headsign + ':</b> In Transit to ' + data.data.included[1].attributes.name;else if (data.data.data.attributes.current_status == 'INCOMING_AT') var info = '<b>' + data.data.included[0].attributes.headsign + ':</b> Incoming At ' + data.data.included[1].attributes.name;
 
-				var infoWindow = new google.maps.InfoWindow();
-
 				var latitude = data.data.data.attributes.latitude;
 				var longitude = data.data.data.attributes.longitude;
+
+				if (this.openInfoWindow) {
+					this.openInfoWindow.close();
+				}
+				var infoWindow = new google.maps.InfoWindow();
 				infoWindow.setPosition({ lat: latitude, lng: longitude });
 				infoWindow.setContent(info);
 				infoWindow.open(window.map);
+				this.openInfoWindow = infoWindow;
 			} else {
 				if (data.data.data.attributes.current_status == 'STOPPED_AT') var info = '<b>' + data.data.included[1].attributes.headsign + ':</b> Stopped at ' + data.data.included[0].attributes.name;else if (data.data.data.attributes.current_status == 'IN_TRANSIT_TO') var info = '<b>' + data.data.included[1].attributes.headsign + ':</b> In transit to ' + data.data.included[0].attributes.name;else if (data.data.data.attributes.current_status == 'INCOMING_AT') var info = '<b>' + data.data.included[1].attributes.headsign + ':</b> Incoming at ' + data.data.included[0].attributes.name;
 
-				var _infoWindow = new google.maps.InfoWindow();
-
 				var latitude = data.data.data.attributes.latitude;
 				var longitude = data.data.data.attributes.longitude;
+				if (this.openInfoWindow) {
+					this.openInfoWindow.close();
+				}
+				var _infoWindow = new google.maps.InfoWindow();
 				_infoWindow.setPosition({ lat: latitude, lng: longitude });
 				_infoWindow.setContent(info);
 				_infoWindow.open(window.map);
+				this.openInfoWindow = _infoWindow;
 			}
 			//window.map.setCenter(pos);
 
@@ -65480,9 +65519,11 @@ var Tracker = function (_React$Component) {
 		value: function getVehicleData(vehicle_id) {
 			var _this6 = this;
 
+			this.currentVehicleId = vehicle_id;
 			this.channel.push("get_vehicle_data", { vehicle_id: vehicle_id }).receive("ok", function (resp) {
 				_this6.receivedVehicleData(resp);
 			});
+			this.channel.push("get_vehicle_updates", { id: localStorage.getItem("login_id"), vehicle_id: vehicle_id });
 		}
 	}, {
 		key: 'handleSourceRoutesData',
@@ -65520,6 +65561,7 @@ var Tracker = function (_React$Component) {
 		value: function receivedRouteInfo(response) {
 			var _this9 = this;
 
+			$("#route-info").html("");
 			var spaces = '&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;';
 
 			if (response.routes.length > 0) {
@@ -65607,18 +65649,26 @@ var Tracker = function (_React$Component) {
 
 					var marker = new google.maps.Marker({
 						position: pos,
-						map: window.map
+						map: window.map,
+						title: "You are here!"
 					});
 					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-
-					infoWindow.setPosition(pos);
-					infoWindow.setContent('You are here.');
-					infoWindow.open(map);
+					marker.setMap(window.map);
+					// infoWindow.setPosition(pos);
+					// infoWindow.setContent('You are here.');
+					// infoWindow.open(window.map);
 					window.map.setCenter(pos);
 				}, function () {
-					infoWindow.setPosition({ lat: 42.3386095, lng: -71.0944618 });
-					infoWindow.setContent('Error: The Geolocation service failed.');
-					infoWindow.open(map);
+					// infoWindow.setPosition({lat: 42.3386095, lng: -71.0944618});
+					// infoWindow.setContent('Error: The Geolocation service failed.');
+					// infoWindow.open(map);
+					var marker = new google.maps.Marker({
+						position: { lat: 42.3386095, lng: -71.0944618 },
+						map: window.map,
+						title: "You are here!"
+					});
+					marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+					marker.setMap(window.map);
 				}, { maximumAge: 60000, timeout: 5000, enableHighAccuracy: true });
 			} else {
 				// Browser doesn't support Geolocation
@@ -65626,6 +65676,11 @@ var Tracker = function (_React$Component) {
 				infoWindow.setContent('Error: Your browser doesn\'t support geolocation.');
 				infoWindow.open(map);
 			}
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			this.channel.leave();
 		}
 	}]);
 

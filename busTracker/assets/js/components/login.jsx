@@ -12,7 +12,10 @@ export default class LogIn extends React.Component{
 
   render(){
     if(localStorage.getItem("login_token"))
-    return location.replace("/tracker");
+    {
+      $(".fetchingStops").show();
+      return location.replace("/tracker");
+    }
 
     return <LoginForm props={this.props}/>;
   }
